@@ -11,6 +11,7 @@ Nhóm 10:
 + 20127107  - Lê Quốc Kỳ Anh
 
 
-Flow: (get /example/test)   -> src/routes/index.js
-                                -> src/routes/example.route.js
-                                    -> src/app/controllers/example.controller.js
+Flow: ([get] '/example/test')\
+&emsp;&emsp;-> src/routes/index.js\
+&emsp;&emsp;&emsp;-> src/routes/example.route.js\
+&emsp;&emsp;&emsp;&emsp;-> src/app/controllers/example.controller.js
