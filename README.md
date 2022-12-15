@@ -11,6 +11,13 @@ Nhóm 10:
 + 20127107  - Lê Quốc Kỳ Anh
 
 
++ app/controller/ : các hàm xử lý API
++ config/db/: kết nối database
++ public/ : static file
++ services/ : các hàm tương tác với database
++ routes/ : định nghĩa url
+
+
 Flow: ([get] '/example/test')\
 &emsp;&emsp;-> src/routes/index.js\
 &emsp;&emsp;&emsp;-> src/routes/example.route.js\
