@@ -13,5 +13,5 @@ export default function (app, dirname) {
     })
   );
   app.set('view engine', 'hbs');
-  app.set('views', dirname + '/views');
+  app.set('views', dirname + '/resources/views');
 }
