@@ -43,6 +43,22 @@ a {
 	}
 }
 
+input[type="text"] {
+	outline: 0;
+}
+
+input[type="submit"] {
+	outline: 0;
+}
+
+input[type="text"]:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+
+input[type="text"]:focus::-moz-placeholder {
+	color: transparent;
+}
+
 .header {
 	&-top {
 		background: var(--primary) none repeat scroll 0 0;
@@ -160,5 +176,39 @@ a {
 		&:hover {
 			color: var(--primary);
 		}
+	}
+}
+
+.header-bottom {
+
+	.navbar {
+		background-color: var(--text-primary);
+	}
+
+	.nav-item {
+		border-top: 2px solid var(--text-primary);
+
+		transition: all 0.2s linear 0s;
+		a {
+			font-size: 1rem;
+			text-transform: uppercase;
+			color: var(--text-secondary) !important;
+
+			&:hover {
+				color: var(--primary) !important;
+			}
+		}
+
+		&:hover {
+			border-top-color: var(--primary);
+		}
+	}
+
+	&.stick {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 99999;
 	}
 }
