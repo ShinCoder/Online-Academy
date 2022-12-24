@@ -186,9 +186,8 @@ input[type="text"]:focus::-moz-placeholder {
 	}
 
 	.nav-item {
-		border-top: 2px solid var(--text-primary);
+		transition: ease-in-out 0.3s linear 0s;
 
-		transition: all 0.2s linear 0s;
 		a {
 			font-size: 1rem;
 			text-transform: uppercase;
@@ -199,8 +198,12 @@ input[type="text"]:focus::-moz-placeholder {
 			}
 		}
 
-		&:hover {
-			border-top-color: var(--primary);
+		@media only screen and (min-width: 992px) {
+			border-top: 2px solid var(--text-primary);
+
+			&:hover {
+				border-top-color: var(--primary);
+			}
 		}
 	}
 

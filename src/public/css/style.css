@@ -161,8 +161,7 @@ input[type=text]:focus::-moz-placeholder {
   background-color: var(--text-primary);
 }
 .header-bottom .nav-item {
-  border-top: 2px solid var(--text-primary);
-  transition: all 0.2s linear 0s;
+  transition: ease-in-out 0.3s linear 0s;
 }
 .header-bottom .nav-item a {
   font-size: 1rem;
@@ -172,8 +171,13 @@ input[type=text]:focus::-moz-placeholder {
 .header-bottom .nav-item a:hover {
   color: var(--primary) !important;
 }
-.header-bottom .nav-item:hover {
-  border-top-color: var(--primary);
+@media only screen and (min-width: 992px) {
+  .header-bottom .nav-item {
+    border-top: 2px solid var(--text-primary);
+  }
+  .header-bottom .nav-item:hover {
+    border-top-color: var(--primary);
+  }
 }
 .header-bottom.stick {
   position: fixed;
