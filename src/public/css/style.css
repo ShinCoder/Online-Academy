@@ -186,5 +186,8 @@ input[type=text]:focus::-moz-placeholder {
   right: 0;
   z-index: 99999;
 }
+.header-bottom.stick .navbar {
+  padding: 0;
+}
 
 /*# sourceMappingURL=style.css.map */

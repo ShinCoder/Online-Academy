@@ -213,5 +213,9 @@ input[type="text"]:focus::-moz-placeholder {
 		left: 0;
 		right: 0;
 		z-index: 99999;
+
+		.navbar {
+			padding: 0;
+		}
 	}
 }
