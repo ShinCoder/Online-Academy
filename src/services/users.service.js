@@ -2,14 +2,17 @@ import db from '../config/db/mysql.js';
 
 export default {
   findAll() {
-    return db('users');
+    return db('users').where({
+      deleted_at: null
+    });
   },
-
-  add(entity) {
-    return db('users').insert(entity);
+  findByKey(obj) {
+    return db('users').where(obj);
   },
-
-  deleteAll() {
-    return db('users').del();
+  add(obj) {
+    return db('users').insert(obj);
+  },
+  update(id, obj) {
+    return db('users').where({id: id}).update(obj);
   }
 };
