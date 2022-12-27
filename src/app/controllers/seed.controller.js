@@ -3,6 +3,7 @@ import usersService from '../../services/users.service.js';
 import categoriesService from '../../services/categories.service.js';
 import lecturersService from '../../services/lecturers.service.js';
 import coursesService from '../../services/courses.service.js';
+import coursesController from './courses.controller.js';
 
 export default {
   // [GET] /seed/courses
@@ -25,6 +26,12 @@ export default {
     await categoriesService.deleteAll();
     await lecturersService.deleteAll();
     await usersService.deleteAll();
+
+    data.courses.forEach((course) => {
+      coursesController.getUniqueSlug(course.name).then((slug) => {
+        course.slug = slug;
+      });
+    });
 
     result.users = await usersService.add(data.users);
     result.lecturers = await lecturersService.add(data.lecturers);

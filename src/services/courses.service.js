@@ -11,5 +11,9 @@ export default {
 
   deleteAll() {
     return db('courses').del();
+  },
+
+  findSlugAlike(str) {
+    return db('courses').whereILike('slug', `${str}%`);
   }
 };
