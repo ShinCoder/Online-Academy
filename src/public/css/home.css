@@ -106,134 +106,129 @@
   padding: 20px;
 }
 
-.categories-section .categories-container {
+.categories-section .parent-categories {
+  display: inline-block;
+  font-size: 2rem;
+  margin: 10px 0;
+  color: var(--text-secondary);
   display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+  align-items: center;
 }
-.categories-section .categories-container::-webkit-scrollbar {
-  display: none;
+.categories-section .parent-categories .badge {
+  margin-left: 20px;
+  font-size: 0.8rem;
+}
+.categories-section .parent-categories:hover {
+  color: var(--primary-hover);
+}
+.categories-section .parent-categories:hover + div {
+  border: 3px solid var(--primary-hover);
+}
+.categories-section .row {
+  padding: 20px;
+  border-radius: 20px;
+  transition: all 0.3s linear;
 }
 .categories-section .categories {
-  display: inline-flex;
-  margin: 10px;
-}
-.categories-section .categories a {
-  display: inline-block;
-  font-size: 1.2rem;
-  color: var(--primary);
-  padding: 5px 20px;
-  border-radius: 10px;
-  border: 2px solid var(--primary);
-}
-.categories-section .categories a:hover {
-  color: var(--primary-hover);
-  border: 2px solid var(--primary-hover);
-}
-.categories-section .categories a[aria-expanded=true] {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  color: var(--primary-hover);
-  border: 2px solid var(--primary-hover);
-}
-.categories-section .categories a[aria-expanded=true] span {
-  text-align: center;
-}
-.categories-section .categories .collapsing {
-  display: flex;
-  flex-wrap: wrap;
-}
-.categories-section .categories .collapsing a {
-  margin: 5px 10px;
-  word-break: break-all;
-}
-.categories-section .categories .collapse::before {
-  content: "";
-  height: 2px;
-  width: 100%;
-  background-color: var(--primary-hover);
-}
-.categories-section .categories .collapse::after {
-  content: "";
-  height: 2px;
-  width: 100%;
-  background-color: var(--primary-hover);
-}
-.categories-section .categories .collapse.show {
-  display: flex;
-  flex-wrap: wrap;
-}
-.categories-section .categories .collapse a {
-  margin: 5px 10px;
-  display: inline-block;
-  word-break: break-all;
-}
-
-.categories.hot > a,
-.sub-categories.hot > a {
-  position: relative;
-  z-index: 5;
-  transition: 0.3s ease-in-out;
-  border: none !important;
-  outline: none;
-}
-.categories.hot > a::before,
-.sub-categories.hot > a::before {
-  content: "";
-  background: linear-gradient(45deg, #FF0000, #FFF700, #FF7000, #FF00FE, #3FF4EB, #9E00FF, #00BEFF, #FF00DD, #FF0000);
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background-size: 400%;
-  z-index: -1;
-  width: 100%;
+  justify-content: space-between;
   height: 100%;
-  animation: glowing 20s linear infinite;
-  border-radius: 10px;
+  background-color: rgba(48, 70, 179, 0.3);
+  border-radius: 20px;
+  padding-top: 10px;
+  position: relative;
 }
-.categories.hot > a::after,
-.sub-categories.hot > a::after {
-  z-index: -1;
+.categories-section .categories img {
+  width: 60%;
+  height: 60%;
+  border-radius: 20px;
+}
+.categories-section .categories .categories-title {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  padding: 0 10px;
+  text-align: center;
+  color: rgba(48, 70, 179, 0.5);
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+}
+.categories-section .categories .badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transition: all 0.5s ease-in-out;
+}
+.categories-section .categories::before {
   content: "";
   position: absolute;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  background: #ffffff;
-  top: 2px;
-  left: 2px;
-  border-radius: 10px;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgb(48, 70, 179);
+  opacity: 0;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: all 0.5s ease-in-out;
 }
-.categories.hot > a:active, .categories.hot > a:hover,
-.sub-categories.hot > a:active,
-.sub-categories.hot > a:hover {
-  color: #ffffff;
-}
-.categories.hot > a:active::after, .categories.hot > a:hover::after,
-.sub-categories.hot > a:active::after,
-.sub-categories.hot > a:hover::after {
-  background: transparent;
-}
-
-@keyframes glowing {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-.categories.hot .collapse {
-  position: relative;
-  border-right: 2px solid transparent;
-}
-.categories.hot .collapse::before, .categories.hot .collapse::after {
+.categories-section .categories::after {
   content: "";
-  background: linear-gradient(45deg, #FF0000, #FFF700, #FF7000, #FF00FE, #3FF4EB, #9E00FF, #00BEFF, #FF00DD, #FF0000);
-  animation: glowing 20s linear infinite;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgb(48, 70, 179);
+  opacity: 0;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transition: all 0.5s ease-in-out;
+}
+.categories-section .categories:hover::before {
+  opacity: 0.4;
+  width: 50%;
+}
+.categories-section .categories:hover::after {
+  opacity: 0.4;
+  width: 50%;
+}
+.categories-section .categories:hover .categories-title {
+  color: var(--text-primary);
+  transform: translateY(-50px);
+}
+.categories-section .categories:hover .badge {
+  font-size: 0.9rem;
+  padding: 0.4rem;
+}
+@media only screen and (max-width: 767px) {
+  .categories-section .categories .categories-title {
+    font-size: 1rem;
+  }
+  .categories-section .categories .badge {
+    font-size: 0.4rem;
+  }
+  .categories-section .categories:hover .categories-title {
+    transform: translateY(-125%);
+  }
+  .categories-section .categories:hover .badge {
+    font-size: 0.75rem;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .categories-section .categories .categories-title {
+    font-size: 0.9rem;
+  }
+  .categories-section .categories .badge {
+    font-size: 0.5rem;
+  }
+  .categories-section .categories:hover .categories-title {
+    transform: translateY(-125%);
+  }
+  .categories-section .categories:hover .badge {
+    font-size: 0.8rem;
+  }
 }
 
 .course {

@@ -15,5 +15,9 @@ export default {
 
   findSlugAlike(str) {
     return db('courses').whereILike('slug', `${str}%`);
+  },
+
+  findByCategoryId(id) {
+    return db('courses').where('id', id);
   }
 };
