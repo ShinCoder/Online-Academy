@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import activateRoute from './middlewares/route.mdw.js';
 import activateViewEngine from './middlewares/views.mdw.js';
+import activateSession from "./middlewares/session.mdw.js";
 
 const app = express();
 // static path
@@ -20,6 +21,8 @@ app.use(
 // method override
 app.use(methodOverride('_method'));
 
+
+activateSession(app);
 activateRoute(app);
 activateViewEngine(app, __dirname);
 

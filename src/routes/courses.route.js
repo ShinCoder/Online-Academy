@@ -9,6 +9,8 @@ router.get('/create', courseController.renderCreateCourse);
 
 router.post('/create', courseController.postCourse);
 
-router.get('/create/:courseId/chapter/create', courseController.renderCreateChapter)
+router.post('/chapters/create', courseController.postChapter)
+
+router.post('/chapters/lessons/create', courseController.postLesson)
 
 export default router;
