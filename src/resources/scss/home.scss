@@ -388,16 +388,28 @@
     transition: all 0.3s linear;
   }
 
-  .categories {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    background-color: rgba(48, 70, 179, 0.3);
-    border-radius: 20px;
-    padding-top: 10px;
+  .categories-container {
+    width: 100%;
+    padding-bottom: 100%;
     position: relative;
+  }
+
+  .categories {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: space-between;
+    height: 100%;
+    // background-color: rgba(48, 70, 179, 0.3);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
 
     img {
       width: 60%;
@@ -406,8 +418,11 @@
     }
 
     .categories-title {
-      font-size: 1.2rem;
-      margin: 10px 0;
+      font-size: 1.5vw;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translate(-50%, 0);
       padding: 0 10px;
       text-align: center;
       color: rgba(48, 70, 179, 0.5);
@@ -419,6 +434,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
+      font-size: 1vw;
       transition: all 0.5s ease-in-out;
     }
 
@@ -451,23 +467,26 @@
     }
 
     &:hover {
+      border-color: rgba(48, 70, 179, 0.5);
+
       &::before {
-        opacity: 0.4;
+        opacity: 0.5;
         width: 50%;
       }
 
       &::after {
-        opacity: 0.4;
+        opacity: 0.5;
         width: 50%;
       }
 
       .categories-title {
         color: var(--text-primary);
-        transform: translateY(-50px);
+        bottom: 50%;
+        transform: translate(-50%, 50%);
       }
 
       .badge {
-        font-size: 0.9rem;
+        font-size: 1.2vw;
         padding: 0.4rem;
       }
     }
@@ -476,21 +495,7 @@
   @media only screen and (max-width: 767px) {
     .categories {
       .categories-title {
-        font-size: 1rem;
-      }
-
-      .badge {
-        font-size: 0.4rem;
-      }
-
-      &:hover {
-        .categories-title {
-          transform: translateY(-125%);
-        }
-
-        .badge {
-          font-size: 0.75rem;
-        }
+        font-size: 1.8vw;
       }
     }
   }
@@ -498,25 +503,12 @@
   @media only screen and (max-width: 991px) {
     .categories {
       .categories-title {
-        font-size: 0.9rem;
-      }
-
-      .badge {
-        font-size: 0.5rem;
-      }
-
-      &:hover {
-        .categories-title {
-          transform: translateY(-125%);
-        }
-
-        .badge {
-          font-size: 0.8rem;
-        }
+        font-size: 1.6vw;
       }
     }
   }
 }
+
 
 .course {
   color: #000000;
@@ -568,9 +560,7 @@
   }
 
   .course-category {
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;

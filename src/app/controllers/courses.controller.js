@@ -1,15 +1,12 @@
-import GithubSlugger from 'github-slugger';
+import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
 
-const slugger = new GithubSlugger();
-
 export default {
-  async getUniqueSlug(str) {
-    const tempSlug = slugger.slug(str);
-    const alikeSlug = await coursesService.findSlugAlike(tempSlug);
-    const slug = tempSlug + '-' + (alikeSlug.length + 1);
-    return slug;
-  },
+  // [GET] /courses/categories/:slug
+  async showByCategory(req, res) {
+    const category = await categoriesService.findBySlug(req.params.slug);
+    const courses = await coursesService.findByCategoryId(category[0].id);
 
-  create(req, res) {}
+    res.render('courses');
+  }
 };

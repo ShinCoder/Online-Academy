@@ -129,16 +129,21 @@
   border-radius: 20px;
   transition: all 0.3s linear;
 }
-.categories-section .categories {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  background-color: rgba(48, 70, 179, 0.3);
-  border-radius: 20px;
-  padding-top: 10px;
+.categories-section .categories-container {
+  width: 100%;
+  padding-bottom: 100%;
   position: relative;
+}
+.categories-section .categories {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  border: 1px solid var(--primary);
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .categories-section .categories img {
   width: 60%;
@@ -146,8 +151,11 @@
   border-radius: 20px;
 }
 .categories-section .categories .categories-title {
-  font-size: 1.2rem;
-  margin: 10px 0;
+  font-size: 1.5vw;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
   padding: 0 10px;
   text-align: center;
   color: rgba(48, 70, 179, 0.5);
@@ -158,6 +166,7 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  font-size: 1vw;
   transition: all 0.5s ease-in-out;
 }
 .categories-section .categories::before {
@@ -186,48 +195,34 @@
   border-bottom-right-radius: 20px;
   transition: all 0.5s ease-in-out;
 }
+.categories-section .categories:hover {
+  border-color: rgba(48, 70, 179, 0.5);
+}
 .categories-section .categories:hover::before {
-  opacity: 0.4;
+  opacity: 0.5;
   width: 50%;
 }
 .categories-section .categories:hover::after {
-  opacity: 0.4;
+  opacity: 0.5;
   width: 50%;
 }
 .categories-section .categories:hover .categories-title {
   color: var(--text-primary);
-  transform: translateY(-50px);
+  bottom: 50%;
+  transform: translate(-50%, 50%);
 }
 .categories-section .categories:hover .badge {
-  font-size: 0.9rem;
+  font-size: 1.2vw;
   padding: 0.4rem;
 }
 @media only screen and (max-width: 767px) {
   .categories-section .categories .categories-title {
-    font-size: 1rem;
-  }
-  .categories-section .categories .badge {
-    font-size: 0.4rem;
-  }
-  .categories-section .categories:hover .categories-title {
-    transform: translateY(-125%);
-  }
-  .categories-section .categories:hover .badge {
-    font-size: 0.75rem;
+    font-size: 1.8vw;
   }
 }
 @media only screen and (max-width: 991px) {
   .categories-section .categories .categories-title {
-    font-size: 0.9rem;
-  }
-  .categories-section .categories .badge {
-    font-size: 0.5rem;
-  }
-  .categories-section .categories:hover .categories-title {
-    transform: translateY(-125%);
-  }
-  .categories-section .categories:hover .badge {
-    font-size: 0.8rem;
+    font-size: 1.6vw;
   }
 }
 
@@ -270,9 +265,7 @@
   color: inherit;
 }
 .course .course-category {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;

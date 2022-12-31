@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2022 at 08:39 PM
+-- Generation Time: Dec 31, 2022 at 06:36 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -33,23 +33,24 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `parent_category_id` int(11) DEFAULT NULL,
-  `banner_url` varchar(100) DEFAULT NULL
+  `banner_url` varchar(100) DEFAULT NULL,
+  `slug` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`) VALUES
-(1, 'Information Technology', NULL, NULL),
-(2, 'Web Development', 1, '/images/categories_banner/2.png'),
-(3, 'Python', 1, '/images/categories_banner/3.png'),
-(4, 'Excel', 1, '/images/categories_banner/4.png'),
-(5, 'Javascript', 1, '/images/categories_banner/5.png'),
-(6, 'Data Science', 1, '/images/categories_banner/6.png'),
-(7, 'AWS Certification', 1, '/images/categories_banner/7.png'),
-(8, 'Art', NULL, NULL),
-(9, 'Drawing', 8, '/images/categories_banner/9.png');
+INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slug`) VALUES
+(1, 'Information Technology', NULL, NULL, 'information-technology'),
+(2, 'Web Development', 1, '/images/categories_banner/2.png', 'web-development'),
+(3, 'Python', 1, '/images/categories_banner/3.png', 'python'),
+(4, 'Excel', 1, '/images/categories_banner/4.png', 'excel'),
+(5, 'Javascript', 1, '/images/categories_banner/5.png', 'javascript'),
+(6, 'Data Science', 1, '/images/categories_banner/6.png', 'data-science'),
+(7, 'AWS Certification', 1, '/images/categories_banner/7.png', 'aws-certification'),
+(8, 'Art', NULL, NULL, 'art'),
+(9, 'Drawing', 8, '/images/categories_banner/9.png', 'drawing');
 
 -- --------------------------------------------------------
 
@@ -92,9 +93,9 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `name`, `lecturer_id`, `banner_url`, `category_id`, `price`, `sale_id`, `status`, `short_description`, `detail_description`, `syllabus`, `created_at`, `updated_at`, `slug`) VALUES
-(1, 'Html, css', 3, '/images/courses_banner/1.png', 2, 0, NULL, 'INCOMPLETE', 'Html and css', 'Html and css from zero to hero', '1.Html\n2.Css', '2022-12-30 19:21:41', '2022-12-30 19:21:41', 'html-css-1'),
-(2, 'Javascript cơ bản', 3, '/images/courses_banner/2.png', 2, 0, NULL, 'INCOMPLETE', 'Javascript cơ bản', 'Javascript cơ bản cho người mới bắt đầu', '1.Javascript', '2022-12-30 19:21:41', '2022-12-30 19:21:41', 'javascript-cơ-bản-1'),
-(3, 'Learn Python: The Complete Python Programming Cour', 4, '/images/courses_banner/3.png', 2, 999, NULL, 'INCOMPLETE', 'Learn A-Z everything about Python, from the basics, to advanced topics like Python GUI, Python Data ', 'Create their own Python Programs\nBecome an experienced Python Programmer\nParse the Web and Create their own Games', '', '2022-12-30 19:21:41', '2022-12-30 19:21:41', 'learn-python-the-complete-python-programming-course-1');
+(1, 'Html, css', 3, '/images/courses_banner/1.png', 2, 0, NULL, 'INCOMPLETE', 'Html and css', 'Html and css from zero to hero', '1.Html\n2.Css', '2022-12-31 16:46:49', '2022-12-31 16:46:49', 'html-css-1'),
+(2, 'Javascript cơ bản', 3, '/images/courses_banner/2.png', 5, 0, NULL, 'INCOMPLETE', 'Javascript cơ bản', 'Javascript cơ bản cho người mới bắt đầu', '1.Javascript', '2022-08-03 00:00:00', '2022-12-31 16:46:49', 'javascript-cơ-bản-1'),
+(3, 'Learn Python: The Complete Python Programming Cour', 4, '/images/courses_banner/3.png', 3, 999, NULL, 'INCOMPLETE', 'Learn A-Z everything about Python, from the basics, to advanced topics like Python GUI, Python Data ', 'Create their own Python Programs\nBecome an experienced Python Programmer\nParse the Web and Create their own Games', '', '2022-11-25 00:00:00', '2022-12-31 16:46:49', 'learn-python-the-complete-python-programming-course-1');
 
 -- --------------------------------------------------------
 
@@ -116,9 +117,9 @@ CREATE TABLE `enroll` (
 --
 
 INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_point`, `enroll_date`) VALUES
-(2, 1, 'LEARNING', NULL, NULL, '2022-12-30'),
-(2, 2, 'LEARNING', NULL, NULL, '2022-12-20'),
-(2, 3, 'LEARNING', NULL, NULL, '2022-12-30');
+(2, 1, 'LEARNING', NULL, 4, '2022-12-31'),
+(2, 2, 'LEARNING', NULL, 5, '2022-12-20'),
+(2, 3, 'LEARNING', NULL, 3, '2022-12-31');
 
 -- --------------------------------------------------------
 
@@ -206,10 +207,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`) VALUES
-(1, 'admin1', 'admin1@gmail.com', '$2a$10$OhhhcSuKVTVLFZ35z9oi.uH2q4.gFXQYEVuz7RoWi/T', 'ADMIN'),
-(2, 'student1', 'student1@gmail.com', '$2a$10$aC2pl1F9udvjw4VWhqP.o.QiWBCKBLLhyBRR8oyp9RE', 'STUDENT'),
-(3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$8kOFVy/FGMWutrlcg4uzsOmkB1YEU1/eBAj.3Pya7Ud', 'LECTURER'),
-(4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$alSxvP4m7NQNGuo1709uI.rmgIiLXEn5myCOmKf1lHk', 'LECTURER');
+(1, 'admin1', 'admin1@gmail.com', '$2a$10$2cccpQB1RfnUNrOnJJp76uSnpdLWaopuFryOe2gzbHM', 'ADMIN'),
+(2, 'student1', 'student1@gmail.com', '$2a$10$HuUM.ckkVOtobrXahdbp5uZOetZMGHbQw70Xo7JcSHp', 'STUDENT'),
+(3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$XK6OtFMKp/p8Gm/xOsxLEePHUIa6DFqLUyGsxhshCiq', 'LECTURER'),
+(4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$chrmwi3fLjkpCf.y8878pukxzAonFqCG0mmtbmUTAZ6', 'LECTURER');
 
 -- --------------------------------------------------------
 

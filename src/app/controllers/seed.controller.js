@@ -3,9 +3,9 @@ import usersService from '../../services/users.service.js';
 import categoriesService from '../../services/categories.service.js';
 import lecturersService from '../../services/lecturers.service.js';
 import coursesService from '../../services/courses.service.js';
-import coursesController from './courses.controller.js';
 import enrollService from '../../services/enroll.service.js';
 import studentsService from '../../services/students.service.js';
+import slugger from '../../utils/slug.js';
 
 export default {
   // [GET] /seed/courses
@@ -51,9 +51,13 @@ export default {
     await usersService.deleteAll();
 
     data.courses.forEach((course) => {
-      coursesController.getUniqueSlug(course.name).then((slug) => {
+      slugger.getCourseUniqueSlug(course.name).then((slug) => {
         course.slug = slug;
       });
+    });
+
+    data.categories.forEach((category) => {
+      category.slug = slugger.getCategorySlug(category.name);
     });
 
     result.users = await usersService.add(data.users);

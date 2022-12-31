@@ -5,6 +5,10 @@ export default {
     return db('lecturers');
   },
 
+  findById(id) {
+    return db('lecturers').where('user_id', id);
+  },
+
   add(entity) {
     return db('lecturers').insert(entity);
   },

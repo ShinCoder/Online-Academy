@@ -125,13 +125,16 @@ const data = {
       name: 'Javascript cơ bản',
       lecturer_id: 3,
       banner_url: '/images/courses_banner/2.png',
-      category_id: 2,
+      category_id: 5,
       price: '0',
       status: 'INCOMPLETE',
       short_description: 'Javascript cơ bản',
       detail_description: 'Javascript cơ bản cho người mới bắt đầu',
       syllabus: '1.Javascript',
-      created_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      created_at: new Date('2022-08-03')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
       updated_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
       // slug: 'javascript-co-ban'
     },
@@ -140,7 +143,7 @@ const data = {
       name: 'Learn Python: The Complete Python Programming Course',
       lecturer_id: 4,
       banner_url: '/images/courses_banner/3.png',
-      category_id: 2,
+      category_id: 3,
       price: '999',
       status: 'INCOMPLETE',
       short_description:
@@ -148,7 +151,10 @@ const data = {
       detail_description:
         'Create their own Python Programs\nBecome an experienced Python Programmer\nParse the Web and Create their own Games',
       syllabus: '',
-      created_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      created_at: new Date('2022-11-25')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
       updated_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
       // slug: 'learn-python-the-complete-python-programming-course'
     }
@@ -158,12 +164,14 @@ const data = {
       student_id: 2,
       course_id: 1,
       status: 'LEARNING',
+      rate_point: 4,
       enroll_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
     },
     {
       student_id: 2,
       course_id: 2,
       status: 'LEARNING',
+      rate_point: 5,
       enroll_date: new Date('2022-12-20')
         .toISOString()
         .slice(0, 19)
@@ -173,6 +181,7 @@ const data = {
       student_id: 2,
       course_id: 3,
       status: 'LEARNING',
+      rate_point: 3,
       enroll_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
     }
   ]

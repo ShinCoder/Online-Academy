@@ -1,41 +1,44 @@
+import formatUtils from '../../utils/format.js';
 import categoriesService from '../../services/categories.service.js';
 import enrollService from '../../services/enroll.service.js';
 import coursesService from '../../services/courses.service.js';
 
 const HOT_CATEGORY_LIMIT = 5;
+const HOT_COURSE_LIMIT = 12;
+const NEW_COURSE_LIMIT = 12;
 
 export default {
   // [GET] /home
   async showHome(req, res) {
+    let length = 0;
+    // categories
     let categoriesList = await categoriesService.findAll();
     const date = new Date().toISOString().slice(0, 10);
     const dateMin7 = new Date(new Date().setDate(new Date().getDate() - 7))
       .toISOString()
       .slice(0, 10);
-    const enroll = await enrollService.findByDate({
+    const enroll = await enrollService.countByCourseIdWithDate({
       start: dateMin7,
       end: date
     });
 
-    categoriesList = await Promise.all(
-      categoriesList.map(async (category) => {
-        if (category.parent_category_id) {
-          let sum = 0;
-          let courses = await coursesService.findByCategoryId(category.id);
-          sum = courses.reduce((accum, course) => {
-            const enrollCount = enroll.filter(
-              (en) => en.course_id == course.id
-            );
-            return accum + enrollCount.length;
-          }, 0);
-          category.enrollCount = sum;
-          return category;
-        } else {
-          category.child_categories = [];
-          return category;
-        }
-      })
-    );
+    categoriesList = categoriesList.map((category) => {
+      if (category.parent_category_id) {
+        category.enrollCount = 0;
+        return category;
+      }
+      category.child_categories = [];
+      return category;
+    });
+
+    length = enroll.length;
+    for (let i = 0; i < length; i++) {
+      const course = await coursesService.findById(enroll[i].course_id);
+      const cat = categoriesList.find((category) => {
+        return category.id == course[0].category_id;
+      });
+      cat.enrollCount += enroll[i].counts;
+    }
 
     categoriesList.sort((c1, c2) => {
       if (c1.enrollCount === undefined) return 1;
@@ -43,7 +46,8 @@ export default {
       return c2.enrollCount - c1.enrollCount;
     });
 
-    for (let i = 0; i < categoriesList.length; i++) {
+    length = categoriesList.length;
+    for (let i = 0; i < length; i++) {
       if (categoriesList[i].enrollCount == 0) break;
       categoriesList[i].hot = true;
       categoriesList[
@@ -62,9 +66,40 @@ export default {
       ].child_categories.push(categoriesList[0]);
       categoriesList.shift();
     }
+    // categories -end
+
+    // hot course
+    const coursesEnrollCount = await enrollService.countByCourseId(
+      HOT_COURSE_LIMIT
+    );
+
+    const hotCourses = [];
+
+    length = coursesEnrollCount.length;
+    for (let i = 0; i < length; i++) {
+      const course = await coursesService.findById(
+        coursesEnrollCount[i].course_id
+      );
+      await formatUtils.courseCardFormat(course[0]);
+      hotCourses.push(course[0]);
+    }
+    // hot course -end
+
+    // new course
+    const newCourses = await coursesService.findAllWithDate(
+      'desc',
+      NEW_COURSE_LIMIT
+    );
+    length = newCourses.length;
+    for (let i = 0; i < length; i++) {
+      formatUtils.courseCardFormat(newCourses[i]);
+    }
+    // new course -end
 
     res.render('home', {
-      categories: categoriesList
+      categories: categoriesList,
+      hotCourses: hotCourses,
+      newCourses: newCourses
     });
   }
 };
