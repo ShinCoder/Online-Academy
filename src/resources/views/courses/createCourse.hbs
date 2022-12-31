@@ -1,0 +1,73 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/course/createCourse.css">
+{{/section}}
+
+<form method="post" action="" id="mainCreateCourseForm" enctype="multipart/form-data">
+    <div class="course-header-wrapper">
+        <input autocomplete="off" id="courseTitle" name="courseTitle" type="text" class="form-control"
+            placeholder="Please fill in course title" />
+        <p id="courseNameInputError" class="d-none">Please fill in this field !</p>
+    </div>
+
+    <div class="courseImage">
+        <div class="course-image-wrapper">
+            <img id="image-preview" class="img-fluid" src="/images/addImagePlaceholder.png" alt="placeholder" />
+            <div class="course-image-wrapper-overlay">
+                <div>
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    Upload Image
+                </div>
+            </div>
+        </div>
+        <input autocomplete="off" type="file" id="uploadCourseBannerInput" name="uploadCourseBannerInput" />
+        <input autocomplete="off" type="text" id="uploadedCourseBanner" name="uploadCourseBanner" />
+        <p id="imageBannerInputError" class="d-none">Please choose an image !</p>
+    </div>
+
+    <div class="courseInformationWrapper">
+        <div class="courseSelectWrapper">
+            <h1 class="courseDetailTitle">Course Category</h1>
+            <select class="form-select" name="courseCategory" id="courseCategory">
+                <option disabled selected value="" class="defaultSelect">Please choose course category</option>
+                <option value="mobile">Mobile</option>
+                <option value="web">Web</option>
+            </select>
+            <p id="courseCategoryInputError" class="d-none">Please choose a category !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle">Course Description</h1>
+            <textarea name="shortDescription" id="shortDescription"></textarea>
+            <p id="courseDescriptionError" class="d-none">Please fill in course description !</p>
+        </div>
+
+        <div class="courseDetailWrapper">
+            <h1 class="courseDetailTitle">Course Details</h1>
+            <div id="courseDetailChapter">
+
+            </div>
+
+            <button id="addChapterBtn" type="button" class="btn btn-primary">
+                <i class="fa fa-plus-square" aria-hidden="true"></i>
+                Add a chapter
+            </button>
+            <p id="chapterError" class="d-none">Please create at least 1 chapter !</p>
+
+        </div>
+
+        <input autocomplete="off" id="allChapter" name="allChapter" />
+
+        <input autocomplete="off" class="d-none" id="allVideo" name="allVideo" />
+
+        <div class="submitCourse">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-book" aria-hidden="true"></i> CREATE COURSE
+            </button>
+        </div>
+
+    </div>
+
+</form>
+{{#section 'js'}}
+<script src="/javascript/course/createCourse.js"></script>
+{{/section}}
