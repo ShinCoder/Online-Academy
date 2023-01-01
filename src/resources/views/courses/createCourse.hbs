@@ -2,11 +2,11 @@
 <link rel="stylesheet" href="/css/course/createCourse.css">
 {{/section}}
 
-<form method="post" action="" id="mainCreateCourseForm" enctype="multipart/form-data">
+<form method="post" action="/courses/create" id="mainCreateCourseForm" enctype="multipart/form-data">
     <div class="course-header-wrapper">
         <input autocomplete="off" id="courseTitle" name="courseTitle" type="text" class="form-control text-primary"
             placeholder="Please fill in course title" />
-        <p id="courseNameInputError" class="d-none">Please fill in this field !</p>
+        <p id="courseNameInputError" class="d-none">Please fill in course title !</p>
     </div>
 
     <div class="courseImage">
@@ -20,25 +20,46 @@
             </div>
         </div>
         <input autocomplete="off" type="file" id="uploadCourseBannerInput" name="uploadCourseBannerInput" />
-        <input autocomplete="off" type="text" id="uploadedCourseBanner" name="uploadCourseBanner" />
         <p id="imageBannerInputError" class="d-none">Please choose an image !</p>
     </div>
 
     <div class="courseInformationWrapper">
         <div class="courseSelectWrapper">
-            <h1 class="courseDetailTitle text-primary">Course Category</h1>
+            <h1 class="courseDetailTitle text-primary">Category</h1>
             <select class="form-select" name="courseCategory" id="courseCategory">
                 <option disabled selected value="" class="defaultSelect">Please choose course category</option>
-                <option value="mobile">Mobile</option>
-                <option value="web">Web</option>
+                {{#each this.categories}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
             </select>
-            <p id="courseCategoryInputError" class="d-none">Please choose a category !</p>
+            <p id="courseCategoryInputError" class="d-none courseDetailError">Please choose a category !</p>
         </div>
 
         <div class="richTextWrapper">
-            <h1 class="courseDetailTitle text-primary">Course Description</h1>
+            <h1 class="courseDetailTitle text-primary">Short Description</h1>
             <textarea name="shortDescription" id="shortDescription"></textarea>
-            <p id="courseDescriptionError" class="d-none">Please fill in course description !</p>
+            <p id="courseShortDescriptionError" class="d-none courseDetailError">Please fill in course short description
+                !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Detail Description</h1>
+            <textarea name="detailDescription" id="detailDescription"></textarea>
+            <p id="courseDetailDescriptionError" class="d-none courseDetailError">Please fill in course detail
+                description !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Syllabus</h1>
+            <textarea name="syllabusDescription" id="syllabusDescription"></textarea>
+            <p id="syllabusDescriptionError" class="d-none courseDetailError">Please fill in course syllasbus !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Price</h1>
+            <input autocomplete="off" class="priceCourseInput" name="coursePrice" id="coursePrice"
+                placeholder="Please type in price for this course (VND, ex: 50000 -> 50.000 VND)" />
+            <p id="coursePriceError" class="d-none courseDetailError">Please fill in price of course !</p>
         </div>
 
         <div class="submitCourse">

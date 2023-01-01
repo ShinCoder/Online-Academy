@@ -16,7 +16,7 @@ export default function (app, dirname) {
           else return '<i class="fa fa-star-o"></i>';
         },
         vietnamdongFormat: (val) => {
-          return numeral(val).format('0,0.000').replaceAll(',', '.') + 'đ';
+          return numeral(val).format('0,0').replace(/,/g, '.') + 'đ';
         }
       }
     })

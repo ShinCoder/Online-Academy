@@ -248,17 +248,9 @@
     margin    : 0;
 }
 
-#courseCategoryInputError {
+.courseDetailError {
     color     : #ff0000;
     font-size : 20px;
-    text-align: center;
-    margin    : 0;
-}
-
-#courseDescriptionError {
-    color     : #ff0000;
-    font-size : 20px;
-    text-align: center;
     margin    : 0;
 }
 
@@ -306,4 +298,11 @@
 
 .addVideoToLessonBtn {
     margin: 24px 0;
+}
+
+.priceCourseInput {
+    border-radius: 8px;
+    padding: 8px 16px;
+    min-width: 600px;
+    border: 1px solid #ccc;
 }

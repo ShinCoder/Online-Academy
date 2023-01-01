@@ -8,6 +8,8 @@ router.get('/create', coursesController.renderCreateCourse);
 
 router.post('/create', coursesController.postCourse);
 
+router.post('/:id/status', coursesController.updateCourseStatus);
+
 router.get('/chapters/create', coursesController.renderCreateChapter)
 
 router.post('/chapters/create', coursesController.postChapter)

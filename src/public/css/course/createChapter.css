@@ -1,4 +1,4 @@
-#chapterForm {
+.chapterAllWrapper {
     padding-bottom: 48px;
 }
 
@@ -418,4 +418,15 @@
 
 .checkboxComplete label:hover {
     text-decoration: underline;
+}
+
+.coursePriceWrapper {
+    width: fit-content;
+    padding: 8px 32px;
+    background-color: var(--bs-warning);
+    color: #fff;
+    border-radius: 16px;
+    border: unset;
+    font-size: 24px;
+    margin-left: 32px;
 }

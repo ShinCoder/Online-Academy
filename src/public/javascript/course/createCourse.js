@@ -11,6 +11,26 @@ tinymce.init({
     placeholder: "Please fill in a short description for this course"
 });
 
+tinymce.init({
+    selector: '#detailDescription',
+    menubar: false,
+    toolbar: 'undo redo | styles | bold italic numlist bullist',
+    plugins: 'lists',
+    statusbar: false,
+    height: '500px',
+    placeholder: "Please fill in a short description for this course"
+});
+
+tinymce.init({
+    selector: '#syllabusDescription',
+    menubar: false,
+    toolbar: 'undo redo | styles | bold italic numlist bullist',
+    plugins: 'lists',
+    statusbar: false,
+    height: '500px',
+    placeholder: "Please fill in a short description for this course"
+});
+
 uploadImageOverlay.addEventListener("click", () => {
     uploadCourseBannerInput.click();
 })
@@ -33,17 +53,24 @@ mainForm.addEventListener('submit', async (event) => {
 
     const courseTitle = document.querySelector('#courseTitle');
     const courseCategory = document.querySelector('#courseCategory');
+    const coursePrice = document.querySelector('#coursePrice');
 
     const courseNameInputError = document.querySelector("#courseNameInputError");
     const imageBannerInputError = document.querySelector("#imageBannerInputError");
     const courseCategoryInputError = document.querySelector("#courseCategoryInputError");
-    const courseDescriptionError = document.querySelector("#courseDescriptionError");
+    const courseShortDescriptionError = document.querySelector("#courseShortDescriptionError");
+    const courseDetailDescriptionError = document.querySelector("#courseDetailDescriptionError");
+    const syllabusDescriptionError = document.querySelector("#syllabusDescriptionError");
+    const coursePriceError = document.querySelector("#coursePriceError");
 
     const data = {
         courseTitle: courseTitle?.value,
         uploadCourseBannerInput: uploadCourseBannerInput.files[0],
-        courseCategory: courseCategory.value,
-        courseDescriptionValue: tinymce.get("shortDescription").getContent()
+        courseCategory: courseCategory?.value,
+        courseShortDescription: tinymce.get("shortDescription").getContent(),
+        courseDetailDescription: tinymce.get("detailDescription").getContent(),
+        syllabusDescription: tinymce.get("syllabusDescription").getContent(),
+        price: coursePrice?.value
     }
 
     if (!data?.courseTitle) {
@@ -58,11 +85,28 @@ mainForm.addEventListener('submit', async (event) => {
         courseCategoryInputError.classList.remove("d-none");
         check = false;
     }
-    if (!data?.courseDescriptionValue) {
-        courseDescriptionError.classList.remove("d-none");
+    if (!data?.courseShortDescription) {
+        courseShortDescriptionError.classList.remove("d-none");
         check = false;
     }
-    
+    if (!data?.courseDetailDescription) {
+        courseDetailDescriptionError.classList.remove("d-none");
+        check = false;
+    }
+    if (!data?.syllabusDescription) {
+        syllabusDescriptionError.classList.remove("d-none");
+        check = false;
+    }
+    if (!data?.price) {
+        coursePriceError.classList.remove("d-none");
+        check = false;
+    }
+    else if (isNaN(data?.price)) {
+        coursePriceError.innerText = "Price must be number !";
+        coursePriceError.classList.remove("d-none");
+        check = false;
+    }
+
     if (!check) {
         event.preventDefault();
     }

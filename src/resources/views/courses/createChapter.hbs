@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/course/createChapter.css">
 {{/section}}
 
-<form method="post" action="/courses/chapters/create" id="chapterForm">
+<div class="chapterAllWrapper">
     <div class="chapterDetailWrapper">
 
         <div class="course-header-wrapper">
@@ -19,24 +19,43 @@
 
         <div class="courseInformationWrapper">
             <div class="courseSelectWrapper">
-                <h1 class="courseDetailTitle text-primary">Course Category</h1>
+                <h1 class="courseDetailTitle text-primary">Category</h1>
                 <select disabled class="form-select" name="courseCategory" id="courseCategory">
                     <option disabled selected value="{{session.createCourse.courseCategory}}" class="defaultSelect">
                         {{session.createCourse.courseCategory}}</option>
-                    <option value="mobile">Mobile</option>
-                    <option value="web">Web</option>
                 </select>
             </div>
 
             <div class="richTextWrapper">
-                <h1 class="courseDetailTitle text-primary">Course Description</h1>
+                <h1 class="courseDetailTitle text-primary">Short Description</h1>
                 <div class="courseDescriptionWrapper">
                     {{{session.createCourse.shortDescription}}}
                 </div>
             </div>
 
+            <div class="richTextWrapper">
+                <h1 class="courseDetailTitle text-primary">Short Description</h1>
+                <div class="courseDescriptionWrapper">
+                    {{{session.createCourse.detailDescription}}}
+                </div>
+            </div>
+
+            <div class="richTextWrapper">
+                <h1 class="courseDetailTitle text-primary">Syllabus</h1>
+                <div class="courseDescriptionWrapper">
+                    {{{session.createCourse.syllabus}}}
+                </div>
+            </div>
+
+            <div class="richTextWrapper d-flex">
+                <h1 class="courseDetailTitle text-primary">Price</h1>
+                <div class="coursePriceWrapper">
+                    {{{vietnamdongFormat session.createCourse.price}}}
+                </div>
+            </div>
+
             <div class="courseChapterWrapper">
-                <h1 class="text-primary">Course Chapters</h1>
+                <h1 class="text-primary">Chapters</h1>
             </div>
 
             <div class="chaptersWrapper">
@@ -46,13 +65,13 @@
                     {{#each lessons}}
                     <div class="lessonWrapper">
                         <h2 class="lessonTitle text-center">
-                            <span>Lesson:</span> {{lessonTitle}}
+                            <span>Lesson:</span> {{title}}
                         </h2>
                         <div class="lessonDescription">
-                            {{{lessonDescription}}}
+                            {{{description}}}
                         </div>
                         <video preload="auto" controls class="video-js vjs-default-skin lessonVideo">
-                            <source type="video/mp4" src="/videos/lessons/{{uploadLessonVideo}}" />
+                            <source type="video/mp4" src="/videos/lessons/{{video_filename}}" />
                         </video>
                     </div>
                     {{/each}}
@@ -60,9 +79,9 @@
                 {{/each}}
             </div>
 
-            <div class="addChapterButtonWrapper d-flex align-items-end flex-column">
+            <form method="post" action="/courses/{{session.createCourse.id}}/status" class="addChapterButtonWrapper d-flex align-items-end flex-column">
                 <button id="finishAddCourse" type="submit" class="btn btn-success btn-lg">
-                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    <i class="fa fa-check" aria-hidden="true"></i>
                     Finish create course
                 </button>
                 <div class="mt-2 checkboxComplete">
@@ -71,12 +90,12 @@
                         Is this course complete ?
                     </label>
                 </div>
-            </div>
+            </form>
 
 
         </div>
 
-        <div class="chapter-header-wrapper">
+        <form id="chapterForm" method="post" action="/courses/chapters/create" class="chapter-header-wrapper">
             <h1 class="text-center text-primary m-4 addACourseTitle">ADD A COURSE CHAPTER</h1>
             <input autocomplete="off" id="chapterTitle" name="chapterTitle" type="text" class="form-control"
                 placeholder="Please fill in chapter title" />
@@ -87,10 +106,10 @@
                     Add lessons for this chapter
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 
-</form>
+</div>
 
 {{#section 'js'}}
 <script src="/javascript/course/createChapter.js"></script>

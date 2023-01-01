@@ -2,10 +2,16 @@ import multer from 'multer';
 import path from 'path';
 import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
+import db from '../../config/db/mysql.js';
+import slugger from '../../utils/slug.js';
 
 export default {
-  renderCreateCourse(req, res) {
-    res.render('courses/createCourse');
+  async renderCreateCourse(req, res) {
+    const allCategories = await categoriesService.findAll();
+
+    res.render('courses/createCourse', {
+      categories: allCategories
+    });
   },
 
   renderCreateChapter(req, res) {
@@ -35,45 +41,79 @@ export default {
       {
         name: "uploadCourseBannerInput", maxCount: 1
       }
-    ])(req, res, function (err) {
+    ])(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
         console.error(err);
       } else if (err) {
         console.error(err);
       }
 
-      console.log("Result: ", {
-        ...req.body,
-        uploadCourseBanner: bannerName
-      });
+      const slug = await slugger.getCourseUniqueSlug(req.body.courseTitle);
 
-      req.session.createCourse = {
-        id: 1,
+      const resultCourse = {
         name: req.body.courseTitle,
-        courseCategory: req.body.courseCategory,
-        shortDescription: req.body.shortDescription,
-        uploadCourseBanner: bannerName,
-        chapters: []
+        lecturer_id: req.session?.user?.id || 3, // [FIX] Replace by auth user
+        banner_filename: bannerName,
+        category_id: Number(req.body.courseCategory),
+        short_description: req.body.shortDescription,
+        detail_description: req.body.detailDescription,
+        syllabus: req.body.syllabusDescription,
+        is_completed: false,
+        price: Number(req.body.coursePrice),
+        slug: slug
       }
 
-      res.render('courses/createChapter');
+      try {
+        const returningResult = await coursesService.add(resultCourse);
+
+        const category = await categoriesService.findById(req.body.courseCategory);
+
+        req.session.createCourse = {
+          id: returningResult[0],
+          name: req.body.courseTitle,
+          courseCategory: category[0].name,
+          shortDescription: req.body.shortDescription,
+          detailDescription: req.body.detailDescription,
+          uploadCourseBanner: bannerName,
+          syllabus: req.body.syllabusDescription,
+          price: String(req.body.coursePrice),
+          chapters: []
+        }
+
+        res.render('courses/createChapter');
+      }
+      catch (error) {
+        console.log("Add course error: ", error);
+        //render fail screen here
+      }
     })
   },
 
   async postChapter(req, res) {
-    console.log("Chapter: ", req.body);
-    req.session.createCourse = {
-      ...req.session.createCourse,
-      chapters: [...req.session.createCourse?.chapters, {
-        id: req.session.createCourse?.chapters.length || 0 + 1,
-        chapterTitle: req.body.chapterTitle,
-        lessons: []
-      }]
+    const resultChapter = {
+      course_id: req.session.createCourse.id,
+      title: req.body.chapterTitle
     }
-    res.render('courses/createLesson', {
-      chapterId: req.session.createCourse?.chapters.length || 0 + 1,
-      chapterTitle: req.body.chapterTitle
-    });
+
+    try {
+      const returningResult = await coursesService.addChapter(resultChapter);
+
+      req.session.createCourse = {
+        ...req.session.createCourse,
+        currentChapterIdSelect: returningResult[0],
+        currentChapterTitleSelect: req.body.chapterTitle,
+        chapters: [...req.session.createCourse?.chapters, {
+          id: returningResult[0],
+          chapterTitle: req.body.chapterTitle,
+          lessons: []
+        }]
+      }
+
+      res.render('courses/createLesson');
+    }
+    catch (error) {
+      console.log("Add chapter error");
+    }
   },
 
   async postLesson(req, res) {
@@ -95,23 +135,40 @@ export default {
       {
         name: "uploadLessonVideo", maxCount: 1
       }
-    ])(req, res, function (err) {
+    ])(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
         console.error(err);
       } else if (err) {
         console.error(err);
       }
 
-      const result = {
-        ...req.body,
-        uploadLessonVideo: bannerName
+      const resultLesson = {
+        chapter_id: req.session.createCourse.currentChapterIdSelect,
+        video_filename: bannerName,
+        title: req.body.lessonTitle,
+        description: req.body.lessonDescription
       };
 
-      req.session.createCourse.chapters[req.session.createCourse.chapters.length - 1].lessons.push(result);
+      const pushResult = {
+        chapter_id: req.session.createCourse.currentChapterIdSelect,
+        video_filename: bannerName,
+        title: req.body.lessonTitle,
+        description: req.body.lessonDescription,
+        chapterTitle: req.session.createCourse.currentChapterTitleSelect
+      }
 
-      console.log("req.session.createCourse: ", req.session.createCourse.chapters[0].lessons)
+      try {
+        const returningResult = await coursesService.addLesson(resultLesson);
 
-      res.render('courses/createLesson');
+        req.session.createCourse.chapters[req.session.createCourse.chapters.length - 1].lessons.push(pushResult);
+
+        res.render('courses/createLesson');
+      }
+      catch (error) {
+        console.log("Add lesson fail: ", error);
+      }
+
+
     })
   },
 
@@ -120,6 +177,28 @@ export default {
     const courses = await coursesService.findByCategoryId(category[0].id);
 
     res.render('courses');
+  },
+
+  async updateCourseStatus(req, res) {
+
+    const courseId = req.params.id;
+
+    try {
+      const returningResult = await coursesService.updateStatus(courseId, req.body?.checkFinishCourse ? true : false);
+      req.session.createCourse = null;
+
+      const allCategories = await categoriesService.findAll();
+
+      res.render('courses/createCourse', {
+        categories: allCategories
+      });
+    }
+    catch (err) {
+      console.log("Update status error: ", err)
+    }
+
+
+    //res.render('courses');
   }
 
 };  

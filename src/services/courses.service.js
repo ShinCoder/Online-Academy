@@ -21,6 +21,14 @@ export default {
     return db('courses').insert(entity);
   },
 
+  addChapter(entity) {
+    return db('chapters').insert(entity);
+  },
+
+  addLesson(entity) {
+    return db('lessons').insert(entity);
+  },
+
   deleteAll() {
     return db('courses').del();
   },
@@ -31,5 +39,9 @@ export default {
 
   findByCategoryId(id) {
     return db('courses').where('category_id', id);
+  },
+
+  updateStatus(id, isCompleted) {
+    return db('courses').update({'is_completed': isCompleted}).where('id', id)
   }
 };
