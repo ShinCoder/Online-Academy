@@ -4,4 +4,16 @@ const router = express.Router();
 
 router.get('/category/:slug', coursesController.showByCategory);
 
+router.get('/create', coursesController.renderCreateCourse);
+
+router.post('/create', coursesController.postCourse);
+
+router.post('/:id/status', coursesController.updateCourseStatus);
+
+router.get('/chapters/create', coursesController.renderCreateChapter)
+
+router.post('/chapters/create', coursesController.postChapter)
+
+router.post('/chapters/lessons/create', coursesController.postLesson)
+
 export default router;

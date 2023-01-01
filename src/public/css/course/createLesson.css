@@ -1,0 +1,336 @@
+#lessonForm {
+    padding: 64px 32px 0 32px;
+
+}
+
+.course-header-wrapper {
+    display        : flex;
+    justify-content: center;
+    flex-direction : column;
+    align-items    : center;
+    min-height     : 150px;
+    box-sizing     : border-box;
+}
+
+.lesson-header-wrapper {
+    display        : flex;
+    justify-content: center;
+    flex-direction : column;
+    align-items    : center;
+    box-sizing     : border-box;
+}
+
+.course-header-wrapper input {
+    font-size     : 64px;
+    text-align    : center;
+    width         : 100%;
+    font-weight   : 600;
+    text-transform: uppercase;
+    border        : 3px solid #000;
+    height        : fit-content;
+    display       : block;
+    border-radius : 16px;
+}
+
+.lesson-header-wrapper input {
+    font-size     : 24;
+    text-align    : center;
+    width         : 100%;
+    font-weight   : 600;
+    text-transform: uppercase;
+    border        : 3px solid #000;
+    height        : fit-content;
+    display       : block;
+    border-radius : 16px;
+}
+
+.courseImage {
+    margin-bottom: 32px;
+}
+
+.course-image-wrapper {
+    width           : 100%;
+    height          : 500px;
+    position        : relative;
+    background-color: #ccc;
+    border          : 1px solid #000;
+    cursor          : pointer;
+}
+
+.course-image-wrapper-overlay {
+    position        : absolute;
+    top             : 0;
+    left            : 0;
+    right           : 0;
+    bottom          : 0;
+    width           : 100%;
+    background-color: rgba(0, 0, 0, 0.305);
+    height          : 100%;
+    visibility      : hidden;
+    opacity         : 0;
+    transition      : visibility 0s, opacity 0.2s linear;
+}
+
+.course-image-wrapper:hover .course-image-wrapper-overlay {
+    visibility: visible;
+    opacity   : 1;
+}
+
+.course-image-wrapper-overlay>div {
+    position      : absolute;
+    top           : 50%;
+    left          : 50%;
+    transform     : translate(-50%, -50%);
+    width         : fit-content;
+    height        : fit-content;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    font-size     : 48px;
+    color         : #fff;
+}
+
+.course-image-wrapper-overlay>div>i {
+    display  : block;
+    font-size: 84px;
+    color    : #fff;
+}
+
+.course-image-wrapper img {
+    position  : absolute;
+    top       : 50%;
+    left      : 50%;
+    transform : translate(-50%, -50%);
+    width     : 100%;
+    object-fit: cover;
+    max-height: 100%;
+}
+
+#uploadCourseBannerInput {
+    display: none;
+}
+
+.courseInformationWrapper {
+    padding: 12px 36px;
+}
+
+.richTextWrapper {
+    width        : 100%;
+    margin-bottom: 36px;
+}
+
+.richTextWrapper>h1:first-of-type {
+    font-size: 36px;
+}
+
+.richTextWrapper>h2 {
+    font-size: 24px;
+}
+
+.richTextWrapper>div {
+    border: 2px solid #ccc;
+}
+
+.richTextWrapper>div>div>div:last-of-type {
+    cursor: pointer;
+}
+
+.courseDetailWrapper {
+    margin-bottom: 36px;
+}
+
+.courseDetailTitle {
+    font-size: 36px;
+    color    : var(--bs-gray-dark);
+}
+
+#courseDetailChapter {
+    margin-bottom: 12px;
+}
+
+.courseSelectWrapper {
+    margin-bottom: 36px;
+}
+
+.courseSelectWrapper select {
+    cursor: pointer;
+}
+
+.courseSelectWrapper>select option {
+    cursor: pointer;
+}
+
+.defaultSelect {
+    display: none;
+}
+
+.chapterWrapper {
+    margin-top      : 12px;
+    padding         : 36px 16px;
+    background-color: #ccc;
+    border-radius   : 24px;
+}
+
+.chapterWrapper h3 {}
+
+.newChapterTitleWrapper {
+    border-bottom : 1px solid #ccc;
+    padding-bottom: 12px;
+    display       : flex;
+    align-items   : center;
+}
+
+.newChapterTitleWrapper>h3 {
+    margin-right: 12px;
+}
+
+.newChapterTitleWrapper>input {
+    width        : 50%;
+    border-radius: 16px;
+    padding      : 4px 16px;
+}
+
+.lessonWrapper {
+    background-color: #fff;
+    min-height      : 300px;
+    width           : 100%;
+    margin-bottom   : 24px;
+    border-radius   : 16px;
+    padding         : 16px;
+}
+
+.lessonWrapper h3 {
+    font-size: 24px;
+    color    : var(--bs-gray-dark);
+}
+
+.lessonTitleWrapper {
+    display      : flex;
+    align-items  : center;
+    margin-bottom: 12px;
+}
+
+.lessonTitleWrapper>h3 {
+    margin: 0 12px 0 0;
+}
+
+.lessonTitleWrapper>input {
+    width        : 50%;
+    border-radius: 16px;
+    padding      : 4px 16px;
+}
+
+.lessonVideoUrlWrapper {
+    margin-bottom: 12px;
+}
+
+.lessonVideoUrlWording {
+    margin     : 0;
+    font-weight: 500;
+}
+
+.lessonVideoUrlWrapper>input {
+    width        : 50%;
+    border-radius: 16px;
+    padding      : 4px 16px;
+    font-size    : 16px;
+    width        : 100%;
+}
+
+.lessonDescriptionWording {
+    margin     : 0;
+    font-weight: 500;
+}
+
+.newLessonInChapterBtn {
+    display: flex;
+}
+
+.submitCourse>button {
+    padding: 16px 48px;
+}
+
+#courseNameInputError {
+    color    : #ff0000;
+    font-size: 28px;
+    margin   : 0;
+}
+
+#imageBannerInputError {
+    color     : #ff0000;
+    font-size : 24px;
+    text-align: center;
+    margin    : 0;
+}
+
+#courseCategoryInputError {
+    color     : #ff0000;
+    font-size : 20px;
+    text-align: center;
+    margin    : 0;
+}
+
+#courseDescriptionError {
+    color     : #ff0000;
+    font-size : 20px;
+    text-align: center;
+    margin    : 0;
+}
+
+#chapterError {
+    color    : #ff0000;
+    font-size: 20px;
+    margin   : 0;
+}
+
+.nameChapterError {
+    color    : #ff0000;
+    font-size: 16px;
+    margin   : 0 0 0 16px;
+}
+
+#allChapter {
+    display: none;
+}
+
+#uploadedCourseBanner {
+    display: none;
+}
+
+.videoWrapper {
+    width: 50%;
+}
+
+.lessonwrapper {
+    width           : 100%;
+    height          : 500px;
+    position        : relative;
+    background-color: #ccc;
+    border          : 1px solid #000;
+    cursor          : pointer;
+}
+
+.lessonVideo {
+    width : 100%;
+    height: 460px;
+}
+
+.uploadLessonVideo {
+    display: none;
+}
+
+.addVideoToLessonBtn {
+    margin: 24px 0;
+}
+
+#videoWrapper {
+    border: none;
+}
+
+#lessonNameInputError {
+    font-size: 24px;
+}
+
+.courseChapterTitle {
+    text-transform: uppercase;
+}
