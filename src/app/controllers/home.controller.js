@@ -96,9 +96,6 @@ export default {
     }
     // new course -end
 
-    const log = await coursesService.findAllAndRating();
-    console.log(log);
-
     res.render('home', {
       categories: categoriesList,
       hotCourses: hotCourses,
