@@ -7,6 +7,6 @@ export default knexObj({
     port: 3306,
     user: 'root',
     password: '',
-    database: 'online_academy'
+    database: 'coursemy'
   }
 });

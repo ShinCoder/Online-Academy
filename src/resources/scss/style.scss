@@ -1,5 +1,5 @@
 :root {
-	--primary: #3046B3;
+	--primary: #3046b3;
 	--primary-hover: #D89D42;
 	--text-primary: #ffffff;
 	--text-secondary: #999999;
@@ -41,6 +41,22 @@ a {
 	&:active {
 		outline: 0 none;
 	}
+}
+
+input[type="text"] {
+	outline: 0;
+}
+
+input[type="submit"] {
+	outline: 0;
+}
+
+input[type="text"]:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+
+input[type="text"]:focus::-moz-placeholder {
+	color: transparent;
 }
 
 .header {
@@ -159,6 +175,48 @@ a {
 
 		&:hover {
 			color: var(--primary);
+		}
+	}
+}
+
+.header-bottom {
+
+	.navbar {
+		background-color: var(--text-primary);
+	}
+
+	.nav-item {
+		transition: ease-in-out 0.3s linear 0s;
+
+		a {
+			font-size: 1rem;
+			text-transform: uppercase;
+			color: var(--text-secondary) !important;
+
+			&:hover {
+				color: var(--primary) !important;
+			}
+		}
+
+		@media only screen and (min-width: 992px) {
+			border-top: 2px solid var(--text-primary);
+
+			&:hover {
+				border-top-color: var(--primary);
+			}
+		}
+	}
+
+	&.stick {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 99999;
+		box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+
+		.navbar {
+			padding: 0;
 		}
 	}
 }
