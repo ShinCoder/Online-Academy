@@ -3,27 +3,90 @@
 {{/section}}
 
 <form method="post" action="/courses/chapters/create" id="chapterForm">
-    <div class="d-flex justify-content-center">
-        <h1 class="text-primary">Course</h1>
-    </div>
-
     <div class="chapterDetailWrapper">
+
         <div class="course-header-wrapper">
+            <h1 class="text-primary">{{session.createCourse.name}}</h1>
+        </div>
+
+        <div class="courseImage">
+            <div class="course-image-wrapper">
+                <img id="image-preview-course" class="img-fluid"
+                    src="/images/courses/{{session.createCourse.uploadCourseBanner}}"
+                    alt="{{session.createCourse.uploadCourseBanner}}" />
+            </div>
+        </div>
+
+        <div class="courseInformationWrapper">
+            <div class="courseSelectWrapper">
+                <h1 class="courseDetailTitle text-primary">Course Category</h1>
+                <select disabled class="form-select" name="courseCategory" id="courseCategory">
+                    <option disabled selected value="{{session.createCourse.courseCategory}}" class="defaultSelect">
+                        {{session.createCourse.courseCategory}}</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="web">Web</option>
+                </select>
+            </div>
+
+            <div class="richTextWrapper">
+                <h1 class="courseDetailTitle text-primary">Course Description</h1>
+                <div class="courseDescriptionWrapper">
+                    {{{session.createCourse.shortDescription}}}
+                </div>
+            </div>
+
+            <div class="courseChapterWrapper">
+                <h1 class="text-primary">Course Chapters</h1>
+            </div>
+
+            <div class="chaptersWrapper">
+                {{#each session.createCourse.chapters}}
+                <div class="eachChapterWrapper">
+                    <h1 class="chapterTitle text-center"><span>Chapter:</span> {{chapterTitle}}</h1>
+                    {{#each lessons}}
+                    <div class="lessonWrapper">
+                        <h2 class="lessonTitle text-center">
+                            <span>Lesson:</span> {{lessonTitle}}
+                        </h2>
+                        <div class="lessonDescription">
+                            {{{lessonDescription}}}
+                        </div>
+                        <video preload="auto" controls class="video-js vjs-default-skin lessonVideo">
+                            <source type="video/mp4" src="/videos/lessons/{{uploadLessonVideo}}" />
+                        </video>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="addChapterButtonWrapper d-flex align-items-end flex-column">
+                <button id="finishAddCourse" type="submit" class="btn btn-success btn-lg">
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    Finish create course
+                </button>
+                <div class="mt-2 checkboxComplete">
+                    <input checked class="form-check-input" type="checkbox" id="checkFinishCourse" name="checkFinishCourse">
+                    <label class="form-check-label" for="checkFinishCourse">
+                        Is this course complete ?
+                    </label>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="chapter-header-wrapper">
+            <h1 class="text-center text-primary m-4 addACourseTitle">ADD A COURSE CHAPTER</h1>
             <input autocomplete="off" id="chapterTitle" name="chapterTitle" type="text" class="form-control"
                 placeholder="Please fill in chapter title" />
             <p id="chapterTitleError" class="d-none text-danger">Please fill in this field !</p>
-        </div>
-
-        <div class="addChapterButtonWrapper d-flex justify-content-between">
-            <button id="backBtn" type="button" class="btn btn-secondary btn-lg">
-                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-                Go to another course
-            </button>
-
-            <button id="addChapterBtn" type="submit" class="btn btn-primary btn-lg">
-                <i class="fa fa-plus-square" aria-hidden="true"></i>
-                Add this chapter
-            </button>
+            <div class="addChapterButtonWrapper d-flex justify-content-end m-4">
+                <button id="addChapterBtn" type="submit" class="btn btn-primary btn-md">
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    Add lessons for this chapter
+                </button>
+            </div>
         </div>
     </div>
 

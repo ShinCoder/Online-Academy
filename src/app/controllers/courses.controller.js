@@ -47,17 +47,31 @@ export default {
 
       req.session.createCourse = {
         id: 1,
-        name: "Test course"
+        name: req.body.courseTitle,
+        courseCategory: req.body.courseCategory,
+        shortDescription: req.body.shortDescription,
+        uploadCourseBanner: bannerName,
+        chapters: []
       }
-      res.render('courses/createChapter', {
-        courseTitle: req.body.courseTitle
-      });
+
+      res.render('courses/createChapter');
     })
   },
 
   async postChapter(req, res) {
     console.log("Chapter: ", req.body);
-    res.render('courses/createLesson');
+    req.session.createCourse = {
+      ...req.session.createCourse,
+      chapters: [...req.session.createCourse?.chapters, {
+        id: req.session.createCourse?.chapters.length || 0 + 1,
+        chapterTitle: req.body.chapterTitle,
+        lessons: []
+      }]
+    }
+    res.render('courses/createLesson', {
+      chapterId: req.session.createCourse?.chapters.length || 0 + 1,
+      chapterTitle: req.body.chapterTitle
+    });
   },
 
   async postLesson(req, res) {
@@ -86,12 +100,15 @@ export default {
         console.error(err);
       }
 
-      console.log("Result: ", {
+      const result = {
         ...req.body,
         uploadLessonVideo: bannerName
-      });
+      };
 
-      console.log("session test: ", req.session.createCourse)
+      req.session.createCourse.chapters[req.session.createCourse.chapters.length - 1].lessons.push(result);
+      
+      console.log("req.session.createCourse: ", req.session.createCourse.chapters[0].lessons)
+
       res.render('courses/createLesson');
     })
   }

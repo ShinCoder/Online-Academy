@@ -12,8 +12,28 @@
     box-sizing     : border-box;
 }
 
+.lesson-header-wrapper {
+    display        : flex;
+    justify-content: center;
+    flex-direction : column;
+    align-items    : center;
+    box-sizing     : border-box;
+}
+
 .course-header-wrapper input {
     font-size     : 64px;
+    text-align    : center;
+    width         : 100%;
+    font-weight   : 600;
+    text-transform: uppercase;
+    border        : 3px solid #000;
+    height        : fit-content;
+    display       : block;
+    border-radius : 16px;
+}
+
+.lesson-header-wrapper input {
+    font-size     : 24;
     text-align    : center;
     width         : 100%;
     font-weight   : 600;
@@ -309,4 +329,8 @@
 
 #lessonNameInputError {
     font-size: 24px;
+}
+
+.courseChapterTitle {
+    text-transform: uppercase;
 }

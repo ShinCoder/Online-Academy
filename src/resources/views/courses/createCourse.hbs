@@ -4,7 +4,7 @@
 
 <form method="post" action="" id="mainCreateCourseForm" enctype="multipart/form-data">
     <div class="course-header-wrapper">
-        <input autocomplete="off" id="courseTitle" name="courseTitle" type="text" class="form-control"
+        <input autocomplete="off" id="courseTitle" name="courseTitle" type="text" class="form-control text-primary"
             placeholder="Please fill in course title" />
         <p id="courseNameInputError" class="d-none">Please fill in this field !</p>
     </div>
@@ -26,7 +26,7 @@
 
     <div class="courseInformationWrapper">
         <div class="courseSelectWrapper">
-            <h1 class="courseDetailTitle">Course Category</h1>
+            <h1 class="courseDetailTitle text-primary">Course Category</h1>
             <select class="form-select" name="courseCategory" id="courseCategory">
                 <option disabled selected value="" class="defaultSelect">Please choose course category</option>
                 <option value="mobile">Mobile</option>
@@ -36,17 +36,19 @@
         </div>
 
         <div class="richTextWrapper">
-            <h1 class="courseDetailTitle">Course Description</h1>
+            <h1 class="courseDetailTitle text-primary">Course Description</h1>
             <textarea name="shortDescription" id="shortDescription"></textarea>
             <p id="courseDescriptionError" class="d-none">Please fill in course description !</p>
         </div>
+
+        <div class="submitCourse">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-book" aria-hidden="true"></i> CREATE COURSE
+            </button>
+        </div>
     </div>
 
-    <div class="submitCourse">
-        <button type="submit" class="btn btn-success">
-            <i class="fa fa-book" aria-hidden="true"></i> CREATE COURSE
-        </button>
-    </div>
+
 </form>
 
 {{#section 'js'}}

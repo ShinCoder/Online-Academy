@@ -1,3 +1,7 @@
+#chapterForm {
+    padding-bottom: 48px;
+}
+
 .course-header-wrapper {
     padding        : 64px 32px 0 32px;
     display        : flex;
@@ -6,6 +10,16 @@
     align-items    : center;
     min-height     : 250px;
     box-sizing     : border-box;
+}
+
+.chapter-header-wrapper {
+    padding         : 16px 32px 16px 32px;
+    display         : flex;
+    justify-content : center;
+    flex-direction  : column;
+    align-items     : center;
+    box-sizing      : border-box;
+    background-color: #ccc;
 }
 
 .course-header-wrapper input {
@@ -20,6 +34,24 @@
     border-radius : 16px;
 }
 
+.chapter-header-wrapper input {
+    font-size     : 28px;
+    text-align    : center;
+    width         : 50%;
+    font-weight   : 600;
+    text-transform: uppercase;
+    border        : 3px solid #000;
+    height        : fit-content;
+    display       : block;
+    border-radius : 16px;
+    margin-bottom : 16px;
+}
+
+.course-header-wrapper h1 {
+    font-size     : 64px;
+    text-transform: uppercase;
+}
+
 .courseImage {
     margin-bottom: 32px;
 }
@@ -30,7 +62,7 @@
     position        : relative;
     background-color: #ccc;
     border          : 1px solid #000;
-    cursor          : pointer;
+    cursor          : default;
 }
 
 .course-image-wrapper-overlay {
@@ -93,6 +125,15 @@
 .richTextWrapper {
     width        : 100%;
     margin-bottom: 36px;
+}
+
+.courseChapterWrapper {
+    font-size    : 48px;
+    margin-bottom: 16px;
+}
+
+.addACourseTitle {
+    font-size: 36px;
 }
 
 .richTextWrapper>h1:first-of-type {
@@ -292,7 +333,7 @@
 }
 
 .lessonVideo {
-    width: 100%;
+    width : 100%;
     height: 360px;
 }
 
@@ -310,4 +351,71 @@
 
 #chapterTitleError {
     font-size: 24px;
+}
+
+.courseDescriptionWrapper {
+    background-color: rgb(255, 255, 255, 0.8);
+    border-radius   : 16px;
+    padding         : 16px;
+}
+
+.chaptersWrapper {}
+
+.eachChapterWrapper {
+    margin-bottom   : 24px;
+    padding         : 32px 16px;
+    background-color: #ccc;
+    border-radius   : 16px;
+}
+
+.chapterTitle {
+    font-size     : 36px;
+    color         : var(--bs-indigo);
+    text-transform: uppercase;
+}
+
+.chapterTitle>span {
+    text-decoration: underline;
+}
+
+.lessonDescription {
+    background-color: rgb(236, 230, 230);
+    padding         : 8px 16px;
+    border-radius   : 16px;
+    margin-bottom   : 16px;
+}
+
+.lessonDescriptionTitle {
+    font-size: 24px;
+    color    : var(--bs-gray-dark);
+}
+
+.lessonDescriptionTitle span {
+    color          : #000;
+    text-decoration: underline;
+}
+
+.lessonTitle {
+    color: var(--bs-gray-dark);
+}
+
+.lessonTitle span {
+    color          : #000;
+    text-decoration: underline;
+}
+
+.checkboxComplete {
+    cursor: pointer;
+}
+
+.checkboxComplete input {
+    cursor: pointer;
+}
+
+.checkboxComplete label {
+    cursor: pointer;
+}
+
+.checkboxComplete label:hover {
+    text-decoration: underline;
 }
