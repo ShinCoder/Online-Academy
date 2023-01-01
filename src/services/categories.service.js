@@ -9,6 +9,10 @@ export default {
     return db('categories').where('id', id);
   },
 
+  findByParentId(id) {
+    return db('categories').where('parent_category_id', id);
+  },
+
   findBySlug(slug) {
     return db('categories').where('slug', slug);
   },

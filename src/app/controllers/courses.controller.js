@@ -1,3 +1,4 @@
+import formatUtils from '../../utils/format.js';
 import multer from 'multer';
 import path from 'path';
 import categoriesService from '../../services/categories.service.js';
@@ -202,10 +203,71 @@ export default {
 
   async showByCategory(req, res) {
     const category = await categoriesService.findBySlug(req.params.slug);
-    const courses = await coursesService.findByCategoryId(category[0].id);
 
-    console.log(courses);
+    let categoryId = [];
 
-    res.render('courses/coursesView');
+    if (!category.parent_category_id) {
+      const categories = await categoriesService.findByParentId(category[0].id);
+      categories.forEach((cat) => categoryId.push(cat.id));
+    } else categoryId.push(category[0].id);
+
+    const order = [];
+    let sortRatingTop = false;
+    let sortDateNew = false;
+    let sortDateOld = false;
+    let sortPriceExp = false;
+    let sortPriceCheap = false;
+    let sortPurchasedMost = false;
+    let sortPurchasedLeast = false;
+
+    const query = { ...req.query };
+
+    if (query.sortRating) {
+      order.push({
+        column: 'rating_point',
+        order: query.sortRating == 'Top' ? 'desc' : 'acs'
+      });
+      sortRatingTop = query.sortRating == 'Top' ? 'true' : 'false';
+    }
+
+    if (query.sortDate) {
+      order.push({
+        column: 'created_at',
+        order: query.sortDate == 'NewToOld' ? 'desc' : 'acs'
+      });
+    }
+
+    if (query.sortPrice) {
+      order.push({
+        column: 'price',
+        order: query.sortPrice == 'MostExpensive' ? 'desc' : 'acs'
+      });
+    }
+
+    if (query.sortPurchased) {
+      order.push({
+        column: 'purchased_count',
+        order: query.sortPurchased == 'MostPurchased' ? 'desc' : 'acs'
+      });
+    }
+
+    let courses;
+
+    if (order) {
+      courses = await coursesService.findAllAndRatingByCategory(
+        categoryId,
+        order
+      );
+    } else {
+      courses = await coursesService.findAllAndRatingByCategory(categoryId);
+    }
+    courses.forEach((course) => {
+      formatUtils.courseCardFormat(course);
+    });
+
+    res.render('courses/coursesView', {
+      courses: courses,
+      category: category[0]
+    });
   }
 };

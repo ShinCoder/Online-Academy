@@ -39,9 +39,10 @@ export default {
   getRatingByCourseId(id) {
     return db('enroll')
       .select('course_id')
-      .sum('rate_point', { as: 'ratingSum' })
+      .avg('rate_point', { as: 'ratingPoint' })
       .count('*', { as: 'ratingCount' })
-      .where('course_id', id)
+      .whereNotNull('enroll.rate_point')
+      .andWhere('course_id', id)
       .groupBy('course_id');
   }
 };
