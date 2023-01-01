@@ -13,6 +13,18 @@ export default {
     }
   },
 
+  findAllAndRating(sort) {
+    if (sort) {
+    } else {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.rate_point', { as: 'rating_count' })
+        .groupBy('courses.id');
+    }
+  },
+
   findById(id) {
     return db('courses').where('id', id);
   },

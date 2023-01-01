@@ -15,8 +15,11 @@ export default function (app, dirname) {
           if (s == 1) return '<i class="fa fa-star"></i>';
           else return '<i class="fa fa-star-o"></i>';
         },
+        ratingpointFormat: (val) => {
+          return numeral(val).format('0.0');
+        },
         vietnamdongFormat: (val) => {
-          return numeral(val).format('0,0.000').replaceAll(',', '.') + 'đ';
+          return numeral(val).format('0,0').replace(/,/g, '.') + 'đ';
         }
       }
     })

@@ -75,13 +75,17 @@
               <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
               <div class="course-category">Category: <a href="#">{{category_name}}</a></div>
               <div class="course-rating">
-                <span>{{rating_point}}</span>
+                {{#if rating_point}}
+                <span>{{ratingpointFormat rating_point}}</span>
                 <div class="stars-container">
                   {{#each this.rating_star}}
                   {{#starify this}} {{/starify}}
                   {{/each}}
                 </div>
                 <span>({{rating_count}})</span>
+                {{else}}
+                 <span class="p-0">No rating</span>
+                {{/if}}
               </div>
               <div class="course-price">
                 <span class="current">{{vietnamdongFormat price}}</span>
@@ -112,13 +116,17 @@
               <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
               <div class="course-category">Category: <a href="#">{{category_name}}</a></div>
               <div class="course-rating">
-                <span>{{rating_point}}</span>
+                {{#if rating_point}}
+                <span>{{ratingpointFormat rating_point}}</span>
                 <div class="stars-container">
                   {{#each this.rating_star}}
                   {{#starify this}} {{/starify}}
                   {{/each}}
                 </div>
                 <span>({{rating_count}})</span>
+                {{else}}
+                <span class="p-0">No rating</span>
+                {{/if}}
               </div>
               <div class="course-price">
                 <span class="current">{{vietnamdongFormat price}}</span>

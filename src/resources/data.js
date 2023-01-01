@@ -31,6 +31,13 @@ const data = {
       email: 'avinashjain@gmail.com',
       identity: bcrypt.hashSync('12345'),
       authority: 'LECTURER'
+    },
+    {
+      id: 5,
+      username: 'Mark_Lassoff',
+      email: 'marklassoff@gmail.com',
+      identity: bcrypt.hashSync('12345'),
+      authority: 'LECTURER'
     }
   ],
   students: [
@@ -50,6 +57,11 @@ const data = {
       user_id: 4,
       first_name: 'Avinash',
       last_name: 'Jain'
+    },
+    {
+      user_id: 5,
+      first_name: 'Mark',
+      last_name: 'Lassoff'
     }
   ],
   categories: [
@@ -144,7 +156,7 @@ const data = {
       lecturer_id: 4,
       banner_url: '/images/courses_banner/3.png',
       category_id: 3,
-      price: '999',
+      price: '999000',
       status: 'INCOMPLETE',
       short_description:
         'Learn A-Z everything about Python, from the basics, to advanced topics like Python GUI, Python Data Analysis, and more!',
@@ -156,6 +168,29 @@ const data = {
         .slice(0, 19)
         .replace('T', ' '),
       updated_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
+      // slug: 'learn-python-the-complete-python-programming-course'
+    },
+    {
+      id: 4,
+      name: 'Become a Certified HTML, CSS, JavaScript Web Developer',
+      lecturer_id: 5,
+      banner_url: '/images/courses_banner/4.png',
+      category_id: 2,
+      price: '199000',
+      status: 'INCOMPLETE',
+      short_description:
+        'Complete coverage of HTML, CSS, Javascript while you Earn Four Respected Certifications',
+      detail_description:
+        'Prepare for Industry Certification Exam\nEarn Certification that is Proof of your Competence\nHours and Hours of Video Instruction\nDozens of Code Examples to Download and Study\nOver 25 Engaging Lab Exercises\nAll Lab Solutions\nInstructor Available by Email or on the Forums\nAll Free Tools\nComprehensive Coverage of HTML and CSS\nClient Side Programming with Javascript\nServer Side Development with PHP\nLearn Database Development with mySQL',
+      syllabus: '',
+      created_at: new Date('2022-12-05')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2022-12-24')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
       // slug: 'learn-python-the-complete-python-programming-course'
     }
   ],
