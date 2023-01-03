@@ -46,7 +46,7 @@ export default {
     await enrollService.deleteAll();
     await studentsService.deleteAll();
 
-    console.log(await coursesService.deleteAll());
+    await coursesService.deleteAll();
     await categoriesService.deleteAll();
     await lecturersService.deleteAll();
     await usersService.deleteAll();

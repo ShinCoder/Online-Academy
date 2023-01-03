@@ -303,6 +303,12 @@
 
   &:hover {
     .course-banner {
+      .badge {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 2;
+      }
 
       &::after {
         background-color: rgba(0, 0, 0, 0.3);
@@ -313,6 +319,14 @@
 
   .course-banner {
     position: relative;
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 5px;
+      font-size: 0.7rem;
+      transition: all 0.2s ease-in-out;
+    }
 
     &::after {
       content: "";
@@ -345,8 +359,6 @@
     text-overflow: ellipsis;
     white-space: normal;
   }
-
-  .course-lecturer {}
 
   .course-rating {
     span {
@@ -384,5 +396,3 @@
     }
   }
 }
-
-.hot-course-section {}

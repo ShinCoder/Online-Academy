@@ -27,12 +27,25 @@
 .course a:hover {
   color: var(--primary-hover);
 }
+.course:hover .course-banner .badge {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
 .course:hover .course-banner::after {
   background-color: rgba(0, 0, 0, 0.3);
   transform: scale(1);
 }
 .course .course-banner {
   position: relative;
+}
+.course .course-banner .badge {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  font-size: 0.7rem;
+  transition: all 0.2s ease-in-out;
 }
 .course .course-banner::after {
   content: "";

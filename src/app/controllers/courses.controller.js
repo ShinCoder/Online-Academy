@@ -5,6 +5,8 @@ import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
 import slugger from '../../utils/slug.js';
 
+const HOT_COURSE_LIMIT = 12;
+
 export default {
   async renderCreateCourse(req, res) {
     const allCategories = await categoriesService.findAll();
@@ -262,7 +264,14 @@ export default {
     } else {
       courses = await coursesService.findAllAndRatingByCategory(categoryId);
     }
+
+    let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
+    bestSellerId = bestSellerId.map((obj) => obj.id);
+
     courses.forEach((course) => {
+      if (bestSellerId.includes(course.id)) {
+        course.hot = true;
+      }
       formatUtils.courseCardFormat(course);
     });
 

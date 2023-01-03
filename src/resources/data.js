@@ -45,11 +45,23 @@ const data = {
       email: 'stoneriverelearning@gmail.com',
       identity: bcrypt.hashSync('12345'),
       authority: 'LECTURER'
+    },
+    {
+      id: 7,
+      username: 'student2',
+      email: 'student2@gmail.com',
+      identity: bcrypt.hashSync('12345'),
+      authority: 'STUDENT'
     }
   ],
   students: [
     {
       user_id: 2,
+      first_name: 'Kiệt',
+      last_name: 'Trần'
+    },
+    {
+      user_id: 7,
       first_name: 'Kiệt',
       last_name: 'Trần'
     }
@@ -344,6 +356,13 @@ const data = {
       course_id: 1,
       status: 'LEARNING',
       rate_point: 4,
+      enroll_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+    },
+    {
+      student_id: 7,
+      course_id: 2,
+      status: 'LEARNING',
+      rate_point: 2,
       enroll_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
     },
     {

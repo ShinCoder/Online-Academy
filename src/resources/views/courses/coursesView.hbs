@@ -50,6 +50,9 @@
                     <div class="card course h-100">
                         <a href="#" class="course-banner">
                             <img src="/images/courses_banner/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+                            {{#if hot}}
+                            <span class="badge rounded-pill bg-warning">Best Seller</span>
+                            {{/if}}
                         </a>
                         <div class="card-body d-flex flex-column justify-content-between">
                             <a href="#" class="card-title course-title">{{name}}</a>
