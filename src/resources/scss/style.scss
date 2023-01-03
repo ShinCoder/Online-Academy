@@ -180,6 +180,9 @@ input[type="text"]:focus::-moz-placeholder {
 }
 
 .header-bottom {
+	.dropdown-menu {
+		transition: display 1s ease;
+	}
 
 	.navbar {
 		background-color: var(--text-primary);
@@ -219,4 +222,43 @@ input[type="text"]:focus::-moz-placeholder {
 			padding: 0;
 		}
 	}
+}
+
+.dropdown-menu {
+	li {
+		position: relative;
+
+		.submenu {
+			position: absolute;
+			width: 100%;
+			
+			left: -100%;
+			top: 0;
+			background-color: var(--text-primary);
+			border-radius: 0.25rem;
+			border: 1px solid rgba(0, 0, 0, 0.15);
+			padding: 0;
+			display: none;
+
+			li {
+				width: 100%;
+				list-style-type: none;
+				display: list-item;
+				text-align: -webkit-match-parent;
+			}
+
+			@media only screen and (max-width: 991px) {
+				border-color: var(--primary);
+				z-index: 5;
+				top: 100%;
+				left: 0;
+			}
+		}
+
+		&:hover .submenu {
+			display: block;
+		}
+	}
+
+
 }

@@ -3,7 +3,6 @@ import multer from 'multer';
 import path from 'path';
 import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
-import db from '../../config/db/mysql.js';
 import slugger from '../../utils/slug.js';
 
 export default {
@@ -206,10 +205,12 @@ export default {
 
     let categoryId = [];
 
-    if (!category.parent_category_id) {
+    if (!category[0].parent_category_id) {
       const categories = await categoriesService.findByParentId(category[0].id);
       categories.forEach((cat) => categoryId.push(cat.id));
-    } else categoryId.push(category[0].id);
+    } else {
+      categoryId.push(category[0].id);
+    }
 
     const order = [];
     let sortRatingTop = false;

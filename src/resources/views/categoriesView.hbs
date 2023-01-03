@@ -1,0 +1,26 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/categories.css">
+{{/section}}
+
+<div class="container">
+    <div class="section categories-section mt-4" id="categories-section">
+    <h1 class="mb-4">Categories</h1>
+    {{#each lcCategories}}
+    <a href="/courses/category/{{slug}}" class="parent-categories">{{name}} {{#if this.hot}}<span
+        class="badge rounded-pill bg-danger">HOT!</span>{{/if}}</a>
+    <div class="row">
+      {{#each this.child_categories}}
+      <div class="col-3 col-md-2 mb-3">
+        <div class="categories-container">
+          <a href="/courses/category/{{slug}}" class="categories" style="background-image: url({{banner_url}});">
+            {{!-- <img src="{{banner_url}}" class="card-img-top" alt="{{name}}"> --}}
+            <div class="categories-title">{{name}}</div>
+            {{#if this.hot}}<span class="badge rounded-pill bg-danger p-1">HOT!</span>{{/if}}
+          </a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+</div>

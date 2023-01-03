@@ -157,6 +157,9 @@ input[type=text]:focus::-moz-placeholder {
   color: var(--primary);
 }
 
+.header-bottom .dropdown-menu {
+  transition: display 1s ease;
+}
 .header-bottom .navbar {
   background-color: var(--text-primary);
 }
@@ -189,6 +192,38 @@ input[type=text]:focus::-moz-placeholder {
 }
 .header-bottom.stick .navbar {
   padding: 0;
+}
+
+.dropdown-menu li {
+  position: relative;
+}
+.dropdown-menu li .submenu {
+  position: absolute;
+  width: 100%;
+  left: -100%;
+  top: 0;
+  background-color: var(--text-primary);
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0;
+  display: none;
+}
+.dropdown-menu li .submenu li {
+  width: 100%;
+  list-style-type: none;
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+@media only screen and (max-width: 991px) {
+  .dropdown-menu li .submenu {
+    border-color: var(--primary);
+    z-index: 5;
+    top: 100%;
+    left: 0;
+  }
+}
+.dropdown-menu li:hover .submenu {
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */
