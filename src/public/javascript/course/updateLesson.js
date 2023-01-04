@@ -22,10 +22,8 @@ lessonVideoInputRef.addEventListener("change", () => {
         const imageReader = new FileReader();
         imageReader.onload = async (e) => {
             const oldVideo = document.getElementById("videoSource");
-            if (oldVideo) {
-                oldVideo.remove();
-            }
-          
+            oldVideo.remove();
+            
             const videoCreate = document.createElement('video');
             videoCreate.setAttribute('class', 'video-js vjs-default-skin lessonVideo')
             videoCreate.setAttribute('controls', true)
@@ -63,10 +61,6 @@ lessonForm.addEventListener('submit', (event) => {
     if (!lessonDescription) {
         check = false;
         lessonDescriptionError.classList.remove('d-none');
-    }
-    if (!lessonVideoInputRef.files || !lessonVideoInputRef.files.length) {
-        check = false;
-        lessonVideoError.classList.remove('d-none');
     }
 
 

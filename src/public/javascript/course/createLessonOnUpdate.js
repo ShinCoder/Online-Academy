@@ -25,7 +25,7 @@ lessonVideoInputRef.addEventListener("change", () => {
             if (oldVideo) {
                 oldVideo.remove();
             }
-          
+
             const videoCreate = document.createElement('video');
             videoCreate.setAttribute('class', 'video-js vjs-default-skin lessonVideo')
             videoCreate.setAttribute('controls', true)

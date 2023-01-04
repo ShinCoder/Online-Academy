@@ -1,0 +1,84 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/course/updateCourse.css">
+{{/section}}
+
+<form method="post" action="/courses/{{this.course.id}}/update" id="mainCreateCourseForm" enctype="multipart/form-data">
+    <div class="course-header-wrapper">
+        <input value="{{this.course.name}}" autocomplete="off" id="courseTitle" name="courseTitle" type="text"
+            class="form-control text-primary" placeholder="Please fill in course title" />
+        <p id="courseNameInputError" class="d-none">Please fill in course title !</p>
+    </div>
+
+    <div class="courseImage">
+        <div class="course-image-wrapper">
+            <img src="/images/courses/{{this.course.uploadCourseBanner}}" id="image-preview" class="img-fluid"
+                alt="placeholder" />
+            <div class="course-image-wrapper-overlay">
+                <div>
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    Upload Image
+                </div>
+            </div>
+        </div>
+        <input autocomplete="off" type="file" id="uploadCourseBannerInput" name="uploadCourseBannerInput" />
+        <p id="imageBannerInputError" class="d-none">Please choose an image !</p>
+    </div>
+
+    <div class="courseInformationWrapper">
+        <div class="courseSelectWrapper">
+            <h1 class="courseDetailTitle text-primary">Category</h1>
+            <select class="form-select" name="courseCategory" id="courseCategory">
+                <option disabled selected class="defaultSelect" value="{{this.course.courseCategoryId}}">{{this.course.courseCategory}}</option>
+                {{#each this.categories}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+            <p id="courseCategoryInputError" class="d-none courseDetailError">Please choose a category !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Short Description</h1>
+            <textarea name="shortDescription" id="shortDescription">
+                {{{this.course.shortDescription}}}
+            </textarea>
+            <p id="courseShortDescriptionError" class="d-none courseDetailError">Please fill in course short description
+                !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Detail Description</h1>
+            <textarea name="detailDescription" id="detailDescription">
+                {{{this.course.detailDescription}}}
+            </textarea>
+            <p id="courseDetailDescriptionError" class="d-none courseDetailError">Please fill in course detail
+                description !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Syllabus</h1>
+            <textarea name="syllabusDescription" id="syllabusDescription">
+                {{{this.course.syllabus}}}
+            </textarea>
+            <p id="syllabusDescriptionError" class="d-none courseDetailError">Please fill in course syllasbus !</p>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Price</h1>
+            <input value="{{this.course.price}}" autocomplete="off" class="priceCourseInput" name="coursePrice" id="coursePrice"
+                placeholder="Please type in price for this course (VND, ex: 50000 -> 50.000 VND)" />
+            <p id="coursePriceError" class="d-none courseDetailError">Please fill in price of course !</p>
+        </div>
+
+        <div class="submitCourse">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-book" aria-hidden="true"></i> UPDATE COURSE
+            </button>
+        </div>
+    </div>
+
+
+</form>
+
+{{#section 'js'}}
+<script src="/javascript/course/updateCourse.js"></script>
+{{/section}}

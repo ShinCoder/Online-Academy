@@ -359,8 +359,6 @@
     padding         : 16px;
 }
 
-.chaptersWrapper {}
-
 .eachChapterWrapper {
     margin-bottom   : 24px;
     padding         : 32px 16px;
@@ -429,4 +427,17 @@
     border: unset;
     font-size: 24px;
     margin-left: 32px;
+}
+
+.chaptersWrapper {
+    background-color: #ccc;
+    padding: 24px 12px;
+}
+
+.eachLessonWrapper {
+    background-color: #fff;
+    text-align: center;
+    padding: 32px 24px;
+    margin: 24px 0;
+    border-radius: 16px;
 }

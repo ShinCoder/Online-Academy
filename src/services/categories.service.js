@@ -19,5 +19,9 @@ export default {
 
   deleteAll() {
     return db('categories').del();
+  },
+
+  findByName(name) {
+    return db('categories').where('name', name);
   }
 };

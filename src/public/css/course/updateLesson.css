@@ -1,25 +1,25 @@
-.chapterAllWrapper {
-    padding-bottom: 48px;
+#lessonForm {
+    padding   : 64px 32px 32px 32px;
+    min-height: fit-content;
+
 }
 
 .course-header-wrapper {
-    padding        : 64px 32px 0 32px;
     display        : flex;
     justify-content: center;
     flex-direction : column;
     align-items    : center;
-    min-height     : 250px;
+    min-height     : 150px;
     box-sizing     : border-box;
 }
 
-.chapter-header-wrapper {
-    padding         : 16px 32px 16px 32px;
-    display         : flex;
-    justify-content : center;
-    flex-direction  : column;
-    align-items     : center;
-    box-sizing      : border-box;
-    background-color: #ccc;
+.lesson-header-wrapper {
+    display        : flex;
+    justify-content: center;
+    flex-direction : column;
+    align-items    : center;
+    box-sizing     : border-box;
+    margin-bottom  : 32px;
 }
 
 .course-header-wrapper input {
@@ -34,22 +34,16 @@
     border-radius : 16px;
 }
 
-.chapter-header-wrapper input {
-    font-size     : 28px;
+.lesson-header-wrapper input {
+    font-size     : 36px;
     text-align    : center;
-    width         : 50%;
+    width         : 100%;
     font-weight   : 600;
     text-transform: uppercase;
     border        : 3px solid #000;
     height        : fit-content;
     display       : block;
     border-radius : 16px;
-    margin-bottom : 16px;
-}
-
-.course-header-wrapper h1 {
-    font-size     : 64px;
-    text-transform: uppercase;
 }
 
 .courseImage {
@@ -62,7 +56,7 @@
     position        : relative;
     background-color: #ccc;
     border          : 1px solid #000;
-    cursor          : default;
+    cursor          : pointer;
 }
 
 .course-image-wrapper-overlay {
@@ -125,15 +119,6 @@
 .richTextWrapper {
     width        : 100%;
     margin-bottom: 36px;
-}
-
-.courseChapterWrapper {
-    font-size    : 48px;
-    margin-bottom: 16px;
-}
-
-.addACourseTitle {
-    font-size: 36px;
 }
 
 .richTextWrapper>h1:first-of-type {
@@ -263,11 +248,6 @@
     display: flex;
 }
 
-.submitCourse {
-    display        : flex;
-    justify-content: flex-end;
-}
-
 .submitCourse>button {
     padding: 16px 48px;
 }
@@ -334,7 +314,7 @@
 
 .lessonVideo {
     width : 100%;
-    height: 360px;
+    height: 460px;
 }
 
 .uploadLessonVideo {
@@ -345,88 +325,14 @@
     margin: 24px 0;
 }
 
-.addChapterButtonWrapper {
-    margin-top: 24px;
+#videoWrapper {
+    border: none;
 }
 
-#chapterTitleError {
+#lessonNameInputError {
     font-size: 24px;
 }
 
-.courseDescriptionWrapper {
-    background-color: rgb(255, 255, 255, 0.8);
-    border-radius   : 16px;
-    padding         : 16px;
-}
-
-.chaptersWrapper {}
-
-.eachChapterWrapper {
-    margin-bottom   : 24px;
-    padding         : 32px 16px;
-    background-color: #ccc;
-    border-radius   : 16px;
-}
-
-.chapterTitle {
-    font-size     : 36px;
-    color         : var(--bs-indigo);
+.courseChapterTitle {
     text-transform: uppercase;
-}
-
-.chapterTitle>span {
-    text-decoration: underline;
-}
-
-.lessonDescription {
-    background-color: rgb(236, 230, 230);
-    padding         : 8px 16px;
-    border-radius   : 16px;
-    margin-bottom   : 16px;
-}
-
-.lessonDescriptionTitle {
-    font-size: 24px;
-    color    : var(--bs-gray-dark);
-}
-
-.lessonDescriptionTitle span {
-    color          : #000;
-    text-decoration: underline;
-}
-
-.lessonTitle {
-    color: var(--bs-gray-dark);
-}
-
-.lessonTitle span {
-    color          : #000;
-    text-decoration: underline;
-}
-
-.checkboxComplete {
-    cursor: pointer;
-}
-
-.checkboxComplete input {
-    cursor: pointer;
-}
-
-.checkboxComplete label {
-    cursor: pointer;
-}
-
-.checkboxComplete label:hover {
-    text-decoration: underline;
-}
-
-.coursePriceWrapper {
-    width: fit-content;
-    padding: 8px 32px;
-    background-color: var(--bs-warning);
-    color: #fff;
-    border-radius: 16px;
-    border: unset;
-    font-size: 24px;
-    margin-left: 32px;
 }
