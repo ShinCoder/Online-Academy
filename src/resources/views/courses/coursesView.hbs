@@ -1,0 +1,93 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/courses.css">
+{{/section}}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-lg-3 mb-4">
+            <div class="filter-area">
+                <form action="#" class="filter-form">
+                    <h4>Sort by</h4>
+                    <div class="row">
+                        <div class="col-6 col-lg-12">
+                            <h5 class="mt-2">Rating</h5>
+                            <select name="sortRating" class="form-select">
+                                <option value="" selected>None</option>
+                                <option value="Top">Top Rating</option>
+                            </select>
+                            <h5 class="mt-2">Date</h5>
+                            <select name="sortDate" class="form-select">
+                                <option value="" selected>None</option>
+                                <option value="NewToOld">Newest to Oldest</option>
+                                <option value="OldToNew">Oldest to Newest</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-lg-12">
+                            <h5 class="mt-2">Price</h5>
+                            <select name="sortPrice" class="form-select">
+                                <option value="" selected>None</option>
+                                <option value="MostExpensive">Most Expensive</option>
+                                <option value="Cheapest">Cheapest</option>
+                            </select>
+                            <h5 class="mt-2">Purchases</h5>
+                            <select name="sortPurchased" class="form-select">
+                                <option value="" selected>None</option>
+                                <option value="MostPurchased">Most purchased</option>
+                                <option value="LeastPurchased">Least purchased</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-2"><button type="submit"
+                            class="btn btn-primary">Apply</button></div>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-lg-9">
+            <a href="/courses/category/{{category.slug}}" class="category-name">{{category.name}}</a>
+            <div class="row mt-4">
+                {{#each courses}}
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="card course h-100">
+                        <a href="#" class="course-banner">
+                            <img src="/images/courses_banner/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+                            {{#if hot}}
+                            <span class="badge rounded-pill bg-warning">Best Seller</span>
+                            {{/if}}
+                        </a>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <a href="#" class="card-title course-title">{{name}}</a>
+                            <div>
+                                <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
+                                <div class="course-category">Category: <a href="#">{{category_name}}</a></div>
+                                <div class="course-rating">
+                                    {{#if rating_point}}
+                                    <span>{{ratingpointFormat rating_point}}</span>
+                                    <div class="stars-container">
+                                        {{#each this.rating_star}}
+                                        {{#starify this}} {{/starify}}
+                                        {{/each}}
+                                    </div>
+                                    <span>({{rating_count}})</span>
+                                    {{else}}
+                                    <span class="p-0">No rating</span>
+                                    {{/if}}
+                                </div>
+                                <div class="course-price">
+                                    <span class="current">{{vietnamdongFormat price}}</span>
+                                    {{#if this.sale_id}}
+                                    <span class="base">{{vietnamdongFormat saled_price}}</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section 'js'}}
+<script src="/javascript/courses.js"></script>
+{{/section}}

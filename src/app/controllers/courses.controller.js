@@ -1,9 +1,11 @@
+import formatUtils from '../../utils/format.js';
 import multer from 'multer';
 import path from 'path';
 import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
-import db from '../../config/db/mysql.js';
 import slugger from '../../utils/slug.js';
+
+const HOT_COURSE_LIMIT = 12;
 
 export default {
   async renderCreateCourse(req, res) {
@@ -22,7 +24,8 @@ export default {
         cb(null, './src/public/images/courses');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
+        const filename =
+          file.fieldname + '_' + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
         bannerName = filename;
         cb(null, filename);
       }
@@ -31,7 +34,8 @@ export default {
 
     upload.fields([
       {
-        name: "uploadCourseBannerInput", maxCount: 1
+        name: 'uploadCourseBannerInput',
+        maxCount: 1
       }
     ])(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
@@ -53,7 +57,7 @@ export default {
         is_completed: false,
         price: Number(req.body.coursePrice),
         slug: slug
-      }
+      };
 
       try {
         const returningResult = await coursesService.add(resultCourse);
@@ -64,7 +68,7 @@ export default {
         console.log("Add course error: ", error);
         //render fail screen here
       }
-    })
+    });
   },
 
   async renderCreateChapter(req, res) {
@@ -112,7 +116,7 @@ export default {
     const resultChapter = {
       course_id: courseId,
       title: req.body.chapterTitle
-    }
+    };
 
     try {
       const returningResult = await coursesService.addChapter(resultChapter);
@@ -151,7 +155,8 @@ export default {
         cb(null, './src/public/videos/lessons');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
+        const filename =
+          file.fieldname + '_' + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
         bannerName = filename;
         cb(null, filename);
       }
@@ -160,7 +165,8 @@ export default {
 
     upload.fields([
       {
-        name: "uploadLessonVideo", maxCount: 1
+        name: 'uploadLessonVideo',
+        maxCount: 1
       }
     ])(req, res, async (err) => {
       if (err instanceof multer.MulterError) {
@@ -200,7 +206,10 @@ export default {
     const courseId = req.params.id;
 
     try {
-      const returningResult = await coursesService.updateStatus(courseId, req.body?.checkFinishCourse ? true : false);
+      const returningResult = await coursesService.updateStatus(
+        courseId,
+        req.body?.checkFinishCourse ? true : false
+      );
       req.session.createCourse = null;
 
       const allCategories = await categoriesService.findAll();
@@ -535,4 +544,82 @@ export default {
     })
   },
 
-};  
+  async showByCategory(req, res) {
+    const category = await categoriesService.findBySlug(req.params.slug);
+
+    let categoryId = [];
+
+    if (!category[0].parent_category_id) {
+      const categories = await categoriesService.findByParentId(category[0].id);
+      categories.forEach((cat) => categoryId.push(cat.id));
+    } else {
+      categoryId.push(category[0].id);
+    }
+
+    const order = [];
+    let sortRatingTop = false;
+    let sortDateNew = false;
+    let sortDateOld = false;
+    let sortPriceExp = false;
+    let sortPriceCheap = false;
+    let sortPurchasedMost = false;
+    let sortPurchasedLeast = false;
+
+    const query = { ...req.query };
+
+    if (query.sortRating) {
+      order.push({
+        column: 'rating_point',
+        order: query.sortRating == 'Top' ? 'desc' : 'acs'
+      });
+      sortRatingTop = query.sortRating == 'Top' ? 'true' : 'false';
+    }
+
+    if (query.sortDate) {
+      order.push({
+        column: 'created_at',
+        order: query.sortDate == 'NewToOld' ? 'desc' : 'acs'
+      });
+    }
+
+    if (query.sortPrice) {
+      order.push({
+        column: 'price',
+        order: query.sortPrice == 'MostExpensive' ? 'desc' : 'acs'
+      });
+    }
+
+    if (query.sortPurchased) {
+      order.push({
+        column: 'purchased_count',
+        order: query.sortPurchased == 'MostPurchased' ? 'desc' : 'acs'
+      });
+    }
+
+    let courses;
+
+    if (order) {
+      courses = await coursesService.findAllAndRatingByCategory(
+        categoryId,
+        order
+      );
+    } else {
+      courses = await coursesService.findAllAndRatingByCategory(categoryId);
+    }
+
+    let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
+    bestSellerId = bestSellerId.map((obj) => obj.id);
+
+    courses.forEach((course) => {
+      if (bestSellerId.includes(course.id)) {
+        course.hot = true;
+      }
+      formatUtils.courseCardFormat(course);
+    });
+
+    res.render('courses/coursesView', {
+      courses: courses,
+      category: category[0]
+    });
+  }
+};

@@ -21,16 +21,17 @@ export default {
     const category = await categoriesService.findById(course.category_id);
     course.category_name = category[0].name;
 
+    const rating = await enrollService.getRatingByCourseId(course.id);
     if (!course.rating_point) {
-      const rating = await enrollService.getRatingByCourseId(course.id);
       if (rating[0]) {
-        course.rating_point = rating[0].ratingSum / rating[0].ratingCount;
-        course.rating_count = rating[0].ratingCount;
+        course.rating_point = rating[0].ratingPoint;
       } else {
         course.rating_point = 0;
-        course.rating_count = 0;
       }
     }
+
+    if (rating[0]) course.rating_count = rating[0].ratingCount;
+    else course.rating_count = 0;
 
     if (course.rating_point == 5) course.rating_star = STAR_5;
     else if (course.rating_point >= 4.5) course.rating_star = STAR_4_5;

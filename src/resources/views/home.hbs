@@ -40,16 +40,15 @@
 </div>
 <div class="container-fluid px-3 px-md-4 px-lg-5 main-content-area">
   <div class="section categories-section mt-4" id="categories-section">
-    <h1 class="mb-4">Categories</h1>
-    {{#each categories}}
-    <a href="#" class="parent-categories">{{name}} {{#if this.hot}}<span
+    <h1 class="mb-4">This week's hot categories</h1>
+    {{!-- {{#each categories}}
+    <a href="/courses/category/{{slug}}" class="parent-categories">{{name}} {{#if this.hot}}<span
         class="badge rounded-pill bg-danger">HOT!</span>{{/if}}</a>
     <div class="row">
       {{#each this.child_categories}}
       <div class="col-3 col-md-2 mb-3">
         <div class="categories-container">
-          <a href="#" class="categories" style="background-image: url({{banner_url}});">
-            {{!-- <img src="{{banner_url}}" class="card-img-top" alt="{{name}}"> --}}
+          <a href="/courses/category/{{slug}}" class="categories" style="background-image: url({{banner_url}});">
             <div class="categories-title">{{name}}</div>
             {{#if this.hot}}<span class="badge rounded-pill bg-danger p-1">HOT!</span>{{/if}}
           </a>
@@ -57,17 +56,33 @@
       </div>
       {{/each}}
     </div>
-    {{/each}}
+    {{/each}} --}}
+    <div class="row">
+      {{#each hotCategories}}
+      <div class="col-3 col-md-2 mb-3">
+        <div class="categories-container">
+          <a href="/courses/category/{{slug}}" class="categories" style="background-image: url({{banner_url}});">
+            <div class="categories-title">{{name}}</div>
+            {{#if this.hot}}<span class="badge rounded-pill bg-danger p-1">HOT!</span>{{/if}}
+          </a>
+        </div>
+      </div>
+      {{/each}}
+
+    </div>
   </div>
 
   <div class="section hot-course-section mt-4">
-    <h1 class="mb-4">Hottest courses</h1>
+    <h1 class="mb-4">Best seller</h1>
     <div class="row">
       {{#each hotCourses}}
-      <div class="col-6 col-md-4 col-lg-3">
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card course h-100">
           <a href="#" class="course-banner">
-            <img src="{{banner_url}}" class="card-img-top" alt="{{name}}">
+            <img src="/images/courses_banner/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+            {{#if hot}}
+            <span class="badge rounded-pill bg-warning">Best Seller</span>
+            {{/if}}
           </a>
           <div class="card-body d-flex flex-column justify-content-between">
             <a href="#" class="card-title course-title">{{name}}</a>
@@ -84,7 +99,7 @@
                 </div>
                 <span>({{rating_count}})</span>
                 {{else}}
-                 <span class="p-0">No rating</span>
+                <span class="p-0">No rating</span>
                 {{/if}}
               </div>
               <div class="course-price">
@@ -105,10 +120,13 @@
     <h1 class="mb-4">New courses</h1>
     <div class="row">
       {{#each newCourses}}
-      <div class="col-6 col-md-4 col-lg-3">
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card course h-100">
           <a href="#" class="course-banner">
-            <img src="{{banner_url}}" class="card-img-top" alt="{{name}}">
+            <img src="/images/courses_banner/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+            {{#if hot}}
+            <span class="badge rounded-pill bg-warning">Best Seller</span>
+            {{/if}}
           </a>
           <div class="card-body d-flex flex-column justify-content-between">
             <a href="#" class="card-title course-title">{{name}}</a>

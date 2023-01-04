@@ -13,16 +13,46 @@ export default {
     }
   },
 
-  findAllAndRating(sort) {
+  // findAllAndRating(sort) {
+  //   if (sort) {
+  //   } else {
+  //     return db('courses')
+  //       .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+  //       .select('courses.*')
+  //       .avg('enroll.rate_point', { as: 'rating_point' })
+  //       .count('enroll.rate_point', { as: 'rating_count' })
+  //       .groupBy('courses.id');
+  //   }
+  // },
+
+  findAllAndRatingByCategory(id, sort) {
     if (sort) {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.course_id', { as: 'purchased_count' })
+        .whereIn('courses.category_id', id)
+        .groupBy('courses.id')
+        .orderBy(sort);
     } else {
       return db('courses')
         .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
         .select('courses.*')
         .avg('enroll.rate_point', { as: 'rating_point' })
-        .count('enroll.rate_point', { as: 'rating_count' })
+        .count('enroll.rate_point', { as: 'purchased_count' })
+        .whereIn('courses.category_id', id)
         .groupBy('courses.id');
     }
+  },
+
+  getBestSellerId(limit) {
+    return db('courses')
+      .join('enroll', 'courses.id', '=', 'enroll.course_id')
+      .select('courses.id')
+      .groupBy('courses.id')
+      .orderByRaw('count(enroll.course_id) desc')
+      .limit(limit);
   },
 
   findById(id) {
