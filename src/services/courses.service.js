@@ -95,5 +95,33 @@ export default {
 
   updateStatus(id, isCompleted) {
     return db('courses').update({ is_completed: isCompleted }).where('id', id);
+  },
+
+  updateCourse(id, entity) {
+    return db('courses').update(entity).where('id', id);
+  },
+
+  updateChapter(id, entity) {
+    return db('chapters').update(entity).where('id', id);
+  },
+
+  findAllChapterOfCourse(courseId) {
+    return db('chapters').where('course_id', courseId);
+  },
+
+  findAllLessonOfChapter(chapterId) {
+    return db('lessons').where('chapter_id', chapterId);
+  },
+
+  getLessonById(id) {
+    return db('lessons').where('id', id);
+  },
+
+  getChapterById(id) {
+    return db('chapters').where('id', id);
+  },
+
+  updateLesson(id, entity) {
+    return db('lessons').update(entity).where('id', id);
   }
 };
