@@ -20,7 +20,11 @@ export default function (app, dirname) {
         },
         vietnamdongFormat: (val) => {
           return numeral(val).format('0,0').replace(/,/g, '.') + 'đ';
-        }
+        },
+        ifEquals: (a, b, option) => {
+          return a == b ? option : '';
+        },
+        sum: (a, b) => a + b
       }
     })
   );

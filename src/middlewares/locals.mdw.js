@@ -64,4 +64,12 @@ export default function (app) {
     res.locals.lcCategories = categoriesList;
     next();
   });
+
+  app.use(function (req, res, next) {
+    if (typeof req.session.viewSort === 'undefined') {
+      req.session.viewSort = {};
+    }
+    res.locals.viewSort = req.session.viewSort;
+    next();
+  });
 }

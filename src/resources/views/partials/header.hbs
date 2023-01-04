@@ -46,10 +46,10 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 {{#each lcCategories}}
                                 <li>
-                                    <a class="dropdown-item" href="/courses/category/{{slug}}">{{name}}</a>
+                                    <a class="dropdown-item" href="/courses/category/{{slug}}?page=1">{{name}}</a>
                                     <ul class="submenu">
                                         {{#each this.child_categories}}
-                                        <li><a class="dropdown-item" href="/courses/category/{{slug}}">{{name}}</a></li>
+                                        <li><a class="dropdown-item" href="/courses/category/{{slug}}?page=1">{{name}}</a></li>
                                         {{/each}}
                                     </ul>
                                 </li>

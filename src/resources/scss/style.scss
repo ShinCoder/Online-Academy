@@ -199,6 +199,10 @@ input[type="text"]:focus::-moz-placeholder {
 			&:hover {
 				color: var(--primary) !important;
 			}
+
+			&.dropdown-item:active {
+				color:var(--text-primary) !important;
+			}
 		}
 
 		@media only screen and (min-width: 992px) {
@@ -230,9 +234,9 @@ input[type="text"]:focus::-moz-placeholder {
 
 		.submenu {
 			position: absolute;
-			width: 100%;
+			min-width: 100%;
 			
-			left: -100%;
+			right: 100%;
 			top: 0;
 			background-color: var(--text-primary);
 			border-radius: 0.25rem;
@@ -241,10 +245,15 @@ input[type="text"]:focus::-moz-placeholder {
 			display: none;
 
 			li {
-				width: 100%;
+				// width: 100%;
 				list-style-type: none;
 				display: list-item;
 				text-align: -webkit-match-parent;
+
+				a {
+					display: flex;
+					position: relative;
+				}
 			}
 
 			@media only screen and (max-width: 991px) {
@@ -260,5 +269,9 @@ input[type="text"]:focus::-moz-placeholder {
 		}
 	}
 
-
+	.dropdown-item {
+		&:active {
+			color: var(--text-primary) !important;
+		}
+	}
 }

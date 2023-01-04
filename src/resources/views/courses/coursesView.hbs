@@ -6,45 +6,60 @@
     <div class="row">
         <div class="col-12 col-lg-3 mb-4">
             <div class="filter-area">
-                <form action="#" class="filter-form">
+                <form method="POST" action="/courses/sortOrder" class="filter-form">
                     <h4>Sort by</h4>
                     <div class="row">
                         <div class="col-6 col-lg-12">
                             <h5 class="mt-2">Rating</h5>
                             <select name="sortRating" class="form-select">
-                                <option value="" selected>None</option>
-                                <option value="Top">Top Rating</option>
+                                <option value="" {{#ifEquals viewSort.sortRating '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="Top" {{#ifEquals viewSort.sortRating 'Top' 'selected' }}{{/ifEquals}}>Top
+                                    Rating</option>
                             </select>
                             <h5 class="mt-2">Date</h5>
                             <select name="sortDate" class="form-select">
-                                <option value="" selected>None</option>
-                                <option value="NewToOld">Newest to Oldest</option>
-                                <option value="OldToNew">Oldest to Newest</option>
+                                <option value="" {{#ifEquals viewSort.sortDate '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="NewToOld" {{#ifEquals viewSort.sortDate 'NewToOld' 'selected'
+                                    }}{{/ifEquals}}>Newest to Oldest</option>
+                                <option value="OldToNew" {{#ifEquals viewSort.sortDate 'OldToNew' 'selected'
+                                    }}{{/ifEquals}}>Oldest to Newest</option>
                             </select>
                         </div>
                         <div class="col-6 col-lg-12">
-                            <h5 class="mt-2">Price</h5>
-                            <select name="sortPrice" class="form-select">
-                                <option value="" selected>None</option>
-                                <option value="MostExpensive">Most Expensive</option>
-                                <option value="Cheapest">Cheapest</option>
-                            </select>
                             <h5 class="mt-2">Purchases</h5>
                             <select name="sortPurchased" class="form-select">
-                                <option value="" selected>None</option>
-                                <option value="MostPurchased">Most purchased</option>
-                                <option value="LeastPurchased">Least purchased</option>
+                                <option value="" {{#ifEquals viewSort.sortPurchased '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="MostPurchased" {{#ifEquals
+                                    viewSort.sortPurchased 'MostPurchased' 'selected' }}{{/ifEquals}}>Most purchased
+                                </option>
+                                <option value="LeastPurchased" {{#ifEquals
+                                    viewSort.sortPurchased 'LeastPurchased' 'selected' }}{{/ifEquals}}>Least purchased
+                                </option>
+                            </select>
+                            <h5 class="mt-2">Price</h5>
+                            <select name="sortPrice" class="form-select">
+                                <option value="" {{#ifEquals viewSort.sortPrice '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="MostExpensive" {{#ifEquals viewSort.sortPrice 'MostExpensive' 'selected'
+                                    }}{{/ifEquals}}>Most Expensive</option>
+                                <option value="Cheapest" {{#ifEquals viewSort.sortPrice 'Cheapest' 'selected'
+                                    }}{{/ifEquals}}>Cheapest</option>
                             </select>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center mt-2"><button type="submit"
-                            class="btn btn-primary">Apply</button></div>
+                    <div class="d-flex justify-content-around mt-2">
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    </div>
                 </form>
             </div>
         </div>
         <div class="col-12 col-lg-9">
             <a href="/courses/category/{{category.slug}}" class="category-name">{{category.name}}</a>
             <div class="row mt-4">
+                {{#if courses}}
                 {{#each courses}}
                 <div class="col-6 col-md-4 mb-3">
                     <div class="card course h-100">
@@ -83,6 +98,28 @@
                     </div>
                 </div>
                 {{/each}}
+                {{else}}
+                <h4>No course was found</h4>
+                {{/if}}
+                <div class="col-12 d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item {{#ifEquals pagination.currentPage 1 "disabled"}}{{/ifEquals}}">
+                                <a class="page-link" href="?page={{sum pagination.currentPage -1}}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {{#each pagination.pages}}
+                            <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                            {{/each}}
+                            <li class="page-item {{#ifEquals pagination.currentPage pagination.lastPage "disabled"}}{{/ifEquals}}">
+                                <a class="page-link" href="?page={{sum pagination.currentPage 1}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
