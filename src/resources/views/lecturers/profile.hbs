@@ -1,0 +1,61 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/lecturers/profile.css">
+{{/section}}
+
+<form method="post" action="/lecturers/profile/update" id="mainCreateCourseForm" enctype="multipart/form-data">
+
+    <div class="courseImage">
+        <div class="course-image-wrapper">
+            <img id="image-preview" class="img-fluid" src="/images/lecturers/{{this.profile.avatar_url}}" alt="placeholder" />
+            <div class="course-image-wrapper-overlay">
+                <div>
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    Upload Avatar
+                </div>
+            </div>
+        </div>
+        <input autocomplete="off" type="file" id="uploadProfileAvatarInput" name="uploadProfileAvatarInput" />
+    </div>
+    <p id="imageBannerInputError" class="d-none">Please choose an image !</p>
+
+    <div class="courseInformationWrapper">
+
+        <div class="d-flex justify-content-center">
+            <div class="text-center nameWrapper">
+                <h1 class="courseDetailTitle text-primary">First Name</h1>
+                <input value="{{this.profile.first_name}}" autocomplete="off" id="profileFirstName" type="text" name="firstName" placeholder="Please fill in your first name"
+                    class="form-control form-control-input" />
+                <p id="profileFirstNameError" class="d-none courseDetailError">Please fill in a your first name
+                    !</p>
+
+            </div>
+
+            <div class="text-center nameWrapper">
+                <h1 class="courseDetailTitle text-primary">Last Name</h1>
+                <input value="{{this.profile.last_name}}" autocomplete="off" id="profileLastName" type="text" name="lastName" placeholder="Please fill in your last name"
+                    class="form-control form-control-input" />
+                <p id="profileLastNameError" class="d-none courseDetailError">Please fill in your last name
+                    !</p>
+            </div>
+        </div>
+
+        <div class="richTextWrapper">
+            <h1 class="courseDetailTitle text-primary">Your Career Description</h1>
+            <textarea name="shortDescription" id="shortDescription">
+                {{{this.profile.career_description}}}
+            </textarea>
+            <p id="profileShortDescriptionError" class="d-none courseDetailError">Please fill in a short description !
+            </p>
+        </div>
+
+        <div class="submitCourse">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-book" aria-hidden="true"></i> UPDATE PROFILE
+            </button>
+        </div>
+    </div>
+</form>
+
+{{#section 'js'}}
+<script src="/javascript/lecturer/profile.js"></script>
+{{/section}}
