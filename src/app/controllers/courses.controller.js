@@ -9,7 +9,7 @@ const HOT_COURSE_LIMIT = 12;
 
 export default {
   async renderCreateCourse(req, res) {
-    const allCategories = await categoriesService.findAll();
+    const allCategories = await categoriesService.findAllNotGetParent();
 
     res.render('courses/createCourse', {
       categories: allCategories
@@ -25,7 +25,7 @@ export default {
       },
       filename: function (req, file, cb) {
         const filename =
-          file.fieldname + '_' + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
+          file.fieldname + '_' + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
@@ -78,7 +78,7 @@ export default {
 
     const chapters = await coursesService.findAllChapterOfCourse(courseId);
 
-    const category = await categoriesService.findById(course[0]?.category_id);
+    const category = await categoriesService.findByIdNotGetParent(course[0]?.category_id);
 
     const newAllChapters = await Promise.all(chapters.map(async (item) => {
       const allLessonsOfThisChapter = await coursesService.findAllLessonOfChapter(item?.id)
@@ -156,7 +156,7 @@ export default {
       },
       filename: function (req, file, cb) {
         const filename =
-          file.fieldname + '_' + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
+          file.fieldname + '_' + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
@@ -210,9 +210,6 @@ export default {
         courseId,
         req.body?.checkFinishCourse ? true : false
       );
-      req.session.createCourse = null;
-
-      const allCategories = await categoriesService.findAll();
 
       res.redirect('/courses/create');
     }
@@ -246,11 +243,11 @@ export default {
   },
 
   async renderUpdateCourse(req, res) {
-    const allCategories = await categoriesService.findAll();
+    const allCategories = await categoriesService.findAllNotGetParent();
     const thisCourse = await coursesService.findById(req.params.id);
 
     if (thisCourse && thisCourse.length) {
-      const category = await categoriesService.findById(thisCourse[0]?.category_id);
+      const category = await categoriesService.findByIdNotGetParent(thisCourse[0]?.category_id);
 
       const courseFormat = {
         id: thisCourse[0]?.id,
@@ -284,7 +281,7 @@ export default {
         cb(null, './src/public/images/courses');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
+        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
@@ -320,7 +317,7 @@ export default {
 
         const returningResult = await coursesService.updateCourse(req.params.id, resultCourse);
 
-        const category = await categoriesService.findById(resultCourse.category_id);
+        const category = await categoriesService.findByIdNotGetParent(resultCourse.category_id);
 
         req.session.updateCourse = {
           id: Number(req.params.id),
@@ -351,7 +348,7 @@ export default {
       const course = await coursesService.findById(courseId);
 
 
-      const category = await categoriesService.findById(course[0].category_id);
+      const category = await categoriesService.findByIdNotGetParent(course[0].category_id);
 
       const courseData = {
         courseId: course[0].id,
@@ -397,7 +394,7 @@ export default {
         cb(null, './src/public/videos/lessons');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
+        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
@@ -484,7 +481,7 @@ export default {
     const chapterId = req.params.chapterId;
     try {
 
-      const course = await coursesService.findById(courseId);
+      const course = await coursesService.findByIdNotGetParent(courseId);
       const chapter = await coursesService.getChapterById(chapterId);
 
       res.render('courses/createLessonOnUpdate', {
@@ -506,7 +503,7 @@ export default {
         cb(null, './src/public/videos/lessons');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname); // +  "- ${teacherId}"
+        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
