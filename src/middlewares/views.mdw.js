@@ -24,7 +24,10 @@ export default function (app, dirname) {
         ifEquals: (a, b, option) => {
           return a == b ? option : '';
         },
-        sum: (a, b) => a + b
+        sum: (a, b) => a + b,
+        log: (a) => {
+          console.log(a);
+        }
       }
     })
   );

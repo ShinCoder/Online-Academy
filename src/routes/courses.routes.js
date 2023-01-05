@@ -4,6 +4,8 @@ const router = express.Router();
 
 router.get('/category/:slug', coursesController.showByCategory);
 
+router.get('/search', coursesController.showBySearch);
+
 router.post('/sortOrder', coursesController.setSortOrder);
 
 router.get('/create', coursesController.renderCreateCourse);

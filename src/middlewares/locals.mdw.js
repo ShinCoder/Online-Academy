@@ -62,6 +62,7 @@ export default function (app) {
       categoriesList.shift();
     }
     res.locals.lcCategories = categoriesList;
+    res.locals.currentCategory = null;
     next();
   });
 

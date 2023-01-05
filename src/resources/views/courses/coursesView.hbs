@@ -50,21 +50,22 @@
                             </select>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-around mt-2">
+                    <div class="d-flex justify-content-around mt-3">
                         <button type="submit" class="btn btn-primary">Apply</button>
+                        <button type="button" id="reset-btn" class="btn btn-primary">Reset</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="col-12 col-lg-9">
-            <a href="/courses/category/{{category.slug}}" class="category-name">{{category.name}}</a>
+            <a href="{{title.link}}" class="title">{{title.name}}</a>
             <div class="row mt-4">
                 {{#if courses}}
                 {{#each courses}}
                 <div class="col-6 col-md-4 mb-3">
                     <div class="card course h-100">
                         <a href="#" class="course-banner">
-                            <img src="/images/courses_banner/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+                            <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
                             {{#if hot}}
                             <span class="badge rounded-pill bg-warning">Best Seller</span>
                             {{/if}}
@@ -98,21 +99,21 @@
                     </div>
                 </div>
                 {{/each}}
-                {{else}}
-                <h4>No course was found</h4>
-                {{/if}}
                 <div class="col-12 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item {{#ifEquals pagination.currentPage 1 "disabled"}}{{/ifEquals}}">
-                                <a class="page-link" href="?page={{sum pagination.currentPage -1}}" aria-label="Previous">
+                            <li class="page-item {{#ifEquals pagination.currentPage 1 " disabled"}}{{/ifEquals}}">
+                                <a class="page-link" href="?page={{sum pagination.currentPage -1}}"
+                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             {{#each pagination.pages}}
-                            <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                            <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link"
+                                    href="?page={{value}}">{{value}}</a></li>
                             {{/each}}
-                            <li class="page-item {{#ifEquals pagination.currentPage pagination.lastPage "disabled"}}{{/ifEquals}}">
+                            <li class="page-item {{#ifEquals pagination.currentPage pagination.lastPage "
+                                disabled"}}{{/ifEquals}}">
                                 <a class="page-link" href="?page={{sum pagination.currentPage 1}}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
@@ -120,10 +121,28 @@
                         </ul>
                     </nav>
                 </div>
+                {{else}}
+                <h4>No course was found</h4>
+                {{/if}}
             </div>
         </div>
     </div>
 </div>
+
+<form id="resetSort" method="POST" action="/courses/sortOrder" class="d-none">
+    <select name="sortRating" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+    <select name="sortDate" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+    <select name="sortPurchased" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+    <select name="sortPrice" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+</form>
 
 {{#section 'js'}}
 <script src="/javascript/courses.js"></script>

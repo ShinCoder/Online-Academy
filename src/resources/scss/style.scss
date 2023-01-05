@@ -122,6 +122,36 @@ input[type="text"]:focus::-moz-placeholder {
 	z-index: 999999;
 	transition: all 0.5s ease 0s;
 
+	input[type="checkbox"] {
+		&:checked+label {
+			color: var(--text-primary) !important;
+			background-color: var(--primary) !important;
+
+			i {
+				visibility: visible;
+			}
+		}
+	}
+
+	label {
+		position: absolute;
+		top: 60%;
+		left: 50%;
+		transform: translateX(-50%);
+		box-shadow: none !important;
+		border-color: var(--primary);
+		color: var(--primary);
+
+		i {
+			visibility: hidden;
+		}
+
+		&:hover {
+			color: var(--text-primary) !important;
+			background-color: var(--primary) !important;
+		}
+	}
+
 	.search-close {
 		position: absolute;
 		top: 20px;
@@ -151,6 +181,7 @@ input[type="text"]:focus::-moz-placeholder {
 		top: 50%;
 		padding-left: 20px;
 		padding-right: 100px;
+		transform: translateY(-50%);
 
 		&:focus {
 			border-bottom-color: var(--primary);
@@ -172,6 +203,7 @@ input[type="text"]:focus::-moz-placeholder {
 		top: 50%;
 		right: 20px;
 		height: 80px;
+		transform: translateY(-50%);
 
 		&:hover {
 			color: var(--primary);
@@ -201,7 +233,7 @@ input[type="text"]:focus::-moz-placeholder {
 			}
 
 			&.dropdown-item:active {
-				color:var(--text-primary) !important;
+				color: var(--text-primary) !important;
 			}
 		}
 
@@ -235,7 +267,7 @@ input[type="text"]:focus::-moz-placeholder {
 		.submenu {
 			position: absolute;
 			min-width: 100%;
-			
+
 			right: 100%;
 			top: 0;
 			background-color: var(--text-primary);

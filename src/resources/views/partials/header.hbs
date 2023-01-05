@@ -13,11 +13,18 @@
         </div>
     </div>
     <div class="search-area">
-        <form class="container" action="#" method="post">
+        <form id="search-form" class="container" action="/courses/search" method="GET">
             <div class="search-close">
                 <img src="/images/close.png" alt="close">
             </div>
-            <input type="text" placeholder="Search here..." />
+            {{#if currentCategory}}
+            <input type="checkbox" class="btn-check" id="category-search-check" autocomplete="off">
+            <label class="btn btn-outline-primary pe-4" for="category-search-check"><i class="fa fa-check me-2"></i>Search
+                in current category</label>
+            <input type="text" name="category" value="{{currentCategory}}" class="d-none">
+            {{/if}}
+            <input name="key" type="text" placeholder="Search here..." />
+            <input type="text" name="page" value=1 class="d-none">
             <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -37,7 +44,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/home">Home</a>
                         </li>
-                       
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,12 +56,15 @@
                                     <a class="dropdown-item" href="/courses/category/{{slug}}?page=1">{{name}}</a>
                                     <ul class="submenu">
                                         {{#each this.child_categories}}
-                                        <li><a class="dropdown-item" href="/courses/category/{{slug}}?page=1">{{name}}</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="/courses/category/{{slug}}?page=1">{{name}}</a></li>
                                         {{/each}}
                                     </ul>
                                 </li>
                                 {{/each}}
-                                <li><a class="dropdown-item d-flex align-items-center justify-content-between" href="/categories">View all<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                <li><a class="dropdown-item d-flex align-items-center justify-content-between"
+                                        href="/categories">View all<i class="fa fa-angle-double-right"
+                                            aria-hidden="true"></i></a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
