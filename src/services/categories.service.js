@@ -5,8 +5,16 @@ export default {
     return db('categories');
   },
 
+  findAllNotGetParent() {
+    return db('categories').whereNotNull("parent_category_id");
+  },
+
   findById(id) {
     return db('categories').where('id', id);
+  },
+  
+  findByIdNotGetParent(id) {
+    return db('categories').where('id', id).whereNotNull("parent_category_id");
   },
 
   findByParentId(id) {
