@@ -24,6 +24,10 @@ export default function (app, dirname) {
         ifEquals: (a, b, option) => {
           return a == b ? option : '';
         },
+        ifIncludes: (a, b, option) => {
+          if (!a) return '';
+          return a.includes(b) ? option : '';
+        },
         sum: (a, b) => a + b,
         log: (a) => {
           console.log(a);

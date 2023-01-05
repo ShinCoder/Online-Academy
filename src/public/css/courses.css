@@ -4,10 +4,10 @@
   border-radius: 20px;
   padding: 20px;
 }
-
-.filter-form button {
+.filter-area a[role=button], .filter-area button {
   background-color: var(--primary);
 }
+
 .filter-form select {
   color: var(--text-secondary);
 }
@@ -15,6 +15,9 @@
 .title {
   font-size: 2rem;
   color: var(--text-secondary);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
 }
 
 .course {

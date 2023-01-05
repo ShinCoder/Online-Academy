@@ -741,7 +741,28 @@ export default {
 
     req.session.viewSort = sortOrder;
 
-    console.log(sortOrder);
+    res.redirect('back');
+  },
+
+  // [POST] /courses/filter
+  setFilter(req, res) {
+    const filter = req.body;
+
+    const viewFilter = Object.keys(filter).map((id) => +id) || undefined;
+
+    if (viewFilter) {
+      req.session.viewFilter = req.session.viewFilter.map((cat) => {
+        if (viewFilter.includes(cat.id)) {
+          cat.isFiltered = true;
+        } else cat.isFiltered = false;
+        return cat;
+      });
+    } else {
+      req.session.viewFilter = req.session.viewFilter.map((cat) => {
+        cat.isFiltered = false;
+        return cat;
+      });
+    }
 
     res.redirect('back');
   },
@@ -825,6 +846,36 @@ export default {
           offset
         );
       }
+    } else if (req.session.viewFilter.find((cat) => cat.isFiltered == true)) {
+      const categoryId = req.session.viewFilter
+        .filter((cat) => {
+          return cat.isFiltered;
+        })
+        .map((cat) => cat.id);
+
+      courseCount = await coursesService.countBySearchAndCategory(
+        query.key,
+        categoryId
+      );
+      lastPage = Math.ceil(courseCount[0].counts / COURSES_PAGE_LIMIT);
+      offset = (currentPage - 1) * COURSES_PAGE_LIMIT;
+
+      if (order) {
+        courses = await coursesService.findAllAndRatingBySearchAndCategory(
+          query.key,
+          categoryId,
+          COURSES_PAGE_LIMIT,
+          offset,
+          order
+        );
+      } else {
+        courses = await coursesService.findAllAndRatingBySearchAndCategory(
+          query.key,
+          categoryId,
+          COURSES_PAGE_LIMIT,
+          offset
+        );
+      }
     } else {
       courseCount = await coursesService.countBySearch(query.key);
       lastPage = Math.ceil(courseCount[0].counts / COURSES_PAGE_LIMIT);
@@ -864,9 +915,10 @@ export default {
       courses: courses,
       title: {
         link:
-          '/courses/search?' + query.category
-            ? query.category + '&'
-            : '' + 'key=' + query.key,
+          '/courses/search?' +
+          (query.category ? query.category + '&' : '') +
+          'key=' +
+          query.key,
         name: 'Search result: ' + query.key
       },
       pagination

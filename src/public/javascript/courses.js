@@ -9,4 +9,8 @@ $(document).ready(function () {
   $('#reset-btn').on('click', () => {
     $('#resetSort').submit();
   });
+
+  $('#reset-filter-btn').on('click', () => {
+    $('#resetFilter').submit();
+  });
 });

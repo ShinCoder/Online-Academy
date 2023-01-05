@@ -8,6 +8,8 @@ router.get('/search', coursesController.showBySearch);
 
 router.post('/sortOrder', coursesController.setSortOrder);
 
+router.post('/filter', coursesController.setFilter);
+
 router.get('/create', coursesController.renderCreateCourse);
 
 router.post('/create', coursesController.postCourse);

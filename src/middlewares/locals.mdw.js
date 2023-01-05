@@ -70,7 +70,14 @@ export default function (app) {
     if (typeof req.session.viewSort === 'undefined') {
       req.session.viewSort = {};
     }
+    if (typeof req.session.viewFilter === 'undefined') {
+      req.session.viewFilter = [];
+      res.locals.lcCategories.forEach((cat) => {
+        cat.child_categories.forEach((c) => req.session.viewFilter.push(c));
+      });
+    }
     res.locals.viewSort = req.session.viewSort;
+    res.locals.viewFilter = req.session.viewFilter;
     next();
   });
 }
