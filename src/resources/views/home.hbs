@@ -61,7 +61,7 @@
       {{#each hotCategories}}
       <div class="col-3 col-md-2 mb-3">
         <div class="categories-container">
-          <a href="/courses/category/{{slug}}" class="categories" style="background-image: url({{banner_url}});">
+          <a href="/courses/category/{{slug}}?page=1" class="categories" style="background-image: url({{banner_url}});">
             <div class="categories-title">{{name}}</div>
             {{#if this.hot}}<span class="badge rounded-pill bg-danger p-1">HOT!</span>{{/if}}
           </a>

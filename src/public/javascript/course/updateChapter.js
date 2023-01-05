@@ -1,18 +1,17 @@
 const chapterForm = document.getElementById('chapterForm');
 
 chapterForm.addEventListener('submit', (event) => {
-    let check = true;
-    
-    const chapterTitle = document.getElementById('chapterTitle');
-    const chapterTitleError = document.getElementById('chapterTitleError');
+  let check = true;
 
-    if (!chapterTitle.value) {
-        check = false;
-        chapterTitleError.classList.remove('d-none');
-    }
+  const chapterTitle = document.getElementById('chapterTitle');
+  const chapterTitleError = document.getElementById('chapterTitleError');
 
-    if (!check) {
-        event.preventDefault();
-    }
+  if (!chapterTitle.value) {
+    check = false;
+    chapterTitleError.classList.remove('d-none');
+  }
 
-})
+  if (!check) {
+    event.preventDefault();
+  }
+});

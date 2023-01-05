@@ -52,6 +52,13 @@ const data = {
       email: 'student2@gmail.com',
       identity: bcrypt.hashSync('12345'),
       authority: 'STUDENT'
+    },
+    {
+      id: 8,
+      username: 'John_Purcell',
+      email: 'johnpurcell@gmail.com',
+      identity: bcrypt.hashSync('12345'),
+      authority: 'LECTURER'
     }
   ],
   students: [
@@ -86,6 +93,11 @@ const data = {
       user_id: 6,
       first_name: 'Stone River',
       last_name: 'elearning'
+    },
+    {
+      user_id: 8,
+      first_name: 'John',
+      last_name: 'Purcell'
     }
   ],
   categories: [
@@ -160,6 +172,28 @@ const data = {
       name: 'Mobile Development',
       parent_category_id: 1,
       banner_url: '/images/categories_banner/9.png'
+    },
+    {
+      id: 10,
+      name: 'Programming Languages',
+      parent_category_id: 1,
+      banner_url: '/images/categories_banner/10.png'
+    },
+    {
+      id: 11,
+      name: 'Design'
+    },
+    {
+      id: 12,
+      name: 'Graphic Design',
+      parent_category_id: 11,
+      banner_url: '/images/categories_banner/12.png'
+    },
+    {
+      id: 13,
+      name: 'User Experience Design',
+      parent_category_id: 11,
+      banner_url: '/images/categories_banner/13.png'
     }
   ],
   courses: [
@@ -348,6 +382,233 @@ const data = {
         .toISOString()
         .slice(0, 19)
         .replace('T', ' ')
+    },
+    {
+      id: 10,
+      name: 'Learn PHP Programming From Scratch',
+      lecturer_id: 6,
+      banner_filename: '10.png',
+      category_id: 10,
+      price: '249000',
+      is_completed: 'INCOMPLETE',
+      short_description: 'Over 50 hours of PHP programming goodness.',
+      detail_description:
+        'Demonstrate understanding of PHP programming\nTo learn the basics of PHP programming\nTo learn PHP programming by working on projects\nTo learn intermediate and advanced PHP programming',
+      syllabus: '',
+      created_at: new Date('2021-02-12')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2021-05-14')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 11,
+      name: 'Become a Professional Graphic Designer',
+      lecturer_id: 6,
+      banner_filename: '11.png',
+      category_id: 12,
+      price: '229000',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Learn what you need to know to break into the world of graphic design.',
+      detail_description:
+        'To learn what graphic design is and how to become a graphic designer\nLearn what a graphic designer does on the job\nLearn the principles of great graphic design\nLearn graphic design as it relates to Photoshop, Illustrator, InDesign and Acrobat\nLearn graphic design for the web using Dreamweaver\nLearn visual communication fundamentals\nLearn successful layout in graphic design\nLearn how to get a job as a graphic designer',
+      syllabus: '',
+      created_at: new Date('2020-05-22')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2020-09-14')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 12,
+      name: 'Mobile UI and UX Design',
+      lecturer_id: 6,
+      banner_filename: '12.png',
+      category_id: 13,
+      price: '229000',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Make your mobile UI design pop and understand the mobile UX process',
+      detail_description:
+        "At the end of this course, students will be equipped to oversee design a mobile application's\nexperience and interface, through the full process which includes:\nRequirements Assessment\nDesign Project Planning\nUser Experience Recommendations\nUser Interface Design & Documentation\nDesign Implementation Guidelines & Management",
+      syllabus: '',
+      created_at: new Date('2017-01-22')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2017-02-14')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 13,
+      name: 'Become a Professional Web Developer | Version 3.0',
+      lecturer_id: 6,
+      banner_filename: '13.png',
+      category_id: 2,
+      price: '199000',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Everything you need to know to become a professional web developer from scratch, updated for modern development.',
+      detail_description:
+        'To learn every skill needed as a professional web developer/designer\nTo create real life projects for your portfolio\nTo become a professional web developer',
+      syllabus: '',
+      created_at: new Date('2020-02-12')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2020-08-14')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 14,
+      name: 'Learn Pascal Programming from Scratch',
+      lecturer_id: 6,
+      banner_filename: '14.png',
+      category_id: 10,
+      price: '199000',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Create, maintain, design, and build cross-platform native applications',
+      detail_description:
+        'Create, maintain, design, and build cross-platform native applications.\nYou will learn how to write the code once, compile it, and run it on multiple platforms.',
+      syllabus: '',
+      created_at: new Date('2016-12-31')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2017-02-24')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 15,
+      name: 'Java Swing (GUI) Programming: From Beginner to Expert',
+      lecturer_id: 8,
+      banner_filename: '15.png',
+      category_id: 10,
+      price: '249000',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Learn how to create desktop and Internet GUI Java programs and take your Java programming to the next level.',
+      detail_description:
+        'Learn how to write GUI (graphical user interface) applications in Java\nUnderstand the Java Swing framework\nDiscover how to create database applications',
+      syllabus: '',
+      created_at: new Date('2015-06-21')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2015-08-14')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 16,
+      name: 'Learn Advanced C++ Programming',
+      lecturer_id: 8,
+      banner_filename: '16.png',
+      category_id: 10,
+      price: '229000',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        "Discover intermediate to advanced C++, including C++ 11's fantastic additions to the C++ standard.",
+      detail_description:
+        'Develop complex C++ applications\nUnderstand C++ 11\nBe in a position to apply for jobs requiring good C++ knowledge',
+      syllabus: '',
+      created_at: new Date('2022-04-13')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2022-06-23')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 17,
+      name: 'Java 11 For Complete Beginners',
+      lecturer_id: 8,
+      banner_filename: '17.png',
+      category_id: 10,
+      price: '229000',
+      is_completed: 'INCOMPLETE',
+      short_description: 'Learn Modern Java From Scratch',
+      detail_description: 'Computer programming in Java',
+      syllabus: '',
+      created_at: new Date('2020-01-04')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2020-04-30')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 18,
+      name: 'Responsive Với Grid System',
+      lecturer_id: 3,
+      banner_filename: '18.png',
+      category_id: 2,
+      price: '0',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Trong khóa này chúng ta sẽ học về cách xây dựng giao diện web responsive với Grid System, tương tự Bootstrap 4.',
+      detail_description:
+        'Biết cách xây dựng website Responsive\nHiểu được tư tưởng thiết kế với Grid system\nTự tay xây dựng được thư viện CSS Grid\nTự hiểu được Grid layout trong bootstrap',
+      syllabus: '',
+      created_at: new Date('2020-11-09')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' '),
+      updated_at: new Date('2021-01-12')
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')
+    },
+    {
+      id: 19,
+      name: 'Lập Trình JavaScript Nâng Cao',
+      lecturer_id: 3,
+      banner_filename: '19.png',
+      category_id: 2,
+      price: '0',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword, bind, call, apply, prototype, ...',
+      detail_description:
+        'Được học kiến thức miễn phí với nội dung chất lượng hơn mất phí\nCác kiến thức nâng cao của Javascript giúp code trở nên tối ưu hơn\nHiểu được cách tư duy nâng cao của các lập trình viên có kinh nghiệm\nHiểu được các khái niệm khó như từ khóa this, phương thức bind, call, apply & xử lý bất đồng bộ\nCó nền tảng Javascript vững chắc để làm việc với mọi thư viện, framework viết bởi Javascript\nNâng cao cơ hội thành công khi phỏng vấn xin việc nhờ kiến thức chuyên môn vững chắc',
+      syllabus: '',
+      created_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      updated_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
+    },
+    {
+      id: 20,
+      name: 'Node & ExpressJS',
+      lecturer_id: 3,
+      banner_filename: '20.png',
+      category_id: 2,
+      price: '0',
+      is_completed: 'INCOMPLETE',
+      short_description:
+        'Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful API cho trang web.',
+      detail_description:
+        'Nắm chắc lý thuyết chung trong việc xây dựng web\nBiết cách làm việc với Mongoose, MongoDB trong NodeJS\nXây dựng web với Express bằng kiến thức thực tế\nBiết cách xây dựng API theo chuẩn RESTful API\nNắm chắc lý thuyết về API và RESTful API\nĐược chia sẻ lại kinh nghiệm làm việc thực tế\nNắm chắc khái niệm về giao thức HTTP\nHiểu rõ tư tưởng và cách hoạt động của mô hình MVC\nHọc được cách tổ chức code trong thực tế\nBiết cách deploy (triển khai) website lên internet',
+      syllabus: '',
+      created_at: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      updated_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
     }
   ],
   enroll: [

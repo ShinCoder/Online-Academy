@@ -4,6 +4,8 @@ const router = express.Router();
 
 router.get('/category/:slug', coursesController.showByCategory);
 
+router.post('/sortOrder', coursesController.setSortOrder);
+
 router.get('/create', coursesController.renderCreateCourse);
 
 router.post('/create', coursesController.postCourse);
@@ -14,9 +16,15 @@ router.get('/:id/chapters/create', coursesController.renderCreateChapter);
 
 router.post('/:id/chapters/create', coursesController.postChapter);
 
-router.get('/:id/chapters/:chapterId/lessons/create', coursesController.renderCreateLesson);
+router.get(
+  '/:id/chapters/:chapterId/lessons/create',
+  coursesController.renderCreateLesson
+);
 
-router.post('/:id/chapters/:chapterId/lessons/create', coursesController.postLesson);
+router.post(
+  '/:id/chapters/:chapterId/lessons/create',
+  coursesController.postLesson
+);
 
 router.get('/:id/update', coursesController.renderUpdateCourse);
 
@@ -26,14 +34,29 @@ router.get('/:id/chapters/update', coursesController.renderUpdateChapter);
 
 router.post('/:id/chapters/:chapterId/update', coursesController.updateChapter);
 
-router.get('/:id/chapters/:chapterId/lessons/:lessonId/update', coursesController.renderUpdateLesson);
+router.get(
+  '/:id/chapters/:chapterId/lessons/:lessonId/update',
+  coursesController.renderUpdateLesson
+);
 
-router.post('/:id/chapters/:chapterId/lessons/:lessonId/update', coursesController.updateLesson);
+router.post(
+  '/:id/chapters/:chapterId/lessons/:lessonId/update',
+  coursesController.updateLesson
+);
 
-router.post('/:id/chapters/create-on-update', coursesController.postChapterOnUpdate);
+router.post(
+  '/:id/chapters/create-on-update',
+  coursesController.postChapterOnUpdate
+);
 
-router.get('/:id/chapters/:chapterId/lessons/create-on-update', coursesController.renderCreateLessonOnUpdate);
+router.get(
+  '/:id/chapters/:chapterId/lessons/create-on-update',
+  coursesController.renderCreateLessonOnUpdate
+);
 
-router.post('/:id/chapters/:chapterId/lessons/create-on-update', coursesController.createLessonOnUpdate);
+router.post(
+  '/:id/chapters/:chapterId/lessons/create-on-update',
+  coursesController.createLessonOnUpdate
+);
 
 export default router;
