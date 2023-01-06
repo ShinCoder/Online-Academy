@@ -5,6 +5,10 @@ export default {
     return db('courses');
   },
 
+  findAllWithFullyData() {
+    return db('courses').select('courses.id', 'courses.name', 'courses.price', 'courses.is_completed', 'courses.is_activated', 'categories.name as categories_name', 'lecturers.first_name', 'lecturers.last_name', 'users.email').innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id').innerJoin('categories', 'courses.category_id', '=', 'categories.id').innerJoin('users', 'lecturers.user_id', '=', 'users.id');
+  },
+
   findAllWithDate(sort, limit) {
     if (limit) {
       return db('courses').orderBy('created_at', sort).limit(limit);

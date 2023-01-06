@@ -1,0 +1,62 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/admin/courses.css">
+{{/section}}
+
+<div class="container mt-5 pageWrapper">
+    <div class="headerContainer">
+        <h1 class="text-center mb-3 text-dark">STUDENTS</h1>
+    </div>
+    <table class="mainTable table table-bordered table-hover table-responsive">
+        <thead class="stickyTableHeader table-primary">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Status</th>
+                <th scope="col">Lecturer</th>
+                <th scope="col">Activate</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.courses}}
+            <tr>
+                <th>{{id}}</th>
+                <td>{{name}}</td>
+                <td>{{categories_name}}</td>
+                <td>
+                    {{#if is_completed}}
+                    <strong class="text-success">Completed</strong>
+                    {{else}}
+                    <strong class="text-danger">Not completed</strong>
+                    {{/if}}
+                </td>
+                <td>{{first_name}} {{last_name}} - {{email}}</td>
+                <td class="d-flex align-items-center justify-content-around">
+                    {{#if is_activated}}
+                    <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                    {{else}}
+                    <i class="fa fa-circle text-danger" aria-hidden="true"></i>
+                    {{/if}}
+                </td>
+                <td class="text-center">
+                    {{#if is_activated}}
+                    <form method="post" action="/admin/user/{{user_id}}/deactivate">
+                        <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
+                    </form>
+                    {{else}}
+                    <form method="post" action="/admin/user/{{user_id}}/activate">
+                        <button type="submit" class="btn btn-sm btn-success">Activate</button>
+                    </form>
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+{{#section 'js'}}
+<script src="/javascript/admin/courses.js"></script>
+{{/section}}

@@ -1,0 +1,35 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/admin/createLecturer.css">
+{{/section}}
+
+<form id="mainForm" class="container mt-5 pageWrapper">
+    <h1 class="mb-3 text-dark text-center">CREATE LECTURER ACCOUNT</h1>
+
+    <div class="mb-2">
+        <input autocomplete="off" placeholder="Email" name="email" id="email" type="text" class="form-control" />
+        <p class="text-danger mt-1" id="emailValidateError"></p>
+    </div>
+    <div class="mb-2">
+        <input autocomplete="off" placeholder="Password" name="password" id="password" type="password" class="form-control" />
+        <p class="text-danger mt-1" id="passwordValidateError"></p>
+    </div>
+    <div class="mb-2">
+        <input autocomplete="off" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword" type="password"
+            class="form-control" />
+        <p class="text-danger mt-1" id="confirmPasswordValidateError"></p>
+    </div>
+
+    {{#if this.error}}
+    <h5 class="text-danger mt-1 mb-3">Error: </h5>
+    {{/if}}
+
+    <div class="d-flex justify-content-between">
+        <a href="/admin/lecturers" class="btn btn-secondary">Back to all lecturers</a>
+        <button type="submit" class="btn btn-success">Create account</button>
+    </div>
+</form>
+
+
+{{#section 'js'}}
+<script src="/javascript/admin/createLecturer.js"></script>
+{{/section}}
