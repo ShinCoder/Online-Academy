@@ -6,6 +6,8 @@ import coursesService from '../../services/courses.service.js';
 import slugger from '../../utils/slug.js';
 
 const HOT_COURSE_LIMIT = 12;
+const NEW_COURSE_DURATION = 30;
+const NEW_COURSE_LIMIT = 30;
 const COURSES_PAGE_LIMIT = 12;
 
 const getPagination = (currentPage, lastPage) => {
@@ -102,6 +104,46 @@ const getPagination = (currentPage, lastPage) => {
   return pagination;
 };
 
+export const specifyCourses = async (courses) => {
+  let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
+  bestSellerId = bestSellerId.map((obj) => obj.id);
+
+  const dateEnd = new Date().toISOString().slice(0, 10);
+  const dateStart = new Date(
+    new Date().setDate(new Date().getDate() - NEW_COURSE_DURATION)
+  )
+    .toISOString()
+    .slice(0, 10);
+
+  let newestId = await coursesService.getNewestId(
+    {
+      start: dateStart,
+      end: dateEnd
+    },
+    NEW_COURSE_LIMIT
+  );
+  newestId = newestId.map((obj) => obj.id);
+
+  courses.forEach((course) => {
+    if (bestSellerId.includes(course.id) && newestId.includes(course.id)) {
+      course.special = {
+        isSpecial: true,
+        value: 'New and Best Seller'
+      };
+    } else if (bestSellerId.includes(course.id)) {
+      course.special = {
+        isSpecial: true,
+        value: 'Best Seller'
+      };
+    } else if (newestId.includes(course.id)) {
+      course.special = {
+        isSpecial: true,
+        value: 'New'
+      };
+    }
+  });
+};
+
 export default {
   async renderCreateCourse(req, res) {
     const allCategories = await categoriesService.findAllNotGetParent();
@@ -172,7 +214,9 @@ export default {
 
     const chapters = await coursesService.findAllChapterOfCourse(courseId);
 
-    const category = await categoriesService.findByIdNotGetParent(course[0]?.category_id);
+    const category = await categoriesService.findByIdNotGetParent(
+      course[0]?.category_id
+    );
 
     const newAllChapters = await Promise.all(
       chapters.map(async (item) => {
@@ -337,7 +381,9 @@ export default {
     const thisCourse = await coursesService.findById(req.params.id);
 
     if (thisCourse && thisCourse.length) {
-      const category = await categoriesService.findByIdNotGetParent(thisCourse[0]?.category_id);
+      const category = await categoriesService.findByIdNotGetParent(
+        thisCourse[0]?.category_id
+      );
 
       const courseFormat = {
         id: thisCourse[0]?.id,
@@ -370,7 +416,8 @@ export default {
         cb(null, './src/public/images/courses');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname);
+        const filename =
+          file.fieldname + '_' + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
@@ -413,7 +460,9 @@ export default {
           resultCourse
         );
 
-        const category = await categoriesService.findByIdNotGetParent(resultCourse.category_id);
+        const category = await categoriesService.findByIdNotGetParent(
+          resultCourse.category_id
+        );
 
         req.session.updateCourse = {
           id: Number(req.params.id),
@@ -445,8 +494,9 @@ export default {
 
       const course = await coursesService.findById(courseId);
 
-
-      const category = await categoriesService.findByIdNotGetParent(course[0].category_id);
+      const category = await categoriesService.findByIdNotGetParent(
+        course[0].category_id
+      );
 
       const courseData = {
         courseId: course[0].id,
@@ -492,7 +542,8 @@ export default {
         cb(null, './src/public/videos/lessons');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname);
+        const filename =
+          file.fieldname + '_' + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
@@ -573,7 +624,6 @@ export default {
     const courseId = req.params.id;
     const chapterId = req.params.chapterId;
     try {
-
       const course = await coursesService.findByIdNotGetParent(courseId);
       const chapter = await coursesService.getChapterById(chapterId);
 
@@ -594,7 +644,8 @@ export default {
         cb(null, './src/public/videos/lessons');
       },
       filename: function (req, file, cb) {
-        const filename = file.fieldname + "_" + Date.now() + path.extname(file.originalname);
+        const filename =
+          file.fieldname + '_' + Date.now() + path.extname(file.originalname);
         bannerName = filename;
         cb(null, filename);
       }
@@ -707,15 +758,20 @@ export default {
       );
     }
 
-    let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
-    bestSellerId = bestSellerId.map((obj) => obj.id);
+    // let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
+    // bestSellerId = bestSellerId.map((obj) => obj.id);
 
-    courses.forEach((course) => {
-      if (bestSellerId.includes(course.id)) {
-        course.hot = true;
-      }
-      formatUtils.courseCardFormat(course);
-    });
+    // courses.forEach((course) => {
+    //   if (bestSellerId.includes(course.id)) {
+    //     course.hot = true;
+    //   }
+    //   formatUtils.courseCardFormat(course);
+    // });
+
+    specifyCourses(courses);
+    courses.forEach(
+      async (course) => await formatUtils.courseCardFormat(course)
+    );
 
     res.render('courses/coursesView', {
       courses: courses,
@@ -889,14 +945,10 @@ export default {
       }
     }
 
-    let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
-    bestSellerId = bestSellerId.map((obj) => obj.id);
+    specifyCourses(courses);
 
-    courses.forEach((course) => {
-      if (bestSellerId.includes(course.id)) {
-        course.hot = true;
-      }
-      formatUtils.courseCardFormat(course);
+    courses.forEach(async (course) => {
+      await formatUtils.courseCardFormat(course);
     });
 
     const pagination = { pages: getPagination(currentPage, lastPage) };

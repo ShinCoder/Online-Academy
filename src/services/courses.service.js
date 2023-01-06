@@ -13,17 +13,41 @@ export default {
     }
   },
 
-  // findAllAndRating(sort) {
-  //   if (sort) {
-  //   } else {
-  //     return db('courses')
-  //       .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
-  //       .select('courses.*')
-  //       .avg('enroll.rate_point', { as: 'rating_point' })
-  //       .count('enroll.rate_point', { as: 'rating_count' })
-  //       .groupBy('courses.id');
-  //   }
-  // },
+  findAllWithDuration(duration, limit) {
+    if (limit) {
+      return db('courses')
+        .whereBetween('created_at', [duration.start, duration.end])
+        .orderBy('created_at', 'desc')
+        .limit(limit);
+    } else {
+      return db('courses')
+        .whereBetween('created_at', [duration.start, duration.end])
+        .orderBy('created_at', 'desc');
+    }
+  },
+
+  findAllAndRating(limit, offset, sort) {
+    if (sort) {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.course_id', { as: 'purchased_count' })
+        .groupBy('courses.id')
+        .orderBy(sort)
+        .limit(limit)
+        .offset(offset);
+    } else {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.rate_point', { as: 'purchased_count' })
+        .groupBy('courses.id')
+        .limit(limit)
+        .offset(offset);
+    }
+  },
 
   findAllAndRatingByCategory(id, limit, offset, sort) {
     if (sort) {
@@ -108,6 +132,14 @@ export default {
       .select('courses.id')
       .groupBy('courses.id')
       .orderByRaw('count(enroll.course_id) desc')
+      .limit(limit);
+  },
+
+  getNewestId(duration, limit) {
+    return db('courses')
+      .select('courses.id')
+      .whereBetween('created_at', [duration.start, duration.end])
+      .orderBy('created_at', 'desc')
       .limit(limit);
   },
 

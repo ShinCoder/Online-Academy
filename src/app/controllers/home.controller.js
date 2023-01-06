@@ -1,10 +1,12 @@
 import formatUtils from '../../utils/format.js';
-import categoriesService from '../../services/categories.service.js';
 import enrollService from '../../services/enroll.service.js';
 import coursesService from '../../services/courses.service.js';
 
+import { specifyCourses } from './courses.controller.js';
+
 const HOT_CATEGORY_LIMIT = 5;
 const HOT_COURSE_LIMIT = 12;
+const NEW_COURSE_DURATION = 30;
 const NEW_COURSE_LIMIT = 12;
 
 export default {
@@ -91,24 +93,30 @@ export default {
         coursesEnrollCount[i].course_id
       );
       await formatUtils.courseCardFormat(course[0]);
-      course[0].hot = true;
       hotCourses.push(course[0]);
     }
+
+    specifyCourses(hotCourses);
+
     // hot course -end
 
     // new course
-    const newCourses = await coursesService.findAllWithDate(
-      'desc',
+    const dateEnd = new Date().toISOString().slice(0, 10);
+    const dateStart = new Date(
+      new Date().setDate(new Date().getDate() - NEW_COURSE_DURATION)
+    )
+      .toISOString()
+      .slice(0, 10);
+    const newCourses = await coursesService.findAllWithDuration(
+      { start: dateStart, end: dateEnd },
       NEW_COURSE_LIMIT
     );
 
-    let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
-    bestSellerId = bestSellerId.map((obj) => obj.id);
+    specifyCourses(newCourses);
 
     length = newCourses.length;
     for (let i = 0; i < length; i++) {
-      if (bestSellerId.includes(newCourses[i].id)) newCourses[i].hot = true;
-      formatUtils.courseCardFormat(newCourses[i]);
+      await formatUtils.courseCardFormat(newCourses[i]);
     }
     // new course -end
 
