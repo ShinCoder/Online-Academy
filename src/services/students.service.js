@@ -5,6 +5,10 @@ export default {
     return db('students');
   },
 
+  findAllWithAuthenInfo() {
+    return db('users').leftJoin('students', 'students.user_id', '=', 'users.id').where('users.authority', "STUDENT");
+  },
+
   add(entity) {
     return db('students').insert(entity);
   },

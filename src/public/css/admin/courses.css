@@ -1,0 +1,27 @@
+.stickyTableHeader {
+    position: sticky;
+    position: -webkit-sticky; /* Safari */
+    top: 62px;
+    font-size: 20px;
+}
+
+.pageWrapper {
+    position: relative;
+    padding-bottom: 36px;
+}
+
+.mainTable th, td {
+    vertical-align: middle;
+    min-height: 50px;
+}
+
+.headerContainer {
+    position: relative;
+}
+
+.openCreateAccountBtn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}

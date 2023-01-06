@@ -1,0 +1,55 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/admin/lecturers.css">
+{{/section}}
+
+<div class="container mt-5 pageWrapper">
+    <div class="headerContainer">
+        <h1 class="text-center mb-3 text-dark">ALL LECTURERS</h1>
+        <a href="/admin/lecturer/create" class="openCreateAccountBtn btn btn-primary">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> Create lecturer account
+        </a>
+    </div>
+    <table class="mainTable table table-bordered table-hover table-responsive">
+        <thead class="stickyTableHeader table-primary">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Activate</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.lecturers}}
+            <tr>
+                <th>{{user_id}}</th>
+                <td>{{email}}</td>
+                <td>{{first_name}} {{last_name}}</td>
+                <td class="d-flex align-items-center justify-content-around">
+                    {{#if is_activated}}
+                    <i class="fa fa-circle text-success" aria-hidden="true"></i>
+                    {{else}}
+                    <i class="fa fa-circle text-danger" aria-hidden="true"></i>
+                    {{/if}}
+                </td>
+                <td class="text-center">
+                    {{#if is_activated}}
+                    <form method="post" action="/admin/user/{{user_id}}/deactivate">
+                        <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
+                    </form>
+                    {{else}}
+                    <form method="post" action="/admin/user/{{user_id}}/activate">
+                        <button type="submit" class="btn btn-sm btn-success">Activate</button>
+                    </form>
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+{{#section 'js'}}
+<script src="/javascript/admin/lecturers.js"></script>
+{{/section}}
