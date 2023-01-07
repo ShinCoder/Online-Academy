@@ -260,4 +260,8 @@ input[type=text]:focus::-moz-placeholder {
   color: var(--text-primary) !important;
 }
 
+.footer {
+  background-color: #010101;
+}
+
 /*# sourceMappingURL=style.css.map */
