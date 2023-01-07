@@ -20,6 +20,7 @@ export default {
 
     const category = await categoriesService.findById(course.category_id);
     course.category_name = category[0].name;
+    course.category_slug = category[0].slug;
 
     const rating = await enrollService.getRatingByCourseId(course.id);
     if (!course.rating_point) {

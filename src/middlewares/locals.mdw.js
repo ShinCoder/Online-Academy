@@ -68,7 +68,7 @@ export default function (app) {
 
   app.use(function (req, res, next) {
     if (typeof req.session.viewSort === 'undefined') {
-      req.session.viewSort = {};
+      req.session.viewSort = { sortDate: 'NewToOld' };
     }
     if (typeof req.session.viewFilter === 'undefined') {
       req.session.viewFilter = [];
