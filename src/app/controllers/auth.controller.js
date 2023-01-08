@@ -12,12 +12,17 @@ import mail from '../../mail/index.js';
 
 export default {
   getSignIn(req, res) {
+    req.session.retUrl = req.headers.referer;
+    console.log(req.session.retUrl);
     res.render('auth/sign-in');
   },
 
   getSignOut(req, res) {
     req.session.auth = false;
     req.session.authUser = {};
+
+    const url = req.headers.referer || '/home';
+    res.redirect(url);
   },
 
   async postSignIn(req, res) {
@@ -72,9 +77,11 @@ export default {
       delete lcUser.is_activated;
       req.session.authUser = lcUser;
 
-      return res.render('auth/sign-in', {
-        success: 'Sign in successfully. Redirecting to dashboard in 5s ...'
-      });
+      res.redirect(req.session.retUrl);
+
+      // return res.render('auth/sign-in', {
+      //   success: 'Sign in successfully. Redirecting to home in 3s ...'
+      // });
     } catch (error) {
       console.log(error);
       return res.render('auth/sign-in', {
