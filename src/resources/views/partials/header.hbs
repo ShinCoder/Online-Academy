@@ -1,9 +1,9 @@
 <header id="header" class="header-area">
     <div class="header-top">
         <div class="container inner-header-top">
-            <div class="header-search">
+            {{!-- <div class="header-search">
                 <button type="button" class="search-toggler"><i class="fa fa-search"></i></button>
-            </div>
+            </div> --}}
             <div class="header-links">
                 <ul>
                     <li><a href="/auth/sign-in">Log in</a></li>
@@ -19,7 +19,8 @@
             </div>
             {{#if currentCategory}}
             <input type="checkbox" class="btn-check" id="category-search-check" autocomplete="off">
-            <label class="btn btn-outline-primary pe-4" for="category-search-check"><i class="fa fa-check me-2"></i>Search
+            <label class="btn btn-outline-primary pe-4" for="category-search-check"><i
+                    class="fa fa-check me-2"></i>Search
                 in current category</label>
             <input type="text" name="category" value="{{currentCategory}}" class="d-none">
             {{/if}}
@@ -41,6 +42,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item d-flex align-items-center border-none">
+                            <button type="button" class="search-toggler"><i class="fa fa-search"></i></button>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/home">Home</a>
                         </li>

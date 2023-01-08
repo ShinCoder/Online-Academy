@@ -5,7 +5,8 @@ import coursesService from '../../services/courses.service.js';
 import { specifyCourses } from './courses.controller.js';
 
 const HOT_CATEGORY_LIMIT = 5;
-const HOT_COURSE_LIMIT = 12;
+const HOT_COURSE_LIMIT = 3;
+const BESTSELLER_COURSE_LIMIT = 12;
 const NEW_COURSE_DURATION = 30;
 const NEW_COURSE_LIMIT = 12;
 
@@ -81,11 +82,32 @@ export default {
     // categories -end
 
     // hot course
-    const coursesEnrollCount = await enrollService.countByCourseId(
+    let hotCourseId = await coursesService.getHotId(
+      {
+        end: new Date().toLocaleString('af-ZA', {
+          timeZone: 'Asia/Ho_Chi_Minh'
+        }),
+        start: new Date(
+          new Date().setDate(new Date().getDate() - 7)
+        ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' })
+      },
       HOT_COURSE_LIMIT
     );
+    hotCourseId = hotCourseId.map((obj) => obj.id);
+    const hotCourses = await coursesService.findById(hotCourseId);
+    specifyCourses(hotCourses);
+    hotCourses.forEach(
+      async (course) => await formatUtils.courseCardFormat(course)
+    );
 
-    const hotCourses = [];
+    // hot course end
+
+    // bestSeller course
+    const coursesEnrollCount = await enrollService.countByCourseId(
+      BESTSELLER_COURSE_LIMIT
+    );
+
+    const bestSellerCourses = [];
 
     length = coursesEnrollCount.length;
     for (let i = 0; i < length; i++) {
@@ -93,20 +115,21 @@ export default {
         coursesEnrollCount[i].course_id
       );
       await formatUtils.courseCardFormat(course[0]);
-      hotCourses.push(course[0]);
+      bestSellerCourses.push(course[0]);
     }
 
-    specifyCourses(hotCourses);
+    specifyCourses(bestSellerCourses);
 
-    // hot course -end
+    // bestSeller course -end
 
     // new course
-    const dateEnd = new Date().toISOString().slice(0, 10);
+    const dateEnd = new Date().toLocaleString('af-ZA', {
+      timeZone: 'Asia/Ho_Chi_Minh'
+    });
     const dateStart = new Date(
       new Date().setDate(new Date().getDate() - NEW_COURSE_DURATION)
-    )
-      .toISOString()
-      .slice(0, 10);
+    ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' });
+
     const newCourses = await coursesService.findAllWithDuration(
       { start: dateStart, end: dateEnd },
       NEW_COURSE_LIMIT
@@ -123,6 +146,7 @@ export default {
     res.render('home', {
       hotCategories: hotCategoriesList,
       hotCourses: hotCourses,
+      bestSellerCourses: bestSellerCourses,
       newCourses: newCourses
     });
   }

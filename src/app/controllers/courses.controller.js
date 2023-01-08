@@ -108,12 +108,12 @@ export const specifyCourses = async (courses) => {
   let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
   bestSellerId = bestSellerId.map((obj) => obj.id);
 
-  const dateEnd = new Date().toISOString().slice(0, 10);
+  const dateEnd = new Date().toLocaleString('af-ZA', {
+    timeZone: 'Asia/Ho_Chi_Minh'
+  });
   const dateStart = new Date(
     new Date().setDate(new Date().getDate() - NEW_COURSE_DURATION)
-  )
-    .toISOString()
-    .slice(0, 10);
+  ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' });
 
   let newestId = await coursesService.getNewestId(
     {
@@ -683,9 +683,147 @@ export default {
     });
   },
 
+  // [GET] courses/all
+  async showAll(req, res) {
+    const query = { ...req.query };
+
+    if (query.sortPurchased) {
+      req.session.viewSort.sortPurchased = query.sortPurchased;
+      req.session.viewSort.sortDate = null;
+      req.session.viewSort.sortRating = null;
+      req.session.viewSort.sortPrice = null;
+      req.session.viewFilter = req.session.viewFilter.map((cat) => {
+        cat.isFiltered = false;
+        return cat;
+      });
+      res.redirect('/courses/all?page=1');
+    } else if (query.sortDate) {
+      req.session.viewSort.sortDate = query.sortDate;
+      req.session.viewSort.sortPurchased = null;
+      req.session.viewSort.sortRating = null;
+      req.session.viewSort.sortPrice = null;
+      req.session.viewFilter = req.session.viewFilter.map((cat) => {
+        cat.isFiltered = false;
+        return cat;
+      });
+      res.redirect('/courses/all?page=1');
+    } else {
+      let courses, courseCount, lastPage, offset;
+
+      let currentPage = +req.query.page || 1;
+      if (currentPage < 1) currentPage = 1;
+
+      const order = [];
+      if (res.locals.viewSort.sortPurchased) {
+        order.push({
+          column: 'purchased_count',
+          order:
+            res.locals.viewSort.sortPurchased == 'MostPurchased'
+              ? 'desc'
+              : 'acs'
+        });
+      }
+
+      if (res.locals.viewSort.sortRating) {
+        order.push({
+          column: 'rating_point',
+          order: res.locals.viewSort.sortRating == 'Top' ? 'desc' : 'acs'
+        });
+      }
+
+      if (res.locals.viewSort.sortPrice) {
+        order.push({
+          column: 'price',
+          order:
+            res.locals.viewSort.sortPrice == 'MostExpensive' ? 'desc' : 'acs'
+        });
+      }
+
+      if (res.locals.viewSort.sortDate) {
+        order.push({
+          column: 'created_at',
+          order: res.locals.viewSort.sortDate == 'NewToOld' ? 'desc' : 'acs'
+        });
+      }
+
+      if (req.session.viewFilter.find((cat) => cat.isFiltered == true)) {
+        const categoryId = req.session.viewFilter
+          .filter((cat) => {
+            return cat.isFiltered;
+          })
+          .map((cat) => cat.id);
+
+        courseCount = await coursesService.countByCategory(categoryId);
+        lastPage = Math.ceil(courseCount[0].counts / COURSES_PAGE_LIMIT);
+        if (currentPage > lastPage) currentPage = 1;
+        offset = (currentPage - 1) * COURSES_PAGE_LIMIT;
+
+        if (order) {
+          courses = await coursesService.findAllAndRatingByCategory(
+            categoryId,
+            COURSES_PAGE_LIMIT,
+            offset,
+            order
+          );
+        } else {
+          courses = await coursesService.findAllAndRatingByCategory(
+            categoryId,
+            COURSES_PAGE_LIMIT,
+            offset
+          );
+        }
+      } else {
+        // pagination
+        courseCount = await coursesService.countAll();
+        lastPage = Math.ceil(courseCount[0].counts / COURSES_PAGE_LIMIT);
+        let currentPage = +req.query.page || 1;
+        if (currentPage > lastPage) currentPage = 1;
+        if (currentPage < 1) currentPage = 1;
+        offset = (currentPage - 1) * COURSES_PAGE_LIMIT;
+
+        if (order) {
+          courses = await coursesService.findAllAndRating(
+            COURSES_PAGE_LIMIT,
+            offset,
+            order
+          );
+        } else {
+          courses = await coursesService.findAllAndRating(
+            COURSES_PAGE_LIMIT,
+            offset
+          );
+        }
+      }
+
+      const pagination = { pages: getPagination(currentPage, lastPage) };
+      pagination.lastPage = lastPage;
+      pagination.currentPage = currentPage;
+
+      specifyCourses(courses);
+      courses.forEach(
+        async (course) => await formatUtils.courseCardFormat(course)
+      );
+
+      res.render('courses/coursesView', {
+        courses: courses,
+        title: {
+          name: 'All courses',
+          link: '/courses/all'
+        },
+        pagination
+      });
+    }
+  },
+
   // [GET] courses/category/:slug
-  async showByCategory(req, res) {
+  async showByCategory(req, res, next) {
     const category = await categoriesService.findBySlug(req.params.slug);
+
+    if (category.length === 0) {
+      res.status(404);
+      next();
+      return;
+    }
 
     res.locals.currentCategory = req.params.slug;
 
@@ -711,21 +849,6 @@ export default {
     pagination.currentPage = currentPage;
 
     const order = [];
-
-    if (res.locals.viewSort.sortRating) {
-      order.push({
-        column: 'rating_point',
-        order: res.locals.viewSort.sortRating == 'Top' ? 'desc' : 'acs'
-      });
-    }
-
-    if (res.locals.viewSort.sortDate) {
-      order.push({
-        column: 'created_at',
-        order: res.locals.viewSort.sortDate == 'NewToOld' ? 'desc' : 'acs'
-      });
-    }
-
     if (res.locals.viewSort.sortPurchased) {
       order.push({
         column: 'purchased_count',
@@ -734,10 +857,24 @@ export default {
       });
     }
 
+    if (res.locals.viewSort.sortRating) {
+      order.push({
+        column: 'rating_point',
+        order: res.locals.viewSort.sortRating == 'Top' ? 'desc' : 'acs'
+      });
+    }
+
     if (res.locals.viewSort.sortPrice) {
       order.push({
         column: 'price',
         order: res.locals.viewSort.sortPrice == 'MostExpensive' ? 'desc' : 'acs'
+      });
+    }
+
+    if (res.locals.viewSort.sortDate) {
+      order.push({
+        column: 'created_at',
+        order: res.locals.viewSort.sortDate == 'NewToOld' ? 'desc' : 'acs'
       });
     }
 
@@ -757,16 +894,6 @@ export default {
         offset
       );
     }
-
-    // let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
-    // bestSellerId = bestSellerId.map((obj) => obj.id);
-
-    // courses.forEach((course) => {
-    //   if (bestSellerId.includes(course.id)) {
-    //     course.hot = true;
-    //   }
-    //   formatUtils.courseCardFormat(course);
-    // });
 
     specifyCourses(courses);
     courses.forEach(
@@ -822,15 +949,29 @@ export default {
     let courses, courseCount, lastPage, offset;
 
     let currentPage = +req.query.page || 1;
-    if (currentPage > lastPage) currentPage = 1;
     if (currentPage < 1) currentPage = 1;
 
     const order = [];
+
+    if (res.locals.viewSort.sortPurchased) {
+      order.push({
+        column: 'purchased_count',
+        order:
+          res.locals.viewSort.sortPurchased == 'MostPurchased' ? 'desc' : 'acs'
+      });
+    }
 
     if (res.locals.viewSort.sortRating) {
       order.push({
         column: 'rating_point',
         order: res.locals.viewSort.sortRating == 'Top' ? 'desc' : 'acs'
+      });
+    }
+
+    if (res.locals.viewSort.sortPrice) {
+      order.push({
+        column: 'price',
+        order: res.locals.viewSort.sortPrice == 'MostExpensive' ? 'desc' : 'acs'
       });
     }
 
@@ -841,19 +982,9 @@ export default {
       });
     }
 
-    if (res.locals.viewSort.sortPurchased) {
-      order.push({
-        column: 'purchased_count',
-        order:
-          res.locals.viewSort.sortPurchased == 'MostPurchased' ? 'desc' : 'acs'
-      });
-    }
-
-    if (res.locals.viewSort.sortPrice) {
-      order.push({
-        column: 'price',
-        order: res.locals.viewSort.sortPrice == 'MostExpensive' ? 'desc' : 'acs'
-      });
+    if (!query.key.trim()) {
+      res.redirect('/courses/all');
+      return;
     }
 
     if (query.category) {
@@ -905,7 +1036,9 @@ export default {
         query.key,
         categoryId
       );
+
       lastPage = Math.ceil(courseCount[0].counts / COURSES_PAGE_LIMIT);
+      if (currentPage > lastPage) currentPage = 1;
       offset = (currentPage - 1) * COURSES_PAGE_LIMIT;
 
       if (order) {

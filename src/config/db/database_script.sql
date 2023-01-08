@@ -85,7 +85,7 @@ CREATE TABLE `courses` (
   `is_completed` tinyint(1) NOT NULL,
   `short_description` varchar(100) NOT NULL,
   `detail_description` varchar(2000) NOT NULL,
-  `syllabus` varchar(2000) NOT NULL,
+  `syllabus` varchar(3000) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   `slug` varchar(100) NOT NULL,
@@ -116,7 +116,9 @@ INSERT INTO `courses` (`id`, `name`, `lecturer_id`, `banner_filename`, `category
 (17, 'Java 11 For Complete Beginners', 8, '17.png', 10, 229000, NULL, 0, 'Learn Modern Java From Scratch', 'Computer programming in Java', '', '2020-01-04 00:00:00', '2020-04-30 00:00:00', 'java-11-for-complete-beginners-1', 1),
 (18, 'Responsive Với Grid System', 3, '18.png', 2, 0, NULL, 1, 'Trong khóa này chúng ta sẽ học về cách xây dựng giao diện web responsive với Grid System, tương tự B', 'Biết cách xây dựng website Responsive\nHiểu được tư tưởng thiết kế với Grid system\nTự tay xây dựng được thư viện CSS Grid\nTự hiểu được Grid layout trong bootstrap', '', '2020-11-09 00:00:00', '2021-01-12 00:00:00', 'responsive-với-grid-system-1', 1),
 (19, 'Lập Trình JavaScript Nâng Cao', 3, '19.png', 2, 0, NULL, 0, 'Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword,', 'Được học kiến thức miễn phí với nội dung chất lượng hơn mất phí\nCác kiến thức nâng cao của Javascript giúp code trở nên tối ưu hơn\nHiểu được cách tư duy nâng cao của các lập trình viên có kinh nghiệm\nHiểu được các khái niệm khó như từ khóa this, phương thức bind, call, apply & xử lý bất đồng bộ\nCó nền tảng Javascript vững chắc để làm việc với mọi thư viện, framework viết bởi Javascript\nNâng cao cơ hội thành công khi phỏng vấn xin việc nhờ kiến thức chuyên môn vững chắc', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'lập-trình-javascript-nâng-cao-1', 1),
-(20, 'Node & ExpressJS', 3, '20.png', 2, 0, NULL, 0, 'Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful', 'Nắm chắc lý thuyết chung trong việc xây dựng web\nBiết cách làm việc với Mongoose, MongoDB trong NodeJS\nXây dựng web với Express bằng kiến thức thực tế\nBiết cách xây dựng API theo chuẩn RESTful API\nNắm chắc lý thuyết về API và RESTful API\nĐược chia sẻ lại kinh nghiệm làm việc thực tế\nNắm chắc khái niệm về giao thức HTTP\nHiểu rõ tư tưởng và cách hoạt động của mô hình MVC\nHọc được cách tổ chức code trong thực tế\nBiết cách deploy (triển khai) website lên internet', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'node--expressjs-1', 1);
+(20, 'Node & ExpressJS', 3, '20.png', 2, 0, NULL, 0, 'Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful', 'Nắm chắc lý thuyết chung trong việc xây dựng web\nBiết cách làm việc với Mongoose, MongoDB trong NodeJS\nXây dựng web với Express bằng kiến thức thực tế\nBiết cách xây dựng API theo chuẩn RESTful API\nNắm chắc lý thuyết về API và RESTful API\nĐược chia sẻ lại kinh nghiệm làm việc thực tế\nNắm chắc khái niệm về giao thức HTTP\nHiểu rõ tư tưởng và cách hoạt động của mô hình MVC\nHọc được cách tổ chức code trong thực tế\nBiết cách deploy (triển khai) website lên internet', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'node--expressjs-1', 1),
+(49, 'Kiến Thức Nhập Môn IT', 3, 'uploadCourseBannerInput_1673161373004.png', 2, 0, NULL, 0, '<p>Để c&oacute; c&aacute;i nh&igrave;n tổng quan về ng&agrave;nh IT - Lập tr&igrave;nh web c&aacute;', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>C&aacute;c kiến thức cơ bản, nền m&oacute;ng của ng&agrave;nh IT</li>\r\n<li>C&aacute;c m&ocirc; h&igrave;nh, kiến tr&uacute;c cơ bản khi triển khai ứng dụng</li>\r\n<li>C&aacute;c kh&aacute;i niệm, thuật ngữ cốt l&otilde;i khi triển khai ứng dụng</li>\r\n<li>Hiểu hơn về c&aacute;ch internet v&agrave; m&aacute;y vi t&iacute;nh hoạt động</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Kh&aacute;i niệm kĩ thuật cần biết</h3>\r\n<ol>\r\n<li>M&ocirc; h&igrave;nh Client - Server l&agrave; g&igrave;?</li>\r\n<li>Domain l&agrave; g&igrave;? T&ecirc;n miền l&agrave; g&igrave;?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>M&ocirc;i trường, con người IT</h3>\r\n<ol>\r\n<li>Học IT cần tố chất g&igrave;? G&oacute;c nh&igrave;n kh&aacute;c từ chuy&ecirc;n gia định hướng gi&aacute;o dục.</li>\r\n<li>Sinh vi&ecirc;n IT đi thực tập tại doanh nghiệp cần biết những g&igrave;?</li>\r\n<li>Trải nghiệm thực tế sau 2 th&aacute;ng l&agrave;m việc tại doanh nghiệp của học vi&ecirc;n F8?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Phương ph&aacute;p, định hướng?</h3>\r\n<ol>\r\n<li>Phương ph&aacute;p học lập tr&igrave;nh của Admin F8?</li>\r\n<li>L&agrave;m sao để c&oacute; thu nhập cao v&agrave; đi xa hơn trong ng&agrave;nh IT?</li>\r\n<li>\r\n<div class=\"CurriculumOfCourse_lessonName__llwRr\">9. 8 lời khuy&ecirc;n gi&uacute;p học lập tr&igrave;nh tại F8 hiệu quả hơn!</div>\r\n</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Ho&agrave;n th&agrave;nh kh&oacute;a học.</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:02:53', '2023-01-08 14:02:53', 'kiến-thức-nhập-môn-it-1', 1),
+(50, 'Xây Dựng Website với ReactJS', 3, 'uploadCourseBannerInput_1673163311037.png', 2, 0, NULL, 0, '<p>Kh&oacute;a học ReactJS từ cơ bản tới n&acirc;ng cao, kết quả của kh&oacute;a học n&agrave;y l&ag', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>Hiểu về kh&aacute;i niệm SPA/MPA</li>\r\n<li>Hiểu về kh&aacute;i niệm hooks</li>\r\n<li>Hiểu c&aacute;ch ReactJS hoạt động</li>\r\n<li>Hiểu về function/class component</li>\r\n<li>Biết c&aacute;ch tối ưu hiệu năng ứng dụng</li>\r\n<li>Th&agrave;nh thạo l&agrave;m việc với RESTful API</li>\r\n<li>Hiểu r&otilde; r&agrave;ng Redux workflow</li>\r\n<li>Th&agrave;nh thạo sử dụng Redux v&agrave;o dự &aacute;n</li>\r\n<li>Biết sử dụng redux-thunk middleware</li>\r\n<li>X&acirc;y dựng sản phẩm thực tế (clone Tiktok)</li>\r\n<li>Triển khai dự &aacute;n React ra Internet</li>\r\n<li>Đủ h&agrave;nh trang tự tin apply đi xin việc</li>\r\n<li>Biết c&aacute;ch Deploy l&ecirc;n Github/Gitlab page</li>\r\n<li>Nhận chứng chỉ kh&oacute;a học do F8 cấp</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Giới thiệu</h3>\r\n<ol>\r\n<li>ReactJS l&agrave; g&igrave;? Tại sao n&ecirc;n học ReactJS?</li>\r\n<li>SPA/MPA l&agrave; g&igrave;?</li>\r\n<li>Ưu điểm của SPA</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>&Ocirc;n lại ES6+</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:35:11', '2023-01-08 14:35:11', 'xây-dựng-website-với-reactjs-1', 1);
 
 -- --------------------------------------------------------
 
@@ -130,18 +132,18 @@ CREATE TABLE `enroll` (
   `status` enum('FINISH','LEARNING') NOT NULL,
   `feedback` varchar(2000) DEFAULT NULL,
   `rate_point` float DEFAULT NULL,
-  `enroll_date` date NOT NULL DEFAULT current_timestamp()
+  `enroll_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `enroll`
+-- Dumping data for table `enroll`
 --
 
 INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_point`, `enroll_date`) VALUES
-(2, 1, 'LEARNING', NULL, 4, '2023-01-04'),
-(2, 2, 'LEARNING', NULL, 5, '2022-12-20'),
-(2, 3, 'LEARNING', NULL, 3, '2023-01-04'),
-(7, 2, 'LEARNING', NULL, 2, '2023-01-04');
+(2, 1, 'LEARNING', NULL, 4, '2023-01-04 00:00:00'),
+(2, 2, 'LEARNING', NULL, 5, '2022-12-20 00:00:00'),
+(2, 3, 'LEARNING', NULL, 3, '2023-01-04 00:00:00'),
+(7, 2, 'LEARNING', NULL, 2, '2023-01-04 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -280,6 +282,7 @@ ALTER TABLE `courses`
   ADD KEY `FK_COURSES_LECTURERS` (`lecturer_id`),
   ADD KEY `FK_COURSES_SALES` (`sale_id`),
   ADD KEY `FK_COURSES_CATEGORIES` (`category_id`);
+ALTER TABLE `courses` ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Chỉ mục cho bảng `enroll`
@@ -346,7 +349,7 @@ ALTER TABLE `chapters`
 -- AUTO_INCREMENT cho bảng `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT cho bảng `lessons`

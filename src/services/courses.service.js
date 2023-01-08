@@ -6,7 +6,21 @@ export default {
   },
 
   findAllWithFullyData() {
-    return db('courses').select('courses.id', 'courses.name', 'courses.price', 'courses.is_completed', 'courses.is_activated', 'categories.name as categories_name', 'lecturers.first_name', 'lecturers.last_name', 'users.email').innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id').innerJoin('categories', 'courses.category_id', '=', 'categories.id').innerJoin('users', 'lecturers.user_id', '=', 'users.id');
+    return db('courses')
+      .select(
+        'courses.id',
+        'courses.name',
+        'courses.price',
+        'courses.is_completed',
+        'courses.is_activated',
+        'categories.name as categories_name',
+        'lecturers.first_name',
+        'lecturers.last_name',
+        'users.email'
+      )
+      .innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id')
+      .innerJoin('categories', 'courses.category_id', '=', 'categories.id')
+      .innerJoin('users', 'lecturers.user_id', '=', 'users.id');
   },
 
   findAllWithDate(sort, limit) {
@@ -130,6 +144,16 @@ export default {
     }
   },
 
+  getHotId(duration, limit) {
+    return db('courses')
+      .join('enroll', 'courses.id', '=', 'enroll.course_id')
+      .select('courses.id')
+      .groupBy('courses.id')
+      .whereBetween('enroll.enroll_date', [duration.start, duration.end])
+      .orderByRaw('count(enroll.course_id) desc')
+      .limit(limit);
+  },
+
   getBestSellerId(limit) {
     return db('courses')
       .join('enroll', 'courses.id', '=', 'enroll.course_id')
@@ -148,7 +172,11 @@ export default {
   },
 
   findById(id) {
-    return db('courses').where('id', id);
+    if (typeof id === 'object') {
+      return db('courses').whereIn('id', id);
+    } else {
+      return db('courses').where('id', id);
+    }
   },
 
   add(entity) {
@@ -173,6 +201,10 @@ export default {
 
   findByCategoryId(id) {
     return db('courses').where('category_id', id);
+  },
+
+  countAll() {
+    return db('courses').select(db.raw('count(*) as counts'));
   },
 
   countByCategory(id) {

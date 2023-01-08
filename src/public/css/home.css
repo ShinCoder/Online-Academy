@@ -105,6 +105,14 @@
   border-radius: 20px;
   padding: 20px;
 }
+.section .view-more a {
+  color: var(--primary);
+  opacity: 0.6;
+}
+.section .view-more a:hover {
+  color: var(--primary-hover);
+  opacity: 1;
+}
 
 .categories-section .parent-categories {
   display: inline-block;
