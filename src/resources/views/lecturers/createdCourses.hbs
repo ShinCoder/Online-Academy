@@ -1,0 +1,70 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/lecturers/createdCourses.css">
+{{/section}}
+
+<div class="owl-carousel mt-4 slider-area">
+
+  <div class="section new-course-section mt-4">
+    <div class="d-flex mb-4 justify-content-between align-items-center">
+      <h1>Created courses</h1>
+      <div>
+        <a class="btn btn-success btn-lg d-block" href="/courses/create">
+          <i class="fa fa-plus-square" aria-hidden="true"></i>
+          Add a new course
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      {{#each createdCourses}}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card course h-100">
+          <div class="course-banner">
+            <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+          </div>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div class="card-title course-title">{{name}}</div>
+            <div>
+              <div class="course-category">Category: <strong>{{category_name}}</strong></div>
+              <div class="course-rating">
+                {{#if rating_point}}
+                <span>{{ratingpointFormat rating_point}}</span>
+                <div class="stars-container">
+                  {{#each this.rating_star}}
+                  {{#starify this}} {{/starify}}
+                  {{/each}}
+                </div>
+                <span>({{rating_count}})</span>
+                {{else}}
+                <span class="p-0">No rating</span>
+                {{/if}}
+              </div>
+              <div class="course-price">
+                <span class="current">{{vietnamdongFormat price}}</span>
+                {{#if this.sale_id}}
+                <span class="base">{{vietnamdongFormat saled_price}}</span>
+                {{/if}}
+              </div>
+              <div class="d-flex justify-content-end">
+                {{#if is_completed}}
+                <p class="text-success mb-0"><strong>Completed !</strong></p>
+                {{else}}
+                <p class="text-danger mb-1"><strong>Not completed !</strong></p>
+                {{/if}}
+              </div>
+              <div class="course-buttons">
+                <a href="/courses/{{id}}/update" class="btn btn-secondary">Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+
+{{#section 'js'}}
+
+<script src="/javascript/lecturer/createdCourses.js"></script>
+{{/section}}

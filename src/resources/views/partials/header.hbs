@@ -6,25 +6,32 @@
             </div>
             <div class="header-links">
                 <ul>
-                    <li><a href="#">Log in</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="/auth/sign-in">Log in</a></li>
+                    <li><a href="/auth/sign-up">Register</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="search-area">
-        <form class="container" action="#" method="post">
+        <form id="search-form" class="container" action="/courses/search" method="GET">
             <div class="search-close">
-                <img src="../images/close.png" alt="close">
+                <img src="/images/close.png" alt="close">
             </div>
-            <input type="text" placeholder="Search here..." />
+            {{#if currentCategory}}
+            <input type="checkbox" class="btn-check" id="category-search-check" autocomplete="off">
+            <label class="btn btn-outline-primary pe-4" for="category-search-check"><i class="fa fa-check me-2"></i>Search
+                in current category</label>
+            <input type="text" name="category" value="{{currentCategory}}" class="d-none">
+            {{/if}}
+            <input name="key" type="text" placeholder="Search here..." />
+            <input type="text" name="page" value=1 class="d-none">
             <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
     <div class="header-bottom">
         <nav class="navbar navbar-expand-lg navbar-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/home">
                     <img src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..." height="36">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -35,20 +42,29 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/home">Home</a>
                         </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                Categories
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                {{#each lcCategories}}
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="/courses/category/{{slug}}?page=1">{{name}}</a>
+                                    <ul class="submenu">
+                                        {{#each this.child_categories}}
+                                        <li><a class="dropdown-item"
+                                                href="/courses/category/{{slug}}?page=1">{{name}}</a></li>
+                                        {{/each}}
+                                    </ul>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                {{/each}}
+                                <li><a class="dropdown-item d-flex align-items-center justify-content-between"
+                                        href="/categories">View all<i class="fa fa-angle-double-right"
+                                            aria-hidden="true"></i></a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

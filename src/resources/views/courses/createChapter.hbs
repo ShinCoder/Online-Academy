@@ -1,0 +1,118 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/course/createChapter.css">
+{{/section}}
+
+<div class="chapterAllWrapper">
+    <div class="chapterDetailWrapper">
+
+        <div class="course-header-wrapper">
+            <h1 class="text-primary text-center">{{this.courseName}}</h1>
+        </div>
+
+        <div class="courseImage">
+            <div class="course-image-wrapper">
+                <img id="image-preview-course" class="img-fluid"
+                    src="/images/courses/{{this.courseBannerFileName}}"
+                    alt="{{this.courseBannerFileName}}" />
+            </div>
+        </div>
+
+        <div class="courseInformationWrapper">
+            <div class="courseSelectWrapper">
+                <h1 class="courseDetailTitle text-primary">Category</h1>
+                <select disabled class="form-select" name="courseCategory" id="courseCategory">
+                    <option disabled selected value="{{this.courseCategory}}" class="defaultSelect">
+                        {{this.courseCategory}}</option>
+                </select>
+            </div>
+
+            <div class="richTextWrapper">
+                <h1 class="courseDetailTitle text-primary">Short Description</h1>
+                <div class="courseDescriptionWrapper">
+                    {{{this.courseShortDescription}}}
+                </div>
+            </div>
+
+            <div class="richTextWrapper">
+                <h1 class="courseDetailTitle text-primary">Short Description</h1>
+                <div class="courseDescriptionWrapper">
+                    {{{this.courseDetailDescription}}}
+                </div>
+            </div>
+
+            <div class="richTextWrapper">
+                <h1 class="courseDetailTitle text-primary">Syllabus</h1>
+                <div class="courseDescriptionWrapper">
+                    {{{this.courseSyllabus}}}
+                </div>
+            </div>
+
+            <div class="richTextWrapper d-flex">
+                <h1 class="courseDetailTitle text-primary">Price</h1>
+                <div class="coursePriceWrapper">
+                    {{{vietnamdongFormat this.coursePrice}}}
+                </div>
+            </div>
+
+            <div class="courseChapterWrapper">
+                <h1 class="text-primary">Chapters</h1>
+            </div>
+
+            <div class="chaptersWrapper">
+                {{#each this.chapters}}
+                <div class="eachChapterWrapper">
+                    <h1 class="chapterTitle text-center"><span>Chapter:</span> {{title}}</h1>
+                    {{#each lessons}}
+                    <div class="lessonWrapper">
+                        <h2 class="lessonTitle text-center">
+                            <span>Lesson:</span> {{title}}
+                        </h2>
+                        <div class="lessonDescription">
+                            {{{description}}}
+                        </div>
+                        <video preload="auto" controls class="video-js vjs-default-skin lessonVideo">
+                            <source type="video/mp4" src="/videos/lessons/{{video_filename}}" />
+                        </video>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/each}}
+            </div>
+
+            <form id="chapterForm" method="post" action="/courses/{{this.courseId}}/chapters/create" class="chapter-header-wrapper">
+                <h1 class="text-center text-primary m-4 addACourseTitle">ADD A CHAPTER</h1>
+                <input autocomplete="off" id="chapterTitle" name="chapterTitle" type="text" class="form-control"
+                    placeholder="Please fill in chapter title" />
+                <p id="chapterTitleError" class="d-none text-danger">Please fill in this field !</p>
+                <div class="d-flex justify-content-end m-4">
+                    <button id="addChapterBtn" type="submit" class="btn btn-primary btn-md">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        Add lessons for this chapter
+                    </button>
+                </div>
+            </form>
+
+            <form method="post" action="/courses/{{this.courseId}}/status"
+                class="addChapterButtonWrapper d-flex align-items-end flex-column">
+                <button id="finishAddCourse" type="submit" class="btn btn-success btn-lg">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Finish create course
+                </button>
+                <div class="mt-2 checkboxComplete">
+                    <input checked class="form-check-input" type="checkbox" id="checkFinishCourse"
+                        name="checkFinishCourse">
+                    <label class="form-check-label" for="checkFinishCourse">
+                        Is this course complete ?
+                    </label>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+
+{{#section 'js'}}
+<script src="/javascript/course/createChapter.js"></script>
+{{/section}}

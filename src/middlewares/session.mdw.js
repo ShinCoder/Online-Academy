@@ -1,20 +1,24 @@
+import fnKnexSessionStore from 'connect-session-knex';
 import session from 'express-session';
-import fnKnexStore from 'connect-session-knex';
-
-import db from '../config/db/mysql.js';
-
+//import db from '../utils/db.js';
 export default function (app) {
-  const KnexStore = fnKnexStore(session);
-  const store = new KnexStore({ knex: db });
-
+  //   const KnexSessionStore = fnKnexSessionStore(session);
+  //   const store = new KnexSessionStore({
+  //     knex: db
+  //   });
   app.set('trust proxy', 1) // trust first proxy
   app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    store: store,
-    cookie: { 
-      maxAge: 24 * 60 * 60 * 1000 
+    //store: store,
+    cookie: {
+      // secure: true
     }
   }))
+
+  app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
+  });
 }

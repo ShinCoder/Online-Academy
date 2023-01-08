@@ -1,0 +1,172 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/courses.css">
+{{/section}}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-lg-3 mb-4">
+            <div class="filter-area">
+                <form method="POST" action="/courses/sortOrder" class="filter-form">
+                    <h4>Sort by</h4>
+                    <div class="row">
+                        <div class="col-6 col-lg-12">
+                            <h5 class="mt-2">Rating</h5>
+                            <select name="sortRating" class="form-select">
+                                <option value="" {{#ifEquals viewSort.sortRating '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="Top" {{#ifEquals viewSort.sortRating 'Top' 'selected' }}{{/ifEquals}}>Top
+                                    Rating</option>
+                            </select>
+                            <h5 class="mt-2">Date</h5>
+                            <select name="sortDate" class="form-select">
+                                <option value="" {{#ifEquals viewSort.sortDate '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="NewToOld" {{#ifEquals viewSort.sortDate 'NewToOld' 'selected'
+                                    }}{{/ifEquals}}>Newest to Oldest</option>
+                                <option value="OldToNew" {{#ifEquals viewSort.sortDate 'OldToNew' 'selected'
+                                    }}{{/ifEquals}}>Oldest to Newest</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-lg-12">
+                            <h5 class="mt-2">Purchases</h5>
+                            <select name="sortPurchased" class="form-select">
+                                <option value="" {{#ifEquals viewSort.sortPurchased '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="MostPurchased" {{#ifEquals
+                                    viewSort.sortPurchased 'MostPurchased' 'selected' }}{{/ifEquals}}>Most purchased
+                                </option>
+                                <option value="LeastPurchased" {{#ifEquals
+                                    viewSort.sortPurchased 'LeastPurchased' 'selected' }}{{/ifEquals}}>Least purchased
+                                </option>
+                            </select>
+                            <h5 class="mt-2">Price</h5>
+                            <select name="sortPrice" class="form-select">
+                                <option value="" {{#ifEquals viewSort.sortPrice '' 'selected' }}{{/ifEquals}}>None
+                                </option>
+                                <option value="MostExpensive" {{#ifEquals viewSort.sortPrice 'MostExpensive' 'selected'
+                                    }}{{/ifEquals}}>Most Expensive</option>
+                                <option value="Cheapest" {{#ifEquals viewSort.sortPrice 'Cheapest' 'selected'
+                                    }}{{/ifEquals}}>Cheapest</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around mt-3">
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                        <button type="button" id="reset-btn" class="btn btn-primary">Reset</button>
+                    </div>
+                </form>
+                {{#unless currentCategory}}
+                <h4 class="mt-3">Categories filter</h4>
+                <form method="POST" action="/courses/filter">
+                    <a class="btn btn-primary w-100 mb-2" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                        aria-expanded="true" aria-controls="collapseExample">
+                        Filter <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="list-group" id="collapseExample">
+                        {{#each viewFilter}}
+                        <li class="list-group-item">
+                            <input type="checkbox" name="{{id}}" id="filter{{id}}" {{#if isFiltered}}checked{{/if}}>
+                            
+                            <label for="filter{{id}}">{{name}}</label>
+                        </li>
+                        {{/each}}
+                    </ul>
+                     <div class="d-flex justify-content-around mt-3">
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                        <button type="button" id="reset-filter-btn" class="btn btn-primary">Reset</button>
+                    </div>
+                </form>
+                {{/unless}}
+            </div>
+        </div>
+        <div class="col-12 col-lg-9">
+            <a href="{{title.link}}" class="title">{{title.name}}</a>
+            <div class="row mt-4">
+                {{#if courses}}
+                {{#each courses}}
+                <div class="col-6 col-md-4 mb-3">
+                    <div class="card course h-100">
+                        <a href="#" class="course-banner">
+                            <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+                            {{#if special}}
+                            <span class="badge rounded-pill bg-warning">{{special.value}}</span>
+                            {{/if}}
+                        </a>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <a href="#" class="card-title course-title">{{name}}</a>
+                            <div>
+                                <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
+                                <div class="course-category">Category: <a href="#">{{category_name}}</a></div>
+                                <div class="course-rating">
+                                    {{#if rating_point}}
+                                    <span>{{ratingpointFormat rating_point}}</span>
+                                    <div class="stars-container">
+                                        {{#each this.rating_star}}
+                                        {{#starify this}} {{/starify}}
+                                        {{/each}}
+                                    </div>
+                                    <span>({{rating_count}})</span>
+                                    {{else}}
+                                    <span class="p-0">No rating</span>
+                                    {{/if}}
+                                </div>
+                                <div class="course-price">
+                                    <span class="current">{{vietnamdongFormat price}}</span>
+                                    {{#if this.sale_id}}
+                                    <span class="base">{{vietnamdongFormat saled_price}}</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="col-12 d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item {{#ifEquals pagination.currentPage 1 " disabled"}}{{/ifEquals}}">
+                                <a class="page-link" href="?page={{sum pagination.currentPage -1}}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {{#each pagination.pages}}
+                            <li class="page-item {{#if isCurrent}}active{{/if}}"><a class="page-link"
+                                    href="?page={{value}}">{{value}}</a></li>
+                            {{/each}}
+                            <li class="page-item {{#ifEquals pagination.currentPage pagination.lastPage "
+                                disabled"}}{{/ifEquals}}">
+                                <a class="page-link" href="?page={{sum pagination.currentPage 1}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                {{else}}
+                <h4>No course was found</h4>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="resetSort" method="POST" action="/courses/sortOrder" class="d-none">
+    <select name="sortRating" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+    <select name="sortDate" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+    <select name="sortPurchased" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+    <select name="sortPrice" class="form-select">
+        <option value="" selected>n</option>
+    </select>
+</form>
+<form id="resetFilter" method="POST" action="/courses/filter" class="d-none"></form>
+
+{{#section 'js'}}
+<script src="/javascript/courses.js"></script>
+{{/section}}

@@ -9,29 +9,28 @@ import myFunction from '../../library/index.js';
 
 import mail from '../../mail/index.js';
 
-
 export default {
   getSignIn(req, res) {
-    res.render('pages/auth/sign-in');
+    res.render('auth/sign-in');
   },
   async postSignIn(req, res) {
     try {
       const { email, password } = req.body;
 
       if (!email) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Email cannot be empty.'
         });
       }
 
       if (!emailValidator.validate(email)) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Invalid email.'
         });
       }
 
       if (!password) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Password cannot be empty.'
         });
       }
@@ -41,83 +40,83 @@ export default {
       });
 
       if (!found_user.length) {
-        return res.render('pages/auth/sign-in', {
+        return res.render('auth/sign-in', {
           error: 'This email hadn\'t signed up. Please use sign up instead.'
         });
       }
 
-      if (!found_user[0].verified_at) {
-        return res.render('pages/auth/sign-in', {
+      if (!found_user[0].is_activated) {
+        return res.render('auth/sign-in', {
           error: 'This email hadn\'t verified. Please check your mail to verify.'
         });
       }
 
-      if(!await bcrypt.compareSync(password, found_user[0].password)) {
-        return res.render('pages/auth/sign-in', {
+      if(!await bcrypt.compareSync(password, found_user[0].identity)) {
+        return res.render('auth/sign-in', {
           error: 'Invalid password. Try recovery password if you forgot password.'
         });
       }
 
-      delete found_user[0].password;
-
       req.session.auth = true;
       req.session.authUser = found_user[0];
 
-      return res.render('pages/auth/sign-in', {
+      return res.render('auth/sign-in', {
         success: 'Sign in successfully. Redirecting to dashboard in 5s ...'
       });
     }
     catch (error) {
-      return res.render('pages/auth/sign-in', {
+      return res.render('auth/sign-in', {
         error: 'Something went wrong. Please try later or contact admin.'
       });
     }
   },
   getSignUp(req, res) {
-    res.render('pages/auth/sign-up');
+    res.render('auth/sign-up');
   },
   async postSignUp(req, res) {
     try {
       const { first_name, last_name, email, password, confirm_password } = req.body;
 
+      console.log(first_name, last_name, email, password, confirm_password)
+
       if (!first_name) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'First name cannot be empty.'
         });
       }
 
       if (!last_name) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Last name cannot be empty.'
         });
       }
 
       if (!email) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Email cannot be empty.'
         });
       }
 
       if (!emailValidator.validate(email)) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Invalid email.'
         });
       }
 
       if (!password) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Password cannot be empty.'
         });
       }
 
       if (!confirm_password) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Confirm password cannot be empty.'
         });
       }
 
       if (password != confirm_password) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Password and Confirm password must be same.'
         });
       }
@@ -127,7 +126,7 @@ export default {
       });
 
       if (found_user.length) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'This email had signed up. Please use sign in instead.'
         });
       }
@@ -135,25 +134,22 @@ export default {
       const new_time = await moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       const otp = await myFunction.generateString(6);
 
-      const sent = await mail.sendMail(email, 'Verify email address', 'http://localhost:3000/auth/otp/' + otp);
+      const sent = await mail.sendMail(email, 'Verify email address', 'http://localhost:8080/auth/otp/' + otp);
 
       if (!sent) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Fail to send mail.'
         });
       }
 
       const new_user = await usersService.add({
         email: email,
-        first_name: first_name,
-        last_name: last_name, 
-        password: await bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-        created_at: new_time,
-        updated_at: new_time,
+        username: first_name + ' ' + last_name,
+        identity: await bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
       });
 
       if (!new_user) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Cannot create account. Please try later or contact admin.'
         });
       }
@@ -167,36 +163,36 @@ export default {
       });
 
       if (!new_otp) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Cannot create otp. Please try later or contact admin.'
         });
       }
 
-      return res.render('pages/auth/sign-up', {
+      return res.render('auth/sign-up', {
         success: 'Sign up successfully. Please check your mail to activiate your account. Redirecting to sign in page in 5s ...'
       });
     }
     catch (error) {
-      return res.render('pages/auth/sign-up', {
+      return res.render('auth/sign-up', {
         error: 'Something went wrong. Please try later or contact admin.'
       });
     }
   },
   getRecoveryPassword(req, res) {
-    res.render('pages/auth/recovery-password');
+    res.render('auth/recovery-password');
   },
   async postRecoveryPassword(req, res) {
     try {
       const { email } = req.body;
 
       if (!email) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Email cannot be empty.'
         });
       }
 
       if (!emailValidator.validate(email)) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Invalid email.'
         });
       }
@@ -206,13 +202,13 @@ export default {
       });
 
       if (!found_user.length) {
-        return res.render('pages/auth/sign-in', {
+        return res.render('auth/sign-in', {
           error: 'This email hadn\'t signed up. Please use sign up instead.'
         });
       }
 
-      if (!found_user[0].verified_at) {
-        return res.render('pages/auth/sign-in', {
+      if (!found_user[0].is_activated) {
+        return res.render('auth/sign-in', {
           error: 'This email hadn\'t verified. Please check your mail to verify.'
         });
       }
@@ -220,24 +216,24 @@ export default {
       const found_otp = await otpsService.findByKey({user_id: found_user[0].id, type: 'recovery-password', used: 0});
 
       if (found_otp.length) {
-        const sent = await mail.sendMail(email, 'Recovery password', 'http://localhost:3000/auth/otp/' + found_otp[0].code);
+        const sent = await mail.sendMail(email, 'Recovery password', 'http://localhost:8080/auth/otp/' + found_otp[0].code);
 
         if (!sent) {
-          return res.render('pages/auth/sign-up', {
+          return res.render('auth/sign-up', {
             error: 'Fail to send mail.'
           });
         }
 
-        return res.render('pages/auth/recovery-password', {
+        return res.render('auth/recovery-password', {
           success: 'Recovery password mail had been resent.'
         });
       }
 
       const otp = await myFunction.generateString(6);
-      const sent = await mail.sendMail(email, 'Recovery password', 'http://localhost:3000/auth/otp/' + otp);
+      const sent = await mail.sendMail(email, 'Recovery password', 'http://localhost:8080/auth/otp/' + otp);
 
       if (!sent) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Fail to send mail.'
         });
       }
@@ -251,19 +247,19 @@ export default {
       });
 
       if (!new_otp) {
-        return res.render('pages/auth/sign-up', {
+        return res.render('auth/sign-up', {
           error: 'Cannot create otp. Please try later or contact admin.'
         });
       }
 
-      return res.render('pages/auth/recovery-password', {
+      return res.render('auth/recovery-password', {
         success: 'Recovery password mail had been sent successfully. Please check your mail. Redirecting to sign in page in 5s ...'
       });
     }
     catch (error) {
       console.log(error);
 
-      return res.render('pages/auth/recovery-password', {
+      return res.render('auth/recovery-password', {
         error: 'Something went wrong. Please try later or contact admin.'
       });
     }
@@ -273,7 +269,7 @@ export default {
       const { id: otp } = req.params;
 
       if (!otp) {
-        return res.render('pages/auth/otp', {
+        return res.render('auth/otp', {
           error: 'Empty otp. Please check your mail for the link.'
         });
       }
@@ -284,7 +280,7 @@ export default {
       });
 
       if (!found_otp.length) {
-        return res.render('pages/auth/otp', {
+        return res.render('auth/otp', {
           error: 'Empty otp. Please check your mail for the link.'
         });
       }
@@ -293,7 +289,7 @@ export default {
       const updated_otp = await otpsService.update(found_otp[0].id, { used: 1 });
 
       if (!updated_otp) {
-        return res.render('pages/auth/otp', {
+        return res.render('auth/otp', {
           error: 'Verified fail. Please try again.'
         });
       }
@@ -303,36 +299,36 @@ export default {
         const updated_user = await usersService.update(found_otp[0].user_id, { password: await bcrypt.hashSync(new_password, bcrypt.genSaltSync(10)), updated_at: new_time });
 
         if (!updated_user) {
-          return res.render('pages/auth/otp', {
+          return res.render('auth/otp', {
             error: 'Verified fail. Please try again.'
           });
         }
 
-        return res.render('pages/auth/otp', {
+        return res.render('auth/otp', {
           success: 'Recovery password successfull. Your new password: ' + new_password
         });
       }
 
       if (found_otp[0].type == 'verify-email') {
-        const updated_user = await usersService.update(found_otp[0].user_id, { verified_at: new_time});
+        const updated_user = await usersService.update(found_otp[0].user_id, { is_activated: new_time});
 
         if (!updated_user) {
-          return res.render('pages/auth/otp', {
+          return res.render('auth/otp', {
             error: 'Verified fail. Please try again.'
           });
         }
 
-        return res.render('pages/auth/otp', {
+        return res.render('auth/otp', {
           success: 'Verify successfully. You can close this tab now.'
         });
       }
       
-      return res.render('pages/auth/otp', {
+      return res.render('auth/otp', {
         error: 'Invalid verification. Please try again.'
       });
     }
     catch (error) {
-      return res.render('pages/auth/otp', {
+      return res.render('auth/otp', {
         error: 'Something went wrong. Please try later or contact admin.'
       });
     }

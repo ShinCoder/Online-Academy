@@ -1,0 +1,48 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/course/createLessonOnUpdate.css">
+{{/section}}
+
+<form method="post" action="/courses/{{this.course.id}}/chapters/{{this.chapter.id}}/lessons/create-on-update" id="lessonForm" enctype="multipart/form-data">
+    <div class="d-flex justify-content-center">
+        <h1 class="text-primary courseChapterTitle text-center">{{this.course.name}} - {{this.chapter.title}}</h1>
+    </div>
+    
+    <div class="lesson-header-wrapper">
+        <input autocomplete="off" id="lessonTitle" name="lessonTitle" type="text" class="form-control"
+            placeholder="Please fill in lesson title" />
+        <p id="lessonNameInputError" class="d-none text-danger">Please fill in this field !</p>
+    </div>
+
+    <div class="richTextWrapper">
+        <h1 class="courseDetailTitle">Lesson Description</h1>
+        <textarea name="lessonDescription" id="lessonDescription"></textarea>
+        <p id="lessonDescriptionError" class="d-none text-danger">Please fill in lesson description !</p>
+    </div>
+
+    <div class="richTextWrapper">
+        <h1 class="courseDetailTitle">Lesson Video</h1>
+        <input class="uploadLessonVideo" id="uploadLessonVideo" name="uploadLessonVideo" type="file"
+            accept="video/mp4" />
+        <button id="addVideoToLessonBtn" type="button" class="btn btn-info addVideoToLessonBtn">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> Upload lesson video
+        </button>
+
+        <div id="videoWrapper"></div>
+        <p id="lessonVideoError" class="d-none text-danger">Please choose a video for this lesson !</p>
+    </div>
+
+    <div class="d-flex justify-content-between my-3">
+        <a id="backBtn" href="/courses/{{this.course.id}}/chapters/update" class="btn btn-secondary btn-lg">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            Back
+        </a>
+
+        <button type="submit" class="btn btn-success btn-lg">
+            <i class="fa fa-book" aria-hidden="true"></i> Create lesson
+        </button>
+    </div>
+</form>
+
+{{#section 'js'}}
+<script src="/javascript/course/createLessonOnUpdate.js"></script>
+{{/section}}
