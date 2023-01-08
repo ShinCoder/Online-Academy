@@ -108,12 +108,12 @@ export const specifyCourses = async (courses) => {
   let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
   bestSellerId = bestSellerId.map((obj) => obj.id);
 
-  const dateEnd = new Date().toISOString().slice(0, 10);
+  const dateEnd = new Date().toLocaleString('af-ZA', {
+    timeZone: 'Asia/Ho_Chi_Minh'
+  });
   const dateStart = new Date(
     new Date().setDate(new Date().getDate() - NEW_COURSE_DURATION)
-  )
-    .toISOString()
-    .slice(0, 10);
+  ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' });
 
   let newestId = await coursesService.getNewestId(
     {
@@ -816,8 +816,14 @@ export default {
   },
 
   // [GET] courses/category/:slug
-  async showByCategory(req, res) {
+  async showByCategory(req, res, next) {
     const category = await categoriesService.findBySlug(req.params.slug);
+
+    if (category.length === 0) {
+      res.status(404);
+      next();
+      return;
+    }
 
     res.locals.currentCategory = req.params.slug;
 
@@ -888,16 +894,6 @@ export default {
         offset
       );
     }
-
-    // let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
-    // bestSellerId = bestSellerId.map((obj) => obj.id);
-
-    // courses.forEach((course) => {
-    //   if (bestSellerId.includes(course.id)) {
-    //     course.hot = true;
-    //   }
-    //   formatUtils.courseCardFormat(course);
-    // });
 
     specifyCourses(courses);
     courses.forEach(

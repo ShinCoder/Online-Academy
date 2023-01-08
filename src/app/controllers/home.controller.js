@@ -84,10 +84,12 @@ export default {
     // hot course
     let hotCourseId = await coursesService.getHotId(
       {
-        end: new Date().toISOString().slice(0, 10),
-        start: new Date(new Date().setDate(new Date().getDate() - 7))
-          .toISOString()
-          .slice(0, 10)
+        end: new Date().toLocaleString('af-ZA', {
+          timeZone: 'Asia/Ho_Chi_Minh'
+        }),
+        start: new Date(
+          new Date().setDate(new Date().getDate() - 7)
+        ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' })
       },
       HOT_COURSE_LIMIT
     );
@@ -121,12 +123,13 @@ export default {
     // bestSeller course -end
 
     // new course
-    const dateEnd = new Date().toISOString().slice(0, 10);
+    const dateEnd = new Date().toLocaleString('af-ZA', {
+      timeZone: 'Asia/Ho_Chi_Minh'
+    });
     const dateStart = new Date(
       new Date().setDate(new Date().getDate() - NEW_COURSE_DURATION)
-    )
-      .toISOString()
-      .slice(0, 10);
+    ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' });
+
     const newCourses = await coursesService.findAllWithDuration(
       { start: dateStart, end: dateEnd },
       NEW_COURSE_LIMIT
