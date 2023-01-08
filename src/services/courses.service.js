@@ -127,5 +127,12 @@ export default {
 
   updateLesson(id, entity) {
     return db('lessons').update(entity).where('id', id);
+  },
+
+  activateCourse(id) {
+    return db('courses').where('id', id).update('is_activated', true);
+  },
+  deactivateCourse(id) {
+    return db('courses').where('id', id).update('is_activated', false);
   }
 };

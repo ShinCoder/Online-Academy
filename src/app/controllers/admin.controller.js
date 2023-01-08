@@ -48,5 +48,18 @@ export default {
                 error: 'This email had signed up. Please choose another email.'
             });
         }
+    },
+    async deActivateCourse(req, res) {
+        const courseId = req.params.id;
+        const returningResult = await coursesService.deactivateCourse(courseId);
+
+        res.redirect('/admin/courses');
+    }
+    ,
+    async activateCourse(req, res) {
+        const courseId = req.params.id;
+        const returningResult = await coursesService.activateCourse(courseId);
+
+        res.redirect('/admin/courses');
     }
 }
