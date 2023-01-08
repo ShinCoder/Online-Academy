@@ -1,0 +1,24 @@
+{{#section 'css'}}
+  <link rel='stylesheet' href='/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='/css/authentication.css'>
+{{/section}}
+
+<div class='vertical-center'>
+  <div class='container'>
+    {{#if success}}
+      <div class='alert alert-success alert-dismissible fade show'>
+        <strong>{{success}}</strong>
+      </div>
+    {{/if}}
+
+    {{#if error}}
+      <div class='alert alert-danger alert-dismissible fade show'>
+        <strong>{{error}}</strong>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#section 'js'}}
+  <link rel='stylesheet' href='/javascript/bootstrap.min.js'>
+{{/section}}

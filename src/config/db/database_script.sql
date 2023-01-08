@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `coursemy`
+-- Cơ sở dữ liệu: `coursemy`
 --
 CREATE DATABASE IF NOT EXISTS `coursemy` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `coursemy`;
@@ -26,7 +26,7 @@ USE `coursemy`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
@@ -38,7 +38,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slug`) VALUES
@@ -59,7 +59,7 @@ INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chapters`
+-- Cấu trúc bảng cho bảng `chapters`
 --
 
 CREATE TABLE `chapters` (
@@ -71,7 +71,7 @@ CREATE TABLE `chapters` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `courses`
+-- Cấu trúc bảng cho bảng `courses`
 --
 
 CREATE TABLE `courses` (
@@ -123,7 +123,7 @@ INSERT INTO `courses` (`id`, `name`, `lecturer_id`, `banner_filename`, `category
 -- --------------------------------------------------------
 
 --
--- Table structure for table `enroll`
+-- Cấu trúc bảng cho bảng `enroll`
 --
 
 CREATE TABLE `enroll` (
@@ -148,7 +148,7 @@ INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_poi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lecturers`
+-- Cấu trúc bảng cho bảng `lecturers`
 --
 
 CREATE TABLE `lecturers` (
@@ -160,7 +160,7 @@ CREATE TABLE `lecturers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `lecturers`
+-- Đang đổ dữ liệu cho bảng `lecturers`
 --
 
 INSERT INTO `lecturers` (`user_id`, `first_name`, `last_name`, `career_description`, `avatar_url`) VALUES
@@ -173,7 +173,7 @@ INSERT INTO `lecturers` (`user_id`, `first_name`, `last_name`, `career_descripti
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lessons`
+-- Cấu trúc bảng cho bảng `lessons`
 --
 
 CREATE TABLE `lessons` (
@@ -187,7 +187,7 @@ CREATE TABLE `lessons` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sales`
+-- Cấu trúc bảng cho bảng `sales`
 --
 
 CREATE TABLE `sales` (
@@ -199,7 +199,7 @@ CREATE TABLE `sales` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students`
+-- Cấu trúc bảng cho bảng `students`
 --
 
 CREATE TABLE `students` (
@@ -219,20 +219,20 @@ INSERT INTO `students` (`user_id`, `first_name`, `last_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `identity` varchar(50) NOT NULL,
+  `identity` varchar(100) NOT NULL,
   `authority` enum('STUDENT','LECTURER','ADMIN') NOT NULL,
   `is_activated` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_activated`) VALUES
@@ -248,7 +248,7 @@ INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_act
 -- --------------------------------------------------------
 
 --
--- Table structure for table `watchlist`
+-- Cấu trúc bảng cho bảng `watchlist`
 --
 
 CREATE TABLE `watchlist` (
@@ -257,24 +257,24 @@ CREATE TABLE `watchlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `categories`
+-- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `chapters`
+-- Chỉ mục cho bảng `chapters`
 --
 ALTER TABLE `chapters`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_CHAPTERS_COURSES` (`course_id`);
 
 --
--- Indexes for table `courses`
+-- Chỉ mục cho bảng `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
@@ -285,102 +285,102 @@ ALTER TABLE `courses`
 ALTER TABLE `courses` ADD FULLTEXT KEY `name` (`name`);
 
 --
--- Indexes for table `enroll`
+-- Chỉ mục cho bảng `enroll`
 --
 ALTER TABLE `enroll`
   ADD PRIMARY KEY (`student_id`,`course_id`),
   ADD KEY `FK_ENROLL_COURSES` (`course_id`);
 
 --
--- Indexes for table `lecturers`
+-- Chỉ mục cho bảng `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indexes for table `lessons`
+-- Chỉ mục cho bảng `lessons`
 --
 ALTER TABLE `lessons`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_LESSONS_CHAPTERS` (`chapter_id`);
 
 --
--- Indexes for table `sales`
+-- Chỉ mục cho bảng `sales`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `students`
+-- Chỉ mục cho bảng `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indexes for table `users`
+-- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `watchlist`
+-- Chỉ mục cho bảng `watchlist`
 --
 ALTER TABLE `watchlist`
   ADD PRIMARY KEY (`student_id`,`course_id`),
   ADD KEY `FK_WATCHLIST_COURSES` (`course_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `chapters`
+-- AUTO_INCREMENT cho bảng `chapters`
 --
 ALTER TABLE `chapters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `courses`
+-- AUTO_INCREMENT cho bảng `courses`
 --
 ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT for table `lessons`
+-- AUTO_INCREMENT cho bảng `lessons`
 --
 ALTER TABLE `lessons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `sales`
+-- AUTO_INCREMENT cho bảng `sales`
 --
 ALTER TABLE `sales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `chapters`
+-- Các ràng buộc cho bảng `chapters`
 --
 ALTER TABLE `chapters`
   ADD CONSTRAINT `FK_CHAPTERS_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `courses`
+-- Các ràng buộc cho bảng `courses`
 --
 ALTER TABLE `courses`
   ADD CONSTRAINT `FK_COURSES_CATEGORIES` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
@@ -388,32 +388,32 @@ ALTER TABLE `courses`
   ADD CONSTRAINT `FK_COURSES_SALES` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`);
 
 --
--- Constraints for table `enroll`
+-- Các ràng buộc cho bảng `enroll`
 --
 ALTER TABLE `enroll`
   ADD CONSTRAINT `FK_ENROLL_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `FK_ENROLL_STUDENTS` FOREIGN KEY (`student_id`) REFERENCES `students` (`user_id`);
 
 --
--- Constraints for table `lecturers`
+-- Các ràng buộc cho bảng `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD CONSTRAINT `FK_LECTURERS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `lessons`
+-- Các ràng buộc cho bảng `lessons`
 --
 ALTER TABLE `lessons`
   ADD CONSTRAINT `FK_LESSONS_CHAPTERS` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `students`
+-- Các ràng buộc cho bảng `students`
 --
 ALTER TABLE `students`
   ADD CONSTRAINT `FK_STUDENTS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `watchlist`
+-- Các ràng buộc cho bảng `watchlist`
 --
 ALTER TABLE `watchlist`
   ADD CONSTRAINT `FK_WATCHLIST_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
