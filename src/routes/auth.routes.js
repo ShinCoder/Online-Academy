@@ -5,6 +5,7 @@ import authController from '../app/controllers/auth.controller.js';
 
 router.get('/sign-in', authController.getSignIn);
 router.post('/sign-in', authController.postSignIn);
+router.get('/sign-out', authController.getSignOut);
 router.get('/sign-up', authController.getSignUp);
 router.post('/sign-up', authController.postSignUp);
 router.get('/recovery-password', authController.getRecoveryPassword);
