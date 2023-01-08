@@ -11,5 +11,13 @@ export default {
 
   deleteAll() {
     return db('users').del();
+  },
+
+  findByKey(obj) {
+    return db('users').where(obj);
+  },
+
+  update(id, obj) {
+    return db('users').where({id: id}).update(obj);
   }
 };

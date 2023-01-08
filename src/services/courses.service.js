@@ -6,7 +6,21 @@ export default {
   },
 
   findAllWithFullyData() {
-    return db('courses').select('courses.id', 'courses.name', 'courses.price', 'courses.is_completed', 'courses.is_activated', 'categories.name as categories_name', 'lecturers.first_name', 'lecturers.last_name', 'users.email').innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id').innerJoin('categories', 'courses.category_id', '=', 'categories.id').innerJoin('users', 'lecturers.user_id', '=', 'users.id');
+    return db('courses')
+      .select(
+        'courses.id',
+        'courses.name',
+        'courses.price',
+        'courses.is_completed',
+        'courses.is_activated',
+        'categories.name as categories_name',
+        'lecturers.first_name',
+        'lecturers.last_name',
+        'users.email'
+      )
+      .innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id')
+      .innerJoin('categories', 'courses.category_id', '=', 'categories.id')
+      .innerJoin('users', 'lecturers.user_id', '=', 'users.id');
   },
 
   findAllWithDate(sort, limit) {
@@ -17,17 +31,41 @@ export default {
     }
   },
 
-  // findAllAndRating(sort) {
-  //   if (sort) {
-  //   } else {
-  //     return db('courses')
-  //       .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
-  //       .select('courses.*')
-  //       .avg('enroll.rate_point', { as: 'rating_point' })
-  //       .count('enroll.rate_point', { as: 'rating_count' })
-  //       .groupBy('courses.id');
-  //   }
-  // },
+  findAllWithDuration(duration, limit) {
+    if (limit) {
+      return db('courses')
+        .whereBetween('created_at', [duration.start, duration.end])
+        .orderBy('created_at', 'desc')
+        .limit(limit);
+    } else {
+      return db('courses')
+        .whereBetween('created_at', [duration.start, duration.end])
+        .orderBy('created_at', 'desc');
+    }
+  },
+
+  findAllAndRating(limit, offset, sort) {
+    if (sort) {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.course_id', { as: 'purchased_count' })
+        .groupBy('courses.id')
+        .orderBy(sort)
+        .limit(limit)
+        .offset(offset);
+    } else {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.rate_point', { as: 'purchased_count' })
+        .groupBy('courses.id')
+        .limit(limit)
+        .offset(offset);
+    }
+  },
 
   findAllAndRatingByCategory(id, limit, offset, sort) {
     if (sort) {
@@ -54,6 +92,68 @@ export default {
     }
   },
 
+  findAllAndRatingBySearch(searchString, limit, offset, sort) {
+    if (sort) {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.course_id', { as: 'purchased_count' })
+        .whereRaw(`MATCH(name) AGAINST('${searchString}')`)
+        .groupBy('courses.id')
+        .orderBy(sort)
+        .limit(limit)
+        .offset(offset);
+    } else {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.rate_point', { as: 'purchased_count' })
+        .whereRaw(`MATCH(name) AGAINST('${searchString}')`)
+        .groupBy('courses.id')
+        .limit(limit)
+        .offset(offset);
+    }
+  },
+
+  findAllAndRatingBySearchAndCategory(searchString, id, limit, offset, sort) {
+    if (sort) {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.course_id', { as: 'purchased_count' })
+        .whereIn('courses.category_id', id)
+        .andWhere(db.raw(`MATCH(name) AGAINST('${searchString}')`))
+        .groupBy('courses.id')
+        .orderBy(sort)
+        .limit(limit)
+        .offset(offset);
+    } else {
+      return db('courses')
+        .leftJoin('enroll', 'courses.id', '=', 'enroll.course_id')
+        .select('courses.*')
+        .avg('enroll.rate_point', { as: 'rating_point' })
+        .count('enroll.rate_point', { as: 'purchased_count' })
+        .whereIn('courses.category_id', id)
+        .andWhere(db.raw(`MATCH(name) AGAINST('${searchString}')`))
+        .groupBy('courses.id')
+        .limit(limit)
+        .offset(offset);
+    }
+  },
+
+  getHotId(duration, limit) {
+    return db('courses')
+      .join('enroll', 'courses.id', '=', 'enroll.course_id')
+      .select('courses.id')
+      .groupBy('courses.id')
+      .whereBetween('enroll.enroll_date', [duration.start, duration.end])
+      .orderByRaw('count(enroll.course_id) desc')
+      .limit(limit);
+  },
+
   getBestSellerId(limit) {
     return db('courses')
       .join('enroll', 'courses.id', '=', 'enroll.course_id')
@@ -63,8 +163,20 @@ export default {
       .limit(limit);
   },
 
+  getNewestId(duration, limit) {
+    return db('courses')
+      .select('courses.id')
+      .whereBetween('created_at', [duration.start, duration.end])
+      .orderBy('created_at', 'desc')
+      .limit(limit);
+  },
+
   findById(id) {
-    return db('courses').where('id', id);
+    if (typeof id === 'object') {
+      return db('courses').whereIn('id', id);
+    } else {
+      return db('courses').where('id', id);
+    }
   },
 
   add(entity) {
@@ -91,10 +203,27 @@ export default {
     return db('courses').where('category_id', id);
   },
 
-  countByCategoryId(id) {
+  countAll() {
+    return db('courses').select(db.raw('count(*) as counts'));
+  },
+
+  countByCategory(id) {
     return db('courses')
       .select(db.raw('count(*) as counts'))
       .whereIn('category_id', id);
+  },
+
+  countBySearch(searchString) {
+    return db('courses')
+      .select(db.raw('count(*) as counts'))
+      .whereRaw(`MATCH(name) AGAINST('${searchString}')`);
+  },
+
+  countBySearchAndCategory(searchString, id) {
+    return db('courses')
+      .select(db.raw('count(*) as counts'))
+      .whereIn('category_id', id)
+      .andWhereRaw(`MATCH(name) AGAINST('${searchString}')`);
   },
 
   updateStatus(id, isCompleted) {

@@ -1,0 +1,72 @@
+{{#section 'css'}}
+  <link rel='stylesheet' href='/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='/css/authentication.css'>
+{{/section}}
+
+<div class='vertical-center'>
+  <div class='container'>
+    <div class='row justify-content-center'>
+      <div class='col-md-8'>
+        {{#if success}}
+          <div class='alert alert-success alert-dismissible fade show'>
+            <strong>{{success}}</strong>
+          </div>
+        {{/if}}
+
+        {{#if error}}
+          <div class='alert alert-danger alert-dismissible fade show'>
+            <strong>{{error}}</strong>
+          </div>
+        {{/if}}
+
+        <div class='card card-default'>
+          <div class='card-header'>Sign In</div>
+          <div class='card-body'>
+            <form action='' id='sign-in' method='post'>
+              <div class='row mb-3'>
+                <div class='col-xs-12 col-md-6'>
+                  <div class='form-floating'>
+                    <input type='email' class='form-control' id='email' name='email' required autofocus autocomplete='on'>
+                    <label for='email'>Email</label>
+                  </div>
+                </div>
+                <div class='col-xs-12 col-md-6'>
+                  <div class='form-floating'>
+                    <input type='password' class='form-control' id='password' name='password' required autofocus autocomplete='off'>
+                    <label for='password'>Password</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class='text-center mb-3'>
+                Forgot password? Click <a href='./recovery-password'> here </a> to recovery password!
+              </div>
+
+              <div class='form-group row mb-3'>
+                <button type='submit' class='btn btn-primary'>
+                  Login
+                </button>
+              </div>
+
+              <div class='text-center mb-3'>
+                Don't have account? Click <a href='./sign-up'> here </a> to sign up!
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#section 'js'}}
+  <link rel='stylesheet' href='/javascript/bootstrap.min.js'>
+
+  {{#if success}}
+    <script>
+      setTimeout(() => {
+        document.location.replace(retUrl);
+      }, 3000);
+    </script>
+  {{/if}}
+{{/section}}

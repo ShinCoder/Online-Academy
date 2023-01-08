@@ -1,10 +1,13 @@
 import formatUtils from '../../utils/format.js';
-import categoriesService from '../../services/categories.service.js';
 import enrollService from '../../services/enroll.service.js';
 import coursesService from '../../services/courses.service.js';
 
+import { specifyCourses } from './courses.controller.js';
+
 const HOT_CATEGORY_LIMIT = 5;
-const HOT_COURSE_LIMIT = 12;
+const HOT_COURSE_LIMIT = 3;
+const BESTSELLER_COURSE_LIMIT = 12;
+const NEW_COURSE_DURATION = 30;
 const NEW_COURSE_LIMIT = 12;
 
 export default {
@@ -79,11 +82,32 @@ export default {
     // categories -end
 
     // hot course
-    const coursesEnrollCount = await enrollService.countByCourseId(
+    let hotCourseId = await coursesService.getHotId(
+      {
+        end: new Date().toLocaleString('af-ZA', {
+          timeZone: 'Asia/Ho_Chi_Minh'
+        }),
+        start: new Date(
+          new Date().setDate(new Date().getDate() - 7)
+        ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' })
+      },
       HOT_COURSE_LIMIT
     );
+    hotCourseId = hotCourseId.map((obj) => obj.id);
+    const hotCourses = await coursesService.findById(hotCourseId);
+    specifyCourses(hotCourses);
+    hotCourses.forEach(
+      async (course) => await formatUtils.courseCardFormat(course)
+    );
 
-    const hotCourses = [];
+    // hot course end
+
+    // bestSeller course
+    const coursesEnrollCount = await enrollService.countByCourseId(
+      BESTSELLER_COURSE_LIMIT
+    );
+
+    const bestSellerCourses = [];
 
     length = coursesEnrollCount.length;
     for (let i = 0; i < length; i++) {
@@ -91,30 +115,38 @@ export default {
         coursesEnrollCount[i].course_id
       );
       await formatUtils.courseCardFormat(course[0]);
-      course[0].hot = true;
-      hotCourses.push(course[0]);
+      bestSellerCourses.push(course[0]);
     }
-    // hot course -end
+
+    specifyCourses(bestSellerCourses);
+
+    // bestSeller course -end
 
     // new course
-    const newCourses = await coursesService.findAllWithDate(
-      'desc',
+    const dateEnd = new Date().toLocaleString('af-ZA', {
+      timeZone: 'Asia/Ho_Chi_Minh'
+    });
+    const dateStart = new Date(
+      new Date().setDate(new Date().getDate() - NEW_COURSE_DURATION)
+    ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' });
+
+    const newCourses = await coursesService.findAllWithDuration(
+      { start: dateStart, end: dateEnd },
       NEW_COURSE_LIMIT
     );
 
-    let bestSellerId = await coursesService.getBestSellerId(HOT_COURSE_LIMIT);
-    bestSellerId = bestSellerId.map((obj) => obj.id);
+    specifyCourses(newCourses);
 
     length = newCourses.length;
     for (let i = 0; i < length; i++) {
-      if (bestSellerId.includes(newCourses[i].id)) newCourses[i].hot = true;
-      formatUtils.courseCardFormat(newCourses[i]);
+      await formatUtils.courseCardFormat(newCourses[i]);
     }
     // new course -end
 
     res.render('home', {
       hotCategories: hotCategoriesList,
       hotCourses: hotCourses,
+      bestSellerCourses: bestSellerCourses,
       newCourses: newCourses
     });
   }

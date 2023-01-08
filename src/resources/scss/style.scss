@@ -89,19 +89,19 @@ input[type="text"]:focus::-moz-placeholder {
 		}
 	}
 
-	&-search .search-toggler {
-		display: inline-block;
-		background: transparent;
-		color: var(--text-primary);
-		border: none;
-		font-size: 14px;
-		outline: 0;
-		transition: all 0.4s ease 0s;
+	// &-search .search-toggler {
+	// 	display: inline-block;
+	// 	background: transparent;
+	// 	color: var(--text-primary);
+	// 	border: none;
+	// 	font-size: 14px;
+	// 	outline: 0;
+	// 	transition: all 0.4s ease 0s;
 
-		&:hover {
-			color: var(--primary-hover);
-		}
-	}
+	// 	&:hover {
+	// 		color: var(--primary-hover);
+	// 	}
+	// }
 }
 
 .inner-header-top {
@@ -121,6 +121,36 @@ input[type="text"]:focus::-moz-placeholder {
 	background: rgba(255, 255, 255, 0.8);
 	z-index: 999999;
 	transition: all 0.5s ease 0s;
+
+	input[type="checkbox"] {
+		&:checked+label {
+			color: var(--text-primary) !important;
+			background-color: var(--primary) !important;
+
+			i {
+				visibility: visible;
+			}
+		}
+	}
+
+	label {
+		position: absolute;
+		top: 60%;
+		left: 50%;
+		transform: translateX(-50%);
+		box-shadow: none !important;
+		border-color: var(--primary);
+		color: var(--primary);
+
+		i {
+			visibility: hidden;
+		}
+
+		&:hover {
+			color: var(--text-primary) !important;
+			background-color: var(--primary) !important;
+		}
+	}
 
 	.search-close {
 		position: absolute;
@@ -151,6 +181,7 @@ input[type="text"]:focus::-moz-placeholder {
 		top: 50%;
 		padding-left: 20px;
 		padding-right: 100px;
+		transform: translateY(-50%);
 
 		&:focus {
 			border-bottom-color: var(--primary);
@@ -172,6 +203,7 @@ input[type="text"]:focus::-moz-placeholder {
 		top: 50%;
 		right: 20px;
 		height: 80px;
+		transform: translateY(-50%);
 
 		&:hover {
 			color: var(--primary);
@@ -180,6 +212,20 @@ input[type="text"]:focus::-moz-placeholder {
 }
 
 .header-bottom {
+	.search-toggler {
+		display: inline-block;
+		background: transparent;
+		color: var(--text-secondary);
+		border: none;
+		font-size: 14px;
+		outline: 0;
+		transition: all 0.4s ease 0s;
+
+		&:hover {
+			color: var(--primary);
+		}
+	}
+
 	.dropdown-menu {
 		transition: display 1s ease;
 	}
@@ -201,7 +247,7 @@ input[type="text"]:focus::-moz-placeholder {
 			}
 
 			&.dropdown-item:active {
-				color:var(--text-primary) !important;
+				color: var(--text-primary) !important;
 			}
 		}
 
@@ -235,7 +281,7 @@ input[type="text"]:focus::-moz-placeholder {
 		.submenu {
 			position: absolute;
 			min-width: 100%;
-			
+
 			right: 100%;
 			top: 0;
 			background-color: var(--text-primary);
@@ -274,4 +320,9 @@ input[type="text"]:focus::-moz-placeholder {
 			color: var(--text-primary) !important;
 		}
 	}
+}
+
+.footer {
+	background-color: #010101;
+	overflow: hidden;
 }

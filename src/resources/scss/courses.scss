@@ -4,22 +4,28 @@
   background-color: rgba(48, 70, 179, 0.3);
   border-radius: 20px;
   padding: 20px;
+
+  a[role="button"], button {
+    background-color: var(--primary);
+  }
 }
 
 .filter-form {
-  button {
-    background-color: var(--primary);
-  }
+  // button {
+  //   background-color: var(--primary);
+  // }
 
   select {
     color: var(--text-secondary);
   }
 }
 
-.category-name {
+.title {
   font-size: 2rem;
   color: var(--text-secondary);
-
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
 }
 
 .course {

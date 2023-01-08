@@ -41,22 +41,6 @@
 <div class="container-fluid px-3 px-md-4 px-lg-5 main-content-area">
   <div class="section categories-section mt-4" id="categories-section">
     <h1 class="mb-4">This week's hot categories</h1>
-    {{!-- {{#each categories}}
-    <a href="/courses/category/{{slug}}" class="parent-categories">{{name}} {{#if this.hot}}<span
-        class="badge rounded-pill bg-danger">HOT!</span>{{/if}}</a>
-    <div class="row">
-      {{#each this.child_categories}}
-      <div class="col-3 col-md-2 mb-3">
-        <div class="categories-container">
-          <a href="/courses/category/{{slug}}" class="categories" style="background-image: url({{banner_url}});">
-            <div class="categories-title">{{name}}</div>
-            {{#if this.hot}}<span class="badge rounded-pill bg-danger p-1">HOT!</span>{{/if}}
-          </a>
-        </div>
-      </div>
-      {{/each}}
-    </div>
-    {{/each}} --}}
     <div class="row">
       {{#each hotCategories}}
       <div class="col-3 col-md-2 mb-3">
@@ -68,27 +52,28 @@
         </div>
       </div>
       {{/each}}
-
     </div>
   </div>
 
+  {{#if hotCourses}}
   <div class="section hot-course-section mt-4">
-    <h1 class="mb-4">Best seller</h1>
+    <h1 class="mb-4">Students are viewing this week</h1>
     <div class="row">
       {{#each hotCourses}}
       <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card course h-100">
           <a href="#" class="course-banner">
-            <img src="/images/courses_banner/{{banner_filename}}" class="card-img-top" alt="{{name}}">
-            {{#if hot}}
-            <span class="badge rounded-pill bg-warning">Best Seller</span>
+            <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+            {{#if special}}
+            <span class="badge rounded-pill bg-warning">{{special.value}}</span>
             {{/if}}
           </a>
           <div class="card-body d-flex flex-column justify-content-between">
             <a href="#" class="card-title course-title">{{name}}</a>
             <div>
               <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
-              <div class="course-category">Category: <a href="#">{{category_name}}</a></div>
+              <div class="course-category">Category: <a href="/courses/category/{{category_slug}}">{{category_name}}</a>
+              </div>
               <div class="course-rating">
                 {{#if rating_point}}
                 <span>{{ratingpointFormat rating_point}}</span>
@@ -113,6 +98,56 @@
         </div>
       </div>
       {{/each}}
+    </div>
+  </div>
+  {{/if}}
+  <div class="section bestSeller-course-section mt-4">
+    <h1 class="mb-4">Best seller</h1>
+    <div class="row">
+      {{#each bestSellerCourses}}
+      <div class="col-6 col-md-4 col-lg-3 mb-3">
+        <div class="card course h-100">
+          <a href="#" class="course-banner">
+            <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+            {{#if special}}
+            <span class="badge rounded-pill bg-warning">{{special.value}}</span>
+            {{/if}}
+          </a>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <a href="#" class="card-title course-title">{{name}}</a>
+            <div>
+              <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
+              <div class="course-category">Category: <a href="/courses/category/{{category_slug}}">{{category_name}}</a>
+              </div>
+              <div class="course-rating">
+                {{#if rating_point}}
+                <span>{{ratingpointFormat rating_point}}</span>
+                <div class="stars-container">
+                  {{#each this.rating_star}}
+                  {{#starify this}} {{/starify}}
+                  {{/each}}
+                </div>
+                <span>({{rating_count}})</span>
+                {{else}}
+                <span class="p-0">No rating</span>
+                {{/if}}
+              </div>
+              <div class="course-price">
+                <span class="current">{{vietnamdongFormat price}}</span>
+                {{#if this.sale_id}}
+                <span class="base">{{vietnamdongFormat saled_price}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <div class="view-more d-flex fs-5 justify-content-center align-items-center">
+      <a href="/courses/all?sortPurchased=MostPurchased">
+        View more <i class="fa fa-angle-double-right ms-2" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 
@@ -123,16 +158,17 @@
       <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card course h-100">
           <a href="#" class="course-banner">
-            <img src="/images/courses_banner/{{banner_filename}}" class="card-img-top" alt="{{name}}">
-            {{#if hot}}
-            <span class="badge rounded-pill bg-warning">Best Seller</span>
+            <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
+            {{#if special}}
+            <span class="badge rounded-pill bg-warning">{{special.value}}</span>
             {{/if}}
           </a>
           <div class="card-body d-flex flex-column justify-content-between">
             <a href="#" class="card-title course-title">{{name}}</a>
             <div>
               <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
-              <div class="course-category">Category: <a href="#">{{category_name}}</a></div>
+              <div class="course-category">Category: <a href="/courses/category/{{category_slug}}">{{category_name}}</a>
+              </div>
               <div class="course-rating">
                 {{#if rating_point}}
                 <span>{{ratingpointFormat rating_point}}</span>
@@ -157,6 +193,11 @@
         </div>
       </div>
       {{/each}}
+    </div>
+    <div class="view-more d-flex fs-5 justify-content-center align-items-center">
+      <a href="/courses/all?sortDate=NewToOld">
+        View more <i class="fa fa-angle-double-right ms-2" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 </div>

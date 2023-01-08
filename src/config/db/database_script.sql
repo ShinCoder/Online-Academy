@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 06, 2023 lúc 01:38 PM
--- Phiên bản máy phục vụ: 10.4.24-MariaDB
--- Phiên bản PHP: 8.1.6
+-- Host: 127.0.0.1
+-- Generation Time: Jan 08, 2023 at 02:08 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `coursemy`
+-- Database: `coursemy`
 --
 CREATE DATABASE IF NOT EXISTS `coursemy` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `coursemy`;
@@ -26,7 +26,7 @@ USE `coursemy`;
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -38,7 +38,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slug`) VALUES
@@ -59,7 +59,7 @@ INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slu
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chapters`
+-- Table structure for table `chapters`
 --
 
 CREATE TABLE `chapters` (
@@ -71,7 +71,7 @@ CREATE TABLE `chapters` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `courses`
+-- Table structure for table `courses`
 --
 
 CREATE TABLE `courses` (
@@ -85,7 +85,7 @@ CREATE TABLE `courses` (
   `is_completed` tinyint(1) NOT NULL,
   `short_description` varchar(100) NOT NULL,
   `detail_description` varchar(2000) NOT NULL,
-  `syllabus` varchar(2000) NOT NULL,
+  `syllabus` varchar(3000) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   `slug` varchar(100) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `courses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `courses`
+-- Dumping data for table `courses`
 --
 
 INSERT INTO `courses` (`id`, `name`, `lecturer_id`, `banner_filename`, `category_id`, `price`, `sale_id`, `is_completed`, `short_description`, `detail_description`, `syllabus`, `created_at`, `updated_at`, `slug`, `is_activated`) VALUES
@@ -116,12 +116,14 @@ INSERT INTO `courses` (`id`, `name`, `lecturer_id`, `banner_filename`, `category
 (17, 'Java 11 For Complete Beginners', 8, '17.png', 10, 229000, NULL, 0, 'Learn Modern Java From Scratch', 'Computer programming in Java', '', '2020-01-04 00:00:00', '2020-04-30 00:00:00', 'java-11-for-complete-beginners-1', 1),
 (18, 'Responsive Với Grid System', 3, '18.png', 2, 0, NULL, 1, 'Trong khóa này chúng ta sẽ học về cách xây dựng giao diện web responsive với Grid System, tương tự B', 'Biết cách xây dựng website Responsive\nHiểu được tư tưởng thiết kế với Grid system\nTự tay xây dựng được thư viện CSS Grid\nTự hiểu được Grid layout trong bootstrap', '', '2020-11-09 00:00:00', '2021-01-12 00:00:00', 'responsive-với-grid-system-1', 1),
 (19, 'Lập Trình JavaScript Nâng Cao', 3, '19.png', 2, 0, NULL, 0, 'Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword,', 'Được học kiến thức miễn phí với nội dung chất lượng hơn mất phí\nCác kiến thức nâng cao của Javascript giúp code trở nên tối ưu hơn\nHiểu được cách tư duy nâng cao của các lập trình viên có kinh nghiệm\nHiểu được các khái niệm khó như từ khóa this, phương thức bind, call, apply & xử lý bất đồng bộ\nCó nền tảng Javascript vững chắc để làm việc với mọi thư viện, framework viết bởi Javascript\nNâng cao cơ hội thành công khi phỏng vấn xin việc nhờ kiến thức chuyên môn vững chắc', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'lập-trình-javascript-nâng-cao-1', 1),
-(20, 'Node & ExpressJS', 3, '20.png', 2, 0, NULL, 0, 'Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful', 'Nắm chắc lý thuyết chung trong việc xây dựng web\nBiết cách làm việc với Mongoose, MongoDB trong NodeJS\nXây dựng web với Express bằng kiến thức thực tế\nBiết cách xây dựng API theo chuẩn RESTful API\nNắm chắc lý thuyết về API và RESTful API\nĐược chia sẻ lại kinh nghiệm làm việc thực tế\nNắm chắc khái niệm về giao thức HTTP\nHiểu rõ tư tưởng và cách hoạt động của mô hình MVC\nHọc được cách tổ chức code trong thực tế\nBiết cách deploy (triển khai) website lên internet', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'node--expressjs-1', 1);
+(20, 'Node & ExpressJS', 3, '20.png', 2, 0, NULL, 0, 'Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful', 'Nắm chắc lý thuyết chung trong việc xây dựng web\nBiết cách làm việc với Mongoose, MongoDB trong NodeJS\nXây dựng web với Express bằng kiến thức thực tế\nBiết cách xây dựng API theo chuẩn RESTful API\nNắm chắc lý thuyết về API và RESTful API\nĐược chia sẻ lại kinh nghiệm làm việc thực tế\nNắm chắc khái niệm về giao thức HTTP\nHiểu rõ tư tưởng và cách hoạt động của mô hình MVC\nHọc được cách tổ chức code trong thực tế\nBiết cách deploy (triển khai) website lên internet', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'node--expressjs-1', 1),
+(49, 'Kiến Thức Nhập Môn IT', 3, 'uploadCourseBannerInput_1673161373004.png', 2, 0, NULL, 0, '<p>Để c&oacute; c&aacute;i nh&igrave;n tổng quan về ng&agrave;nh IT - Lập tr&igrave;nh web c&aacute;', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>C&aacute;c kiến thức cơ bản, nền m&oacute;ng của ng&agrave;nh IT</li>\r\n<li>C&aacute;c m&ocirc; h&igrave;nh, kiến tr&uacute;c cơ bản khi triển khai ứng dụng</li>\r\n<li>C&aacute;c kh&aacute;i niệm, thuật ngữ cốt l&otilde;i khi triển khai ứng dụng</li>\r\n<li>Hiểu hơn về c&aacute;ch internet v&agrave; m&aacute;y vi t&iacute;nh hoạt động</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Kh&aacute;i niệm kĩ thuật cần biết</h3>\r\n<ol>\r\n<li>M&ocirc; h&igrave;nh Client - Server l&agrave; g&igrave;?</li>\r\n<li>Domain l&agrave; g&igrave;? T&ecirc;n miền l&agrave; g&igrave;?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>M&ocirc;i trường, con người IT</h3>\r\n<ol>\r\n<li>Học IT cần tố chất g&igrave;? G&oacute;c nh&igrave;n kh&aacute;c từ chuy&ecirc;n gia định hướng gi&aacute;o dục.</li>\r\n<li>Sinh vi&ecirc;n IT đi thực tập tại doanh nghiệp cần biết những g&igrave;?</li>\r\n<li>Trải nghiệm thực tế sau 2 th&aacute;ng l&agrave;m việc tại doanh nghiệp của học vi&ecirc;n F8?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Phương ph&aacute;p, định hướng?</h3>\r\n<ol>\r\n<li>Phương ph&aacute;p học lập tr&igrave;nh của Admin F8?</li>\r\n<li>L&agrave;m sao để c&oacute; thu nhập cao v&agrave; đi xa hơn trong ng&agrave;nh IT?</li>\r\n<li>\r\n<div class=\"CurriculumOfCourse_lessonName__llwRr\">9. 8 lời khuy&ecirc;n gi&uacute;p học lập tr&igrave;nh tại F8 hiệu quả hơn!</div>\r\n</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Ho&agrave;n th&agrave;nh kh&oacute;a học.</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:02:53', '2023-01-08 14:02:53', 'kiến-thức-nhập-môn-it-1', 1),
+(50, 'Xây Dựng Website với ReactJS', 3, 'uploadCourseBannerInput_1673163311037.png', 2, 0, NULL, 0, '<p>Kh&oacute;a học ReactJS từ cơ bản tới n&acirc;ng cao, kết quả của kh&oacute;a học n&agrave;y l&ag', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>Hiểu về kh&aacute;i niệm SPA/MPA</li>\r\n<li>Hiểu về kh&aacute;i niệm hooks</li>\r\n<li>Hiểu c&aacute;ch ReactJS hoạt động</li>\r\n<li>Hiểu về function/class component</li>\r\n<li>Biết c&aacute;ch tối ưu hiệu năng ứng dụng</li>\r\n<li>Th&agrave;nh thạo l&agrave;m việc với RESTful API</li>\r\n<li>Hiểu r&otilde; r&agrave;ng Redux workflow</li>\r\n<li>Th&agrave;nh thạo sử dụng Redux v&agrave;o dự &aacute;n</li>\r\n<li>Biết sử dụng redux-thunk middleware</li>\r\n<li>X&acirc;y dựng sản phẩm thực tế (clone Tiktok)</li>\r\n<li>Triển khai dự &aacute;n React ra Internet</li>\r\n<li>Đủ h&agrave;nh trang tự tin apply đi xin việc</li>\r\n<li>Biết c&aacute;ch Deploy l&ecirc;n Github/Gitlab page</li>\r\n<li>Nhận chứng chỉ kh&oacute;a học do F8 cấp</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Giới thiệu</h3>\r\n<ol>\r\n<li>ReactJS l&agrave; g&igrave;? Tại sao n&ecirc;n học ReactJS?</li>\r\n<li>SPA/MPA l&agrave; g&igrave;?</li>\r\n<li>Ưu điểm của SPA</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>&Ocirc;n lại ES6+</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:35:11', '2023-01-08 14:35:11', 'xây-dựng-website-với-reactjs-1', 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `enroll`
+-- Table structure for table `enroll`
 --
 
 CREATE TABLE `enroll` (
@@ -130,23 +132,23 @@ CREATE TABLE `enroll` (
   `status` enum('FINISH','LEARNING') NOT NULL,
   `feedback` varchar(2000) DEFAULT NULL,
   `rate_point` float DEFAULT NULL,
-  `enroll_date` date NOT NULL DEFAULT current_timestamp()
+  `enroll_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `enroll`
+-- Dumping data for table `enroll`
 --
 
 INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_point`, `enroll_date`) VALUES
-(2, 1, 'LEARNING', NULL, 4, '2023-01-04'),
-(2, 2, 'LEARNING', NULL, 5, '2022-12-20'),
-(2, 3, 'LEARNING', NULL, 3, '2023-01-04'),
-(7, 2, 'LEARNING', NULL, 2, '2023-01-04');
+(2, 1, 'LEARNING', NULL, 4, '2023-01-04 00:00:00'),
+(2, 2, 'LEARNING', NULL, 5, '2022-12-20 00:00:00'),
+(2, 3, 'LEARNING', NULL, 3, '2023-01-04 00:00:00'),
+(7, 2, 'LEARNING', NULL, 2, '2023-01-04 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `lecturers`
+-- Table structure for table `lecturers`
 --
 
 CREATE TABLE `lecturers` (
@@ -158,7 +160,7 @@ CREATE TABLE `lecturers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `lecturers`
+-- Dumping data for table `lecturers`
 --
 
 INSERT INTO `lecturers` (`user_id`, `first_name`, `last_name`, `career_description`, `avatar_url`) VALUES
@@ -171,7 +173,7 @@ INSERT INTO `lecturers` (`user_id`, `first_name`, `last_name`, `career_descripti
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `lessons`
+-- Table structure for table `lessons`
 --
 
 CREATE TABLE `lessons` (
@@ -185,7 +187,33 @@ CREATE TABLE `lessons` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sales`
+-- Table structure for table `otps`
+--
+
+CREATE TABLE `otps` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `used` tinyint(4) DEFAULT 0,
+  `created_at` datetime DEFAULT NULL,
+  `expired_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `otps`
+--
+
+INSERT INTO `otps` (`id`, `user_id`, `code`, `type`, `used`, `created_at`, `expired_at`) VALUES
+(1, 11, 'HEUY9x', 'verify-email', 1, '2023-01-08 17:02:49', '2023-01-08 18:02:52'),
+(2, 11, 'wtXRiH', 'recovery-password', 1, '2023-01-08 17:07:05', '2023-01-08 18:07:05'),
+(3, 12, 'FZZBl4', 'verify-email', 1, '2023-01-08 18:16:37', '2023-01-08 19:16:40'),
+(4, 17, 'dQpa7L', 'verify-email', 1, '2023-01-08 18:36:47', '2023-01-08 19:36:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
 --
 
 CREATE TABLE `sales` (
@@ -197,7 +225,7 @@ CREATE TABLE `sales` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `students`
+-- Table structure for table `students`
 --
 
 CREATE TABLE `students` (
@@ -207,46 +235,49 @@ CREATE TABLE `students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `students`
+-- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`user_id`, `first_name`, `last_name`) VALUES
 (2, 'Kiệt', 'Trần'),
-(7, 'Kiệt', 'Trần');
+(7, 'Kiệt', 'Trần'),
+(17, 'Shin', 'Coder');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `identity` varchar(50) NOT NULL,
+  `identity` varchar(100) NOT NULL,
   `authority` enum('STUDENT','LECTURER','ADMIN') NOT NULL,
+  `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `is_activated` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_activated`) VALUES
-(1, 'admin1', 'admin1@gmail.com', '$2a$10$FV2dj5JYTGT08V/97UE8eehPU/j05EMGtvMutUj6EOS', 'ADMIN', 1),
-(2, 'student1', 'student1@gmail.com', '$2a$10$GflWaMQ7N9M7srFllbJMvuCPFEEIHVCOoN7TWirN9YM', 'STUDENT', 1),
-(3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$Nd1fSbD4z59H8j4YP3Y6WOe.FVp/ncq7.V..px.K53Y', 'LECTURER', 1),
-(4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$/ttfYvdnmR9ooVebDjArauqoftEgd3roisp3G464.DV', 'LECTURER', 1),
-(5, 'Mark_Lassoff', 'marklassoff@gmail.com', '$2a$10$aelFfre4osCBkjG0DwnObOABSOsE6WXYFdOn3ZN6gds', 'LECTURER', 1),
-(6, 'Stone_River_eLearning', 'stoneriverelearning@gmail.com', '$2a$10$RAfIuKUvntvprxN0FXnIg.D.IIjltb.F2q1QgLce4hD', 'LECTURER', 1),
-(7, 'student2', 'student2@gmail.com', '$2a$10$bkcbwGXh5wWt6P2APPJlC.DCDKekvwzLnRjg02pbHHP', 'STUDENT', 1),
-(8, 'John_Purcell', 'johnpurcell@gmail.com', '$2a$10$ziiw276RUdy0gY82BdSG4e5FpTmgGJeR88A/ENxhIS0', 'LECTURER', 1);
+INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_verified`, `is_activated`) VALUES
+(1, 'admin1', 'admin1@gmail.com', '$2a$10$FV2dj5JYTGT08V/97UE8eehPU/j05EMGtvMutUj6EOS', 'ADMIN', 0, 1),
+(2, 'student1', 'student1@gmail.com', '$2a$10$GflWaMQ7N9M7srFllbJMvuCPFEEIHVCOoN7TWirN9YM', 'STUDENT', 0, 1),
+(3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$Nd1fSbD4z59H8j4YP3Y6WOe.FVp/ncq7.V..px.K53Y', 'LECTURER', 0, 1),
+(4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$/ttfYvdnmR9ooVebDjArauqoftEgd3roisp3G464.DV', 'LECTURER', 0, 1),
+(5, 'Mark_Lassoff', 'marklassoff@gmail.com', '$2a$10$aelFfre4osCBkjG0DwnObOABSOsE6WXYFdOn3ZN6gds', 'LECTURER', 0, 1),
+(6, 'Stone_River_eLearning', 'stoneriverelearning@gmail.com', '$2a$10$RAfIuKUvntvprxN0FXnIg.D.IIjltb.F2q1QgLce4hD', 'LECTURER', 0, 1),
+(7, 'student2', 'student2@gmail.com', '$2a$10$bkcbwGXh5wWt6P2APPJlC.DCDKekvwzLnRjg02pbHHP', 'STUDENT', 0, 1),
+(8, 'John_Purcell', 'johnpurcell@gmail.com', '$2a$10$ziiw276RUdy0gY82BdSG4e5FpTmgGJeR88A/ENxhIS0', 'LECTURER', 0, 1),
+(17, 'Shin Coder', 'shincoder.learning@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'STUDENT', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `watchlist`
+-- Table structure for table `watchlist`
 --
 
 CREATE TABLE `watchlist` (
@@ -255,24 +286,24 @@ CREATE TABLE `watchlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `chapters`
+-- Indexes for table `chapters`
 --
 ALTER TABLE `chapters`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_CHAPTERS_COURSES` (`course_id`);
 
 --
--- Chỉ mục cho bảng `courses`
+-- Indexes for table `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
@@ -280,104 +311,117 @@ ALTER TABLE `courses`
   ADD KEY `FK_COURSES_LECTURERS` (`lecturer_id`),
   ADD KEY `FK_COURSES_SALES` (`sale_id`),
   ADD KEY `FK_COURSES_CATEGORIES` (`category_id`);
+ALTER TABLE `courses` ADD FULLTEXT KEY `name` (`name`);
 
 --
--- Chỉ mục cho bảng `enroll`
+-- Indexes for table `enroll`
 --
 ALTER TABLE `enroll`
   ADD PRIMARY KEY (`student_id`,`course_id`),
   ADD KEY `FK_ENROLL_COURSES` (`course_id`);
 
 --
--- Chỉ mục cho bảng `lecturers`
+-- Indexes for table `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Chỉ mục cho bảng `lessons`
+-- Indexes for table `lessons`
 --
 ALTER TABLE `lessons`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_LESSONS_CHAPTERS` (`chapter_id`);
 
 --
--- Chỉ mục cho bảng `sales`
+-- Indexes for table `otps`
+--
+ALTER TABLE `otps`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sales`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `students`
+-- Indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `watchlist`
+-- Indexes for table `watchlist`
 --
 ALTER TABLE `watchlist`
   ADD PRIMARY KEY (`student_id`,`course_id`),
   ADD KEY `FK_WATCHLIST_COURSES` (`course_id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT cho bảng `chapters`
+-- AUTO_INCREMENT for table `chapters`
 --
 ALTER TABLE `chapters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `courses`
+-- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT cho bảng `lessons`
+-- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `sales`
+-- AUTO_INCREMENT for table `otps`
+--
+ALTER TABLE `otps`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `chapters`
+-- Constraints for table `chapters`
 --
 ALTER TABLE `chapters`
   ADD CONSTRAINT `FK_CHAPTERS_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `courses`
+-- Constraints for table `courses`
 --
 ALTER TABLE `courses`
   ADD CONSTRAINT `FK_COURSES_CATEGORIES` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
@@ -385,32 +429,32 @@ ALTER TABLE `courses`
   ADD CONSTRAINT `FK_COURSES_SALES` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`);
 
 --
--- Các ràng buộc cho bảng `enroll`
+-- Constraints for table `enroll`
 --
 ALTER TABLE `enroll`
   ADD CONSTRAINT `FK_ENROLL_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `FK_ENROLL_STUDENTS` FOREIGN KEY (`student_id`) REFERENCES `students` (`user_id`);
 
 --
--- Các ràng buộc cho bảng `lecturers`
+-- Constraints for table `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD CONSTRAINT `FK_LECTURERS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Các ràng buộc cho bảng `lessons`
+-- Constraints for table `lessons`
 --
 ALTER TABLE `lessons`
   ADD CONSTRAINT `FK_LESSONS_CHAPTERS` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `students`
+-- Constraints for table `students`
 --
 ALTER TABLE `students`
-  ADD CONSTRAINT `FK_STUDENTS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_STUDENTS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `watchlist`
+-- Constraints for table `watchlist`
 --
 ALTER TABLE `watchlist`
   ADD CONSTRAINT `FK_WATCHLIST_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),

@@ -1,23 +1,53 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Logout ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to logout ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a href="/auth/sign-out" type="button" class="btn btn-primary">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
 <header id="header" class="header-area">
     <div class="header-top">
         <div class="container inner-header-top">
-            <div class="header-search">
+            {{!-- <div class="header-search">
                 <button type="button" class="search-toggler"><i class="fa fa-search"></i></button>
-            </div>
+            </div> --}}
             <div class="header-links">
                 <ul>
-                    <li><a href="#">Log in</a></li>
-                    <li><a href="#">Register</a></li>
+                    {{#if auth}}
+                    <li><a href="#">{{authUser.username}}</a></li>
+                    <li><a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#exampleModal">Log out</a></li>
+                    {{else}}
+                    <li><a href="/auth/sign-in">Log in</a></li>
+                    <li><a href="/auth/sign-up">Register</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>
     </div>
     <div class="search-area">
-        <form class="container" action="#" method="post">
+        <form id="search-form" class="container" action="/courses/search" method="GET">
             <div class="search-close">
                 <img src="/images/close.png" alt="close">
             </div>
-            <input type="text" placeholder="Search here..." />
+            {{#if currentCategory}}
+            <input type="checkbox" class="btn-check" id="category-search-check" autocomplete="off">
+            <label class="btn btn-outline-primary pe-4" for="category-search-check"><i
+                    class="fa fa-check me-2"></i>Search
+                in current category</label>
+            <input type="text" name="category" value="{{currentCategory}}" class="d-none">
+            {{/if}}
+            <input name="key" type="text" placeholder="Search here..." />
+            <input type="text" name="page" value=1 class="d-none">
             <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -34,10 +64,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item d-flex align-items-center border-none">
+                            <button type="button" class="search-toggler"><i class="fa fa-search"></i></button>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/home">Home</a>
                         </li>
-                       
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,12 +82,15 @@
                                     <a class="dropdown-item" href="/courses/category/{{slug}}?page=1">{{name}}</a>
                                     <ul class="submenu">
                                         {{#each this.child_categories}}
-                                        <li><a class="dropdown-item" href="/courses/category/{{slug}}?page=1">{{name}}</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="/courses/category/{{slug}}?page=1">{{name}}</a></li>
                                         {{/each}}
                                     </ul>
                                 </li>
                                 {{/each}}
-                                <li><a class="dropdown-item d-flex align-items-center justify-content-between" href="/categories">View all<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                <li><a class="dropdown-item d-flex align-items-center justify-content-between"
+                                        href="/categories">View all<i class="fa fa-angle-double-right"
+                                            aria-hidden="true"></i></a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

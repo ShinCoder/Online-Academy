@@ -4,14 +4,24 @@ import enrollService from '../services/enroll.service.js';
 
 export default function (app) {
   app.use(async function (req, res, next) {
+    if (req.session.auth) {
+      res.locals.auth = req.session.auth;
+      res.locals.authUser = req.session.authUser;
+    }
+    next();
+  });
+
+  app.use(async function (req, res, next) {
     let length = 0;
     const HOT_CATEGORY_LIMIT = 5;
     // categories
     let categoriesList = await categoriesService.findAll();
-    const date = new Date().toISOString().slice(0, 10);
-    const dateMin7 = new Date(new Date().setDate(new Date().getDate() - 7))
-      .toISOString()
-      .slice(0, 10);
+    const date = new Date().toLocaleString('af-ZA', {
+      timeZone: 'Asia/Ho_Chi_Minh'
+    });
+    const dateMin7 = new Date(
+      new Date().setDate(new Date().getDate() - 7)
+    ).toLocaleString('af-ZA', { timeZone: 'Asia/Ho_Chi_Minh' });
     const enroll = await enrollService.countByCourseIdWithDate({
       start: dateMin7,
       end: date
@@ -62,14 +72,22 @@ export default function (app) {
       categoriesList.shift();
     }
     res.locals.lcCategories = categoriesList;
+    res.locals.currentCategory = null;
     next();
   });
 
   app.use(function (req, res, next) {
     if (typeof req.session.viewSort === 'undefined') {
-      req.session.viewSort = {};
+      req.session.viewSort = { sortDate: 'NewToOld' };
+    }
+    if (typeof req.session.viewFilter === 'undefined') {
+      req.session.viewFilter = [];
+      res.locals.lcCategories.forEach((cat) => {
+        cat.child_categories.forEach((c) => req.session.viewFilter.push(c));
+      });
     }
     res.locals.viewSort = req.session.viewSort;
+    res.locals.viewFilter = req.session.viewFilter;
     next();
   });
 }
