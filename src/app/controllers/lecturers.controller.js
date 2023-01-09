@@ -6,7 +6,7 @@ import path from 'path';
 
 export default {
     async renderAllCreatedCourse(req, res) {
-        const lecturerId = 3; // [FIX] LECTURER_ID in session here
+        const lecturerId = req.session?.authUser?.id;
 
         const allCourses = await lecturersService.findAllCreatedCourse(lecturerId);
 
@@ -16,7 +16,7 @@ export default {
     },
 
     async renderProfile(req, res) {
-        const lecturerId = 3; // [FIX] LECTURER_ID in session here
+        const lecturerId = req.session?.authUser?.id;
 
         const profile = await lecturersService.findById(lecturerId);
 
@@ -25,11 +25,14 @@ export default {
                 profile: profile[0]
             });
         }
+        else {
+            res.redirect('/lecturers/profile/create');
+        }
 
     },
 
     async editProfile(req, res) {
-        const lecturerId = 3; // [FIX] LECTURER_ID in session here
+        const lecturerId = req.session?.authUser?.id
 
         let bannerName;
 
@@ -80,8 +83,8 @@ export default {
     },
 
     async postProfile(req, res) {
-        const lecturerId = 4; // [FIX] LECTURER_ID in session here
-        
+        const lecturerId = req.session?.authUser?.id
+
         let bannerName;
 
         const storageBannerImage = multer.diskStorage({
