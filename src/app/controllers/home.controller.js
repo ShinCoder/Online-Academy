@@ -70,6 +70,8 @@ export default {
     //   categoriesList.shift();
     // }
 
+    const featuredCourses = await coursesService.findFeatured();
+
     const hotCategoriesList = [...res.locals.lcCategories];
     while (!hotCategoriesList[0].parent_category_id) {
       const categories = hotCategoriesList[0].child_categories;
@@ -144,6 +146,7 @@ export default {
     // new course -end
 
     res.render('home', {
+      featuredCourses: featuredCourses,
       hotCategories: hotCategoriesList,
       hotCourses: hotCourses,
       bestSellerCourses: bestSellerCourses,
