@@ -62,6 +62,12 @@ export default {
         });
       }
 
+      if (!found_user[0].is_activated) {
+        return res.render('auth/sign-in', {
+          error: "This account is deactivated, please contact admin for more details !"
+        });
+      }
+
       if (!(bcrypt.compareSync(password, found_user[0].identity))) {
         return res.render('auth/sign-in', {
           error:

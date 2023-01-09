@@ -1,0 +1,62 @@
+.course-image-wrapper {
+    width           : 100%;
+    height          : 500px;
+    position        : relative;
+    background-color: #ccc;
+    border          : 1px solid #000;
+    cursor          : pointer;
+}
+
+.course-image-wrapper-overlay {
+    position        : absolute;
+    top             : 0;
+    left            : 0;
+    right           : 0;
+    bottom          : 0;
+    width           : 100%;
+    background-color: rgba(0, 0, 0, 0.305);
+    height          : 100%;
+    visibility      : hidden;
+    opacity         : 0;
+    transition      : visibility 0s, opacity 0.2s linear;
+}
+
+
+.course-image-wrapper:hover .course-image-wrapper-overlay {
+    visibility: visible;
+    opacity   : 1;
+}
+
+.course-image-wrapper-overlay>div {
+    position      : absolute;
+    top           : 50%;
+    left          : 50%;
+    transform     : translate(-50%, -50%);
+    width         : fit-content;
+    height        : fit-content;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    font-size     : 48px;
+    color         : #fff;
+}
+
+.course-image-wrapper-overlay>div>i {
+    display  : block;
+    font-size: 84px;
+    color    : #fff;
+}
+
+.course-image-wrapper img {
+    position  : absolute;
+    top       : 50%;
+    left      : 50%;
+    transform : translate(-50%, -50%);
+    width     : 100%;
+    object-fit: cover;
+    max-height: 100%;
+}
+
+.pageWrapper {
+    padding-bottom: 36px;
+}

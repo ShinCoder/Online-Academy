@@ -19,5 +19,12 @@ export default {
 
   update(id, obj) {
     return db('users').where({id: id}).update(obj);
+  },
+
+  deactivate(id) {
+    return db('users').where({id: id}).update({ is_activated: false });
+  },
+  activate(id) {
+    return db('users').where({id: id}).update({ is_activated: true });
   }
 };
