@@ -17,4 +17,8 @@ router.post('/students/:id/deactivate', auth(["ADMIN"]), adminController.deActiv
 router.get('/categories', auth(["ADMIN"]), adminController.renderCategories);
 router.get('/categories/create', auth(["ADMIN"]), adminController.renderCreateCategories);
 router.post('/categories/create', auth(["ADMIN"]), adminController.createCategories);
+router.get('/categories/:id/update', auth(["ADMIN"]), adminController.renderUpdateCategories);
+router.post('/categories/:id/update', auth(["ADMIN"]), adminController.updateCategories);
+router.post('/categories/:id/delete', auth(["ADMIN"]), adminController.deleteCategory);
+
 export default router;

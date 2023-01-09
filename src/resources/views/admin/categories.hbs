@@ -14,6 +14,8 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +23,18 @@
             <tr>
                 <th>{{id}}</th>
                 <td>{{name}}</td>
+                <td class="text-center"><a class="btn btn-secondary" href="/admin/categories/{{id}}/update">Edit</a>
+                </td>
+                {{#if courseCounted}}
+                <td></td>
+                {{else}}
+                <td class="text-center">
+                    <form method="post" action="/admin/categories/{{id}}/delete">
+                        <button class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</button>
+                    </form>
+                </td>
+                {{/if}}
+
             </tr>
             {{/each}}
         </tbody>
@@ -35,6 +49,8 @@
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Category Belonged</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +59,17 @@
                 <th>{{id}}</th>
                 <td>{{name}}</td>
                 <td>{{parent_category_id}} - {{p_name}}</td>
+                <td class="text-center"><a class="btn btn-secondary" href="/admin/categories/{{id}}/update">Edit</a>
+                </td>
+                {{#if courseCounted}}
+                <td></td>
+                {{else}}
+                <td class="text-center">
+                    <form method="post" action="/admin/categories/{{id}}/delete">
+                        <button class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</button>
+                    </form>
+                </td>
+                {{/if}}
             </tr>
             {{/each}}
         </tbody>
