@@ -182,6 +182,10 @@ export default {
     }
   },
 
+  findFeatured() {
+    return db('courses').where('is_featured', true);
+  },
+
   getHotId(duration, limit) {
     return db('courses')
       .join('enroll', 'courses.id', '=', 'enroll.course_id')
@@ -294,6 +298,10 @@ export default {
 
   updateLesson(id, entity) {
     return db('lessons').update(entity).where('id', id);
+  },
+
+  findCourseDetail(slug) {
+    return db('courses').where('slug', slug);
   },
 
   activateCourse(id) {

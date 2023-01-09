@@ -21,8 +21,7 @@ export default {
     req.session.auth = false;
     req.session.authUser = {};
 
-    const url = req.headers.referer || '/home';
-    res.redirect(url);
+    res.redirect('/home');
   },
 
   async postSignIn(req, res) {

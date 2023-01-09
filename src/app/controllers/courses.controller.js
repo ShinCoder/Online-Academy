@@ -157,8 +157,7 @@ export default {
       res.render('courses/createCourse', {
         categories: allCategories
       });
-    }
-    else {
+    } else {
       res.redirect('/lecturers/profile/create');
     }
 
@@ -345,13 +344,6 @@ export default {
         console.log('Update status error: ', err);
       }
     });
-  },
-
-  async showByCategory(req, res) {
-    const category = await categoriesService.findBySlug(req.params.slug);
-    const courses = await coursesService.findByCategoryId(category[0].id);
-
-    res.render('courses');
   },
 
   async updateCourseStatus(req, res) {
@@ -1113,6 +1105,24 @@ export default {
         name: 'Search result: ' + query.key
       },
       pagination
+    });
+  },
+
+  async showCourseDetail(req, res) {
+    const courseSlug = req.params.slug;
+
+    let courses = await coursesService.findCourseDetail(courseSlug);
+
+    // course = await formatUtils.courseCardFormat(course)
+
+    courses.forEach(async (course) => {
+      await formatUtils.courseCardFormat(course);
+    });
+
+    console.log('course:', courses[0]);
+
+    res.render('courses/coursesDetailView', {
+      courses: courses
     });
   }
 };

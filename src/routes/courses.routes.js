@@ -73,4 +73,6 @@ router.post(
   coursesController.createLessonOnUpdate
 );
 
+router.get('/course-detail/:slug', coursesController.showCourseDetail)
+
 export default router;

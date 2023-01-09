@@ -18,8 +18,8 @@ $('.owl-carousel').owlCarousel({
       // stagePadding: 60
     },
     768: {
-      items: 3
-      // stagePadding: 100
+      items: 1,
+      stagePadding: 200
     }
   }
 });
