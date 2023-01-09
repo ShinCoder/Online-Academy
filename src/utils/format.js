@@ -1,6 +1,7 @@
 import categoriesService from '../services/categories.service.js';
 import enrollService from '../services/enroll.service.js';
 import lecturersService from '../services/lecturers.service.js';
+import salesService from '../services/sales.service.js';
 
 const STAR_0 = [-1, -1, -1, -1, -1];
 const STAR_0_5 = [0, -1, -1, -1, -1];
@@ -21,6 +22,17 @@ export default {
     const category = await categoriesService.findById(course.category_id);
     course.category_name = category[0].name;
     course.category_slug = category[0].slug;
+
+    if (course.sale_id) {
+      const sale = await salesService.findById(course.sale_id);
+      if (sale.length) {
+        course.base_price = course.price;
+        const discount =
+          Math.round((course.price * sale[0].discount_percent) / 100 / 1000) *
+          1000;
+        course.price = course.price - discount;
+      }
+    }
 
     const rating = await enrollService.getRatingByCourseId(course.id);
     if (!course.rating_point) {

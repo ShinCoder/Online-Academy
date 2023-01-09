@@ -1,6 +1,7 @@
 .item {
   transition: 0.4s ease all;
   position: relative;
+  margin-right: 20px;
 }
 .item::before {
   content: "";
@@ -64,6 +65,10 @@
   display: none;
 }
 
+.slider-area {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
 .slider-area:hover .owl-nav {
   display: block;
 }
