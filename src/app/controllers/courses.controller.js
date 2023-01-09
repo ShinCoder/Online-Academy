@@ -4,6 +4,8 @@ import path from 'path';
 import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
 import slugger from '../../utils/slug.js';
+import lecturersService from "../../services/lecturers.service.js";
+import enrollService from "../../services/enroll.service.js";
 
 const HOT_COURSE_LIMIT = 12;
 const NEW_COURSE_DURATION = 30;
@@ -331,13 +333,6 @@ export default {
         console.log('Update status error: ', err);
       }
     });
-  },
-
-  async showByCategory(req, res) {
-    const category = await categoriesService.findBySlug(req.params.slug);
-    const courses = await coursesService.findByCategoryId(category[0].id);
-
-    res.render('courses');
   },
 
   async updateCourseStatus(req, res) {
@@ -1100,5 +1095,24 @@ export default {
       },
       pagination
     });
-  }
+  },
+
+  async showCourseDetail(req, res) {
+    const courseSlug = req.params.slug;
+
+    let courses = await coursesService.findCourseDetail(courseSlug);
+
+    // course = await formatUtils.courseCardFormat(course)
+
+    courses.forEach(async (course) => {
+      await formatUtils.courseCardFormat(course);
+    });
+
+    console.log('course:', courses[0]);
+
+    res.render('courses/coursesDetailView', {
+      courses: courses,
+    });
+  },
 };
+

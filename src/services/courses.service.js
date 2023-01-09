@@ -256,5 +256,9 @@ export default {
 
   updateLesson(id, entity) {
     return db('lessons').update(entity).where('id', id);
+  },
+
+  findCourseDetail(slug) {
+    return db('courses').where('slug', slug);
   }
 };
