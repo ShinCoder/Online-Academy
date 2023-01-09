@@ -284,6 +284,10 @@ export default {
     return db('lessons').update(entity).where('id', id);
   },
 
+  findCourseDetail(slug) {
+    return db('courses').where('slug', slug);
+  },
+
   activateCourse(id) {
     return db('courses').where('id', id).update('is_activated', true);
   },
