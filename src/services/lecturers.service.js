@@ -9,6 +9,10 @@ export default {
     return db('users').leftJoin('lecturers', 'lecturers.user_id', '=', 'users.id').where('users.authority', "LECTURER");
   },
 
+  findAllWithNeedAuthenInfo() {
+    return db('users').innerJoin('lecturers', 'lecturers.user_id', '=', 'users.id').where('users.authority', "LECTURER");
+  },
+
   findById(id) {
     return db('lecturers').where('user_id', id);
   },

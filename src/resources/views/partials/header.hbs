@@ -24,7 +24,8 @@
             <div class="header-links">
                 <ul>
                     {{#if auth}}
-                    <li><a href={{#ifEquals authUser.authority "LECTURER" "/lecturers/profile" }}{{/ifEquals}}>{{authUser.username}}</a></li>
+                    <li><a href={{#ifEquals authUser.authority "LECTURER" "/lecturers/profile"
+                            }}{{/ifEquals}}>{{authUser.username}}</a></li>
                     <li><a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#exampleModal">Log out</a></li>
                     {{else}}
                     <li><a href="/auth/sign-in">Log in</a></li>
@@ -103,6 +104,10 @@
                     {{#ifEqualsHTML session.authUser.authority "ADMIN" }}
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/admin/categories">CATEGORIES</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/admin/courses">COURSES</a>
                         </li>
 
@@ -119,11 +124,12 @@
                     {{#ifEqualsHTML session.authUser.authority "LECTURER" }}
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/lecturers/courses/created">MY COURSES</a>
+                            <a class="nav-link active" aria-current="page" href="/lecturers/courses/created">MY
+                                COURSES</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/courses/create">CREATE COURSE</a>
-                        </li>                        
+                        </li>
                     </ul>
                     {{/ifEqualsHTML}}
                 </div>
