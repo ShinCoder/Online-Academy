@@ -33,8 +33,8 @@ export default {
     }
   },
   findByLecturerEmail(email) {
-    return db('users').leftJoin('lecturers', 'lecturers.user_id', '=', 'users.id').where({
-      'users.email': email
+    return db('users').where({
+      'email': email
     });
   }
 

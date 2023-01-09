@@ -4,7 +4,7 @@
 
 <div class="container mt-5 pageWrapper">
     <div class="headerContainer">
-        <h1 class="text-center mb-3 text-dark">STUDENTS</h1>
+        <h1 class="text-center mb-3 text-dark">COURSES</h1>
     </div>
     <table class="mainTable table table-bordered table-hover table-responsive">
         <thead class="stickyTableHeader table-primary">
@@ -41,11 +41,11 @@
                 </td>
                 <td class="text-center">
                     {{#if is_activated}}
-                    <form method="post" action="/admin/user/{{user_id}}/deactivate">
+                    <form method="post" action="/admin/courses/{{id}}/deactivate">
                         <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
                     </form>
                     {{else}}
-                    <form method="post" action="/admin/user/{{user_id}}/activate">
+                    <form method="post" action="/admin/courses/{{id}}/activate">
                         <button type="submit" class="btn btn-sm btn-success">Activate</button>
                     </form>
                     {{/if}}

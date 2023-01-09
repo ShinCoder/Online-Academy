@@ -7,7 +7,7 @@ import studentsService from '../../services/students.service.js';
 import otpsService from '../../services/otps.service.js';
 
 import myFunction from '../../library/index.js';
-
+import lecturerService from "../../services/lecturers.service.js";
 import mail from '../../mail/index.js';
 
 export default {
@@ -62,7 +62,7 @@ export default {
         });
       }
 
-      if (!(await bcrypt.compareSync(password, found_user[0].identity))) {
+      if (!(bcrypt.compareSync(password, found_user[0].identity))) {
         return res.render('auth/sign-in', {
           error:
             'Invalid password. Try recovery password if you forgot password.'
@@ -75,6 +75,13 @@ export default {
       delete lcUser.is_verified;
       delete lcUser.is_activated;
       req.session.authUser = lcUser;
+
+      if (lcUser?.authority === "LECTURER") {
+        const check = await lecturerService.findById(lcUser.id);
+        if (!check || !check.length) {
+          res.redirect("/lecturers/profile/create");
+        }
+      }
 
       res.redirect(req.session.retUrl);
 
