@@ -9,20 +9,24 @@
 <div class="owl-carousel mt-4 slider-area">
   {{#each featuredCourses}}
   <div class="item">
-    <img src="/images/courses/featured_banner/{{featured_banner_filename}}" alt="{{name}}">
     <div class="inner">
-      <a href="#">{{View}}</a>
+      <a href="#">{{name}}</a>
     </div>
+    <a href="#">
+      <img src="/images/courses/featured_banner/{{featured_banner_filename}}" alt="{{name}}">
+    </a>
   </div>
   {{/each}}
   {{!-- <div class="item">
-    <img src="/images/courses/course-detail/learn-python-the-complete-python-programming-course-1.png" alt="thumbnail" />
+    <img src="/images/courses/course-detail/learn-python-the-complete-python-programming-course-1.png"
+      alt="thumbnail" />
     <div class="inner">
       <a href="#">The Erling Bag</a>
     </div>
   </div>
   <div class="item">
-    <img src="/images/courses/course-detail/learn-python-the-complete-python-programming-course-1.png" alt="thumbnail" />
+    <img src="/images/courses/course-detail/learn-python-the-complete-python-programming-course-1.png"
+      alt="thumbnail" />
     <div class="inner">
       <a href="#">The Erling Bag</a>
     </div>
