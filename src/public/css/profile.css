@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong");
+
+.container_profile{
+  background: #fff; 
+  width: calc(100vw * 0.6);
+  margin: 0 auto;
+  margin-right: 0px;
+  right: calc(100vw * 0.2);
+  position: relative;
+  margin-top: 5%;
+  box-shadow: 2px 5px 20px rgba(119, 119, 119, .5);
+}
+
+.leftbox{
+  float: left;
+  position: absolute;
+  width: calc(100vw * 0.067);
+  height: calc(100%);
+  background: #3046b3;
+  box-shadow: 3px 3px 10px rgba(119, 119, 119, .5);
+  border: .1em solid #fff;
+}
+
+.rightbox{
+  width: calc(100vw * (0.6 - 0.067));
+  gap: 10px;
+  padding: 20px;
+  margin-left: calc(100vw * 0.067 + 10px);
+}
+
+.tabShow{
+  transition: all .5s ease-in;
+  width: 100%;
+}
+
+h1{
+  font-family: "Trirong", sans-serif;
+  color: #3046b3;
+  font-size: 1.2em;
+  margin-top: 40px;
+  margin-bottom: 35px;
+}
+
+h2{
+  color: #b8b8b8;
+  font-family: "Trirong", sans-serif;
+  text-transform: uppercase;
+  font-size: 8px;
+  letter-spacing: 1px;
+  margin-left: 2px;
+  margin-top: 10px;
+}
+
+.input, p{
+  border: 0;
+  border-bottom: 1px solid #3046b3;
+  width: 80%;
+  font-family: "Trirong", sans-serif;
+  font-size: .7em;
+  padding: 7px 0;
+  color: #070707;
+  outline: none; 
+}
+
+span{
+  font-size: .7em;
+  color: #777;
+}
+
+.btn_profile{
+  font-family:"Trirong", sans-serif ;
+  text-transform: uppercase;
+  font-size: 15px;
+  border: 0;
+  color: #fff;
+  background: #3046b3;
+  border-radius: 10px;
+  padding: 7px 15px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .2);
+  cursor: pointer;
+}

@@ -12,8 +12,15 @@ import mail from '../../mail/index.js';
 
 export default {
   getSignIn(req, res) {
+
+    if (req.session.auth) {
+      return res.redirect('/user/profile');
+    }
+
+
     req.session.retUrl = req.headers.referer;
     console.log(req.session.retUrl);
+
     res.render('auth/sign-in');
   },
 
@@ -102,6 +109,10 @@ export default {
     }
   },
   getSignUp(req, res) {
+    if (req.session.auth) {
+      return res.redirect('/user/profile');
+    }
+    
     res.render('auth/sign-up');
   },
   async postSignUp(req, res) {
