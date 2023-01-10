@@ -15,10 +15,6 @@ mainForm.addEventListener("submit", (event) => {
         emailValidateError.innerText = "Please type in email";
         check = false;
     }
-    else if (!email.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-        emailValidateError.innerText = "Please a valid email";
-        check = false;
-    }
     if (!password.value) {
         passwordValidateError.innerText = "Please type in password";
         check = false;

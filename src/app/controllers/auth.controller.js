@@ -3,20 +3,34 @@ import emailValidator from 'email-validator';
 import moment from 'moment';
 
 import usersService from '../../services/users.service.js';
+import studentsService from '../../services/students.service.js';
 import otpsService from '../../services/otps.service.js';
 
 import myFunction from '../../library/index.js';
-
+import lecturerService from "../../services/lecturers.service.js";
 import mail from '../../mail/index.js';
 
 export default {
   getSignIn(req, res) {
+
     if (req.session.auth) {
       return res.redirect('/user/profile');
     }
 
+
+    req.session.retUrl = req.headers.referer;
+    console.log(req.session.retUrl);
+
     res.render('auth/sign-in');
   },
+
+  getSignOut(req, res) {
+    req.session.auth = false;
+    req.session.authUser = {};
+
+    res.redirect('/home');
+  },
+
   async postSignIn(req, res) {
     try {
       const { email, password } = req.body;
@@ -45,30 +59,50 @@ export default {
 
       if (!found_user.length) {
         return res.render('auth/sign-in', {
-          error: 'This email hadn\'t signed up. Please use sign up instead.'
+          error: "This email hadn't signed up. Please use sign up instead."
+        });
+      }
+
+      if (!found_user[0].is_verified) {
+        return res.render('auth/sign-in', {
+          error: "This email hadn't verified. Please check your mail to verify."
         });
       }
 
       if (!found_user[0].is_activated) {
         return res.render('auth/sign-in', {
-          error: 'This email hadn\'t verified. Please check your mail to verify.'
+          error: "This account is deactivated, please contact admin for more details !"
         });
       }
 
-      if(!await bcrypt.compareSync(password, found_user[0].identity)) {
+      if (!(bcrypt.compareSync(password, found_user[0].identity))) {
         return res.render('auth/sign-in', {
-          error: 'Invalid password. Try recovery password if you forgot password.'
+          error:
+            'Invalid password. Try recovery password if you forgot password.'
         });
       }
 
       req.session.auth = true;
-      req.session.authUser = found_user[0];
+      const lcUser = { ...found_user[0] };
+      delete lcUser.identity;
+      delete lcUser.is_verified;
+      delete lcUser.is_activated;
+      req.session.authUser = lcUser;
 
-      return res.render('auth/sign-in', {
-        success: 'Sign in successfully. Redirecting to dashboard in 5s ...'
-      });
-    }
-    catch (error) {
+      if (lcUser?.authority === "LECTURER") {
+        const check = await lecturerService.findById(lcUser.id);
+        if (!check || !check.length) {
+          res.redirect("/lecturers/profile/create");
+        }
+      }
+
+      res.redirect(req.session.retUrl);
+
+      // return res.render('auth/sign-in', {
+      //   success: 'Sign in successfully. Redirecting to home in 3s ...'
+      // });
+    } catch (error) {
+      console.log(error);
       return res.render('auth/sign-in', {
         error: 'Something went wrong. Please try later or contact admin.'
       });
@@ -83,9 +117,9 @@ export default {
   },
   async postSignUp(req, res) {
     try {
-      const { first_name, last_name, email, password, confirm_password } = req.body;
-
-      console.log(first_name, last_name, email, password, confirm_password)
+      const { first_name, last_name, email, password, confirm_password } =
+        req.body;
+      // console.log(first_name, last_name, email, password, confirm_password)
 
       if (!first_name) {
         return res.render('auth/sign-up', {
@@ -142,7 +176,11 @@ export default {
       const new_time = await moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       const otp = await myFunction.generateString(6);
 
-      const sent = await mail.sendMail(email, 'Verify email address', 'http://localhost:8080/auth/otp/' + otp);
+      const sent = await mail.sendMail(
+        email,
+        'Verify email address',
+        'http://localhost:3000/auth/otp/' + otp
+      );
 
       if (!sent) {
         return res.render('auth/sign-up', {
@@ -153,7 +191,13 @@ export default {
       const new_user = await usersService.add({
         email: email,
         username: first_name + ' ' + last_name,
-        identity: await bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
+        identity: await bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+      });
+
+      const student = await studentsService.add({
+        user_id: new_user,
+        first_name: first_name,
+        last_name: last_name
       });
 
       if (!new_user) {
@@ -167,7 +211,9 @@ export default {
         code: otp,
         type: 'verify-email',
         created_at: new_time,
-        expired_at: await moment(Date.now() + 3600 * 1000).format('YYYY-MM-DD HH:mm:ss'),
+        expired_at: await moment(Date.now() + 3600 * 1000).format(
+          'YYYY-MM-DD HH:mm:ss'
+        )
       });
 
       if (!new_otp) {
@@ -177,10 +223,11 @@ export default {
       }
 
       return res.render('auth/sign-up', {
-        success: 'Sign up successfully. Please check your mail to activiate your account. Redirecting to sign in page in 5s ...'
+        success:
+          'Sign up successfully. Please check your mail to activiate your account. Redirecting to sign in page in 5s ...'
       });
-    }
-    catch (error) {
+    } catch (error) {
+      console.log(error);
       return res.render('auth/sign-up', {
         error: 'Something went wrong. Please try later or contact admin.'
       });
@@ -211,20 +258,28 @@ export default {
 
       if (!found_user.length) {
         return res.render('auth/sign-in', {
-          error: 'This email hadn\'t signed up. Please use sign up instead.'
+          error: "This email hadn't signed up. Please use sign up instead."
         });
       }
 
-      if (!found_user[0].is_activated) {
+      if (!found_user[0].is_verified) {
         return res.render('auth/sign-in', {
-          error: 'This email hadn\'t verified. Please check your mail to verify.'
+          error: "This email hadn't verified. Please check your mail to verify."
         });
       }
 
-      const found_otp = await otpsService.findByKey({user_id: found_user[0].id, type: 'recovery-password', used: 0});
+      const found_otp = await otpsService.findByKey({
+        user_id: found_user[0].id,
+        type: 'recovery-password',
+        used: 0
+      });
 
       if (found_otp.length) {
-        const sent = await mail.sendMail(email, 'Recovery password', 'http://localhost:8080/auth/otp/' + found_otp[0].code);
+        const sent = await mail.sendMail(
+          email,
+          'Recovery password',
+          'http://localhost:3000/auth/otp/' + found_otp[0].code
+        );
 
         if (!sent) {
           return res.render('auth/sign-up', {
@@ -238,7 +293,11 @@ export default {
       }
 
       const otp = await myFunction.generateString(6);
-      const sent = await mail.sendMail(email, 'Recovery password', 'http://localhost:8080/auth/otp/' + otp);
+      const sent = await mail.sendMail(
+        email,
+        'Recovery password',
+        'http://localhost:3000/auth/otp/' + otp
+      );
 
       if (!sent) {
         return res.render('auth/sign-up', {
@@ -251,7 +310,9 @@ export default {
         code: otp,
         type: 'recovery-password',
         created_at: await moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
-        expired_at: await moment(Date.now() + 3600 * 1000).format('YYYY-MM-DD HH:mm:ss'),
+        expired_at: await moment(Date.now() + 3600 * 1000).format(
+          'YYYY-MM-DD HH:mm:ss'
+        )
       });
 
       if (!new_otp) {
@@ -261,10 +322,10 @@ export default {
       }
 
       return res.render('auth/recovery-password', {
-        success: 'Recovery password mail had been sent successfully. Please check your mail. Redirecting to sign in page in 5s ...'
+        success:
+          'Recovery password mail had been sent successfully. Please check your mail. Redirecting to sign in page in 5s ...'
       });
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
 
       return res.render('auth/recovery-password', {
@@ -294,7 +355,9 @@ export default {
       }
 
       const new_time = await moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-      const updated_otp = await otpsService.update(found_otp[0].id, { used: 1 });
+      const updated_otp = await otpsService.update(found_otp[0].id, {
+        used: 1
+      });
 
       if (!updated_otp) {
         return res.render('auth/otp', {
@@ -304,7 +367,10 @@ export default {
 
       if (found_otp[0].type == 'recovery-password') {
         const new_password = await myFunction.generateString(12);
-        const updated_user = await usersService.update(found_otp[0].user_id, { password: await bcrypt.hashSync(new_password, bcrypt.genSaltSync(10)), updated_at: new_time });
+        const updated_user = await usersService.update(found_otp[0].user_id, {
+          password: await bcrypt.hashSync(new_password, bcrypt.genSaltSync(10)),
+          updated_at: new_time
+        });
 
         if (!updated_user) {
           return res.render('auth/otp', {
@@ -313,12 +379,15 @@ export default {
         }
 
         return res.render('auth/otp', {
-          success: 'Recovery password successfull. Your new password: ' + new_password
+          success:
+            'Recovery password successfull. Your new password: ' + new_password
         });
       }
 
       if (found_otp[0].type == 'verify-email') {
-        const updated_user = await usersService.update(found_otp[0].user_id, { is_activated: new_time});
+        const updated_user = await usersService.update(found_otp[0].user_id, {
+          is_verified: 1
+        });
 
         if (!updated_user) {
           return res.render('auth/otp', {
@@ -330,15 +399,14 @@ export default {
           success: 'Verify successfully. You can close this tab now.'
         });
       }
-      
+
       return res.render('auth/otp', {
         error: 'Invalid verification. Please try again.'
       });
-    }
-    catch (error) {
+    } catch (error) {
       return res.render('auth/otp', {
         error: 'Something went wrong. Please try later or contact admin.'
       });
     }
   }
-}
+};

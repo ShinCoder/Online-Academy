@@ -65,8 +65,13 @@
   {{#if success}}
     <script>
       setTimeout(() => {
+
         document.location.replace('../user/profile');
       }, 5000);
+
+        document.location.replace(retUrl);
+      }, 3000);
+
     </script>
   {{/if}}
 {{/section}}

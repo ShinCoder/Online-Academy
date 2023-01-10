@@ -19,7 +19,7 @@
         <tbody>
             {{#each this.students}}
             <tr>
-                <th>{{user_id}}</th>
+                <th>{{id}}</th>
                 <td>{{email}}</td>
                 <td>{{first_name}} {{last_name}}</td>
                 <td class="d-flex align-items-center justify-content-around">
@@ -31,11 +31,11 @@
                 </td>
                 <td class="text-center">
                     {{#if is_activated}}
-                    <form method="post" action="/admin/user/{{user_id}}/deactivate">
+                    <form method="post" action="/admin/students/{{id}}/deactivate">
                         <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
                     </form>
                     {{else}}
-                    <form method="post" action="/admin/user/{{user_id}}/activate">
+                    <form method="post" action="/admin/students/{{id}}/activate">
                         <button type="submit" class="btn btn-sm btn-success">Activate</button>
                     </form>
                     {{/if}}

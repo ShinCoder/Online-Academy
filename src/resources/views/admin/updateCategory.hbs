@@ -1,0 +1,63 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/admin/createCategory.css">
+{{/section}}
+
+<form enctype="multipart/form-data" method="post" action="/admin/categories/{{this.category.id}}/update" id="mainForm"
+    class="container mt-5 pageWrapper">
+
+    {{#if this.success}}
+    <h2 class="text-center text-success mt-1 mb-3">{{this.success}}</h2>
+    {{/if}}
+
+
+    <h1 class="mb-3 text-dark text-center">UPDATE CATEGORY</h1>
+
+    <div class="mb-2">
+        <input value="{{this.category.name}}" autocomplete="off" placeholder="Category name" name="name" id="name"
+            type="text" class="form-control" />
+        <p class="text-danger mt-1" id="nameValidateError"></p>
+    </div>
+
+    <div class="courseImage mb-3">
+        <div class="course-image-wrapper">
+            <img src={{this.category.banner_url}} id="image-preview" class="img-fluid" alt="placeholder" />
+            <div class="course-image-wrapper-overlay">
+                <div>
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    Upload Banner Image
+                </div>
+            </div>
+        </div>
+        <input class="d-none" autocomplete="off" type="file" id="uploadCourseBannerInput"
+            name="uploadCourseBannerInput" />
+        <p id="imageBannerInputError" class="d-none text-danger">Please choose an image !</p>
+    </div>
+
+    <div class="mb-2">
+        <select class="form-select" name="parentCategory" id="parentCategory">
+            {{#if this.category.parent_category_id}}
+            <option selected value={{this.category.parent_category_id}}>{{this.category.p_name}}</option>
+            <option class="text-primary" value="0">BASIC CATEGORY</option>
+            {{else}}
+            <option selected class="text-primary" value="0">BASIC CATEGORY</option>
+            {{/if}}
+            {{#each this.parentCategories}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    {{#if this.error}}
+    <h5 class="text-danger mt-1 mb-3">Error: {{this.error}}</h5>
+    {{/if}}
+
+    <div class="d-flex justify-content-between">
+        <a href="/admin/categories" class="btn btn-secondary">Back to all categories</a>
+        <button type="submit" class="btn btn-success">Update category</button>
+    </div>
+</form>
+
+
+{{#section 'js'}}
+<script src="/javascript/admin/updateCategory.js"></script>
+{{/section}}

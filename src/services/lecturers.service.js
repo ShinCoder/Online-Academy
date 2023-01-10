@@ -9,6 +9,10 @@ export default {
     return db('users').leftJoin('lecturers', 'lecturers.user_id', '=', 'users.id').where('users.authority', "LECTURER");
   },
 
+  findAllWithNeedAuthenInfo() {
+    return db('users').innerJoin('lecturers', 'lecturers.user_id', '=', 'users.id').where('users.authority', "LECTURER");
+  },
+
   findById(id) {
     return db('lecturers').where('user_id', id);
   },
@@ -33,8 +37,8 @@ export default {
     }
   },
   findByLecturerEmail(email) {
-    return db('users').leftJoin('lecturers', 'lecturers.user_id', '=', 'users.id').where({
-      'users.email': email
+    return db('users').where({
+      'email': email
     });
   }
 

@@ -70,6 +70,8 @@ export default {
     //   categoriesList.shift();
     // }
 
+    const featuredCourses = await coursesService.findFeatured();
+
     const hotCategoriesList = [...res.locals.lcCategories];
     while (!hotCategoriesList[0].parent_category_id) {
       const categories = hotCategoriesList[0].child_categories;
@@ -114,8 +116,10 @@ export default {
       const course = await coursesService.findById(
         coursesEnrollCount[i].course_id
       );
-      await formatUtils.courseCardFormat(course[0]);
-      bestSellerCourses.push(course[0]);
+      if (course.length) {
+        await formatUtils.courseCardFormat(course[0]);
+        bestSellerCourses.push(course[0]);
+      }
     }
 
     specifyCourses(bestSellerCourses);
@@ -144,6 +148,7 @@ export default {
     // new course -end
 
     res.render('home', {
+      featuredCourses: featuredCourses,
       hotCategories: hotCategoriesList,
       hotCourses: hotCourses,
       bestSellerCourses: bestSellerCourses,

@@ -1,0 +1,56 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/admin/createCategory.css">
+{{/section}}
+
+<form enctype="multipart/form-data" method="post" action="/admin/categories/create" id="mainForm" class="container mt-5 pageWrapper">
+    
+    {{#if this.success}}
+    <h2 class="text-center text-success mt-1 mb-3">{{this.success}}</h2>
+    {{/if}}
+
+
+    <h1 class="mb-3 text-dark text-center">CREATE CATEGORY</h1>
+
+    <div class="mb-2">
+        <input autocomplete="off" placeholder="Category name" name="name" id="name" type="text" class="form-control" />
+        <p class="text-danger mt-1" id="nameValidateError"></p>
+    </div>
+
+    <div class="courseImage">
+        <div class="course-image-wrapper">
+            <img id="image-preview" class="img-fluid" src="/images/addImagePlaceholder.png" alt="placeholder" />
+            <div class="course-image-wrapper-overlay">
+                <div>
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    Upload Banner Image
+                </div>
+            </div>
+        </div>
+        <input class="d-none" autocomplete="off" type="file" id="uploadCourseBannerInput" name="uploadCourseBannerInput" />
+        <p id="imageBannerInputError" class="d-none text-danger">Please choose an image !</p>
+    </div>
+
+    <div class="mb-2">
+        <p class="mt-3 mb-0">Note: if you are creating a basic category, please leave the following section blank !</p>
+        <select class="form-select" name="parentCategory" id="parentCategory">
+            <option disabled selected value="" class="defaultSelect">Please choose category that this category belong to</option>
+            {{#each this.parentCategories}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    {{#if this.error}}
+    <h5 class="text-danger mt-1 mb-3">Error: {{this.error}}</h5>
+    {{/if}}
+
+    <div class="d-flex justify-content-between">
+        <a href="/admin/categories" class="btn btn-secondary">Back to all categories</a>
+        <button type="submit" class="btn btn-success">Create categories</button>
+    </div>
+</form>
+
+
+{{#section 'js'}}
+<script src="/javascript/admin/createCategory.js"></script>
+{{/section}}

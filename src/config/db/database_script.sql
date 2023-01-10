@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2023 at 08:41 AM
+-- Generation Time: Jan 09, 2023 at 07:14 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `coursemy`
+-- Database: `coursemy`
 --
 CREATE DATABASE IF NOT EXISTS `coursemy` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `coursemy`;
@@ -26,7 +26,7 @@ USE `coursemy`;
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -38,7 +38,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slug`) VALUES
@@ -59,7 +59,7 @@ INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slu
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chapters`
+-- Table structure for table `chapters`
 --
 
 CREATE TABLE `chapters` (
@@ -71,7 +71,7 @@ CREATE TABLE `chapters` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `courses`
+-- Table structure for table `courses`
 --
 
 CREATE TABLE `courses` (
@@ -82,6 +82,8 @@ CREATE TABLE `courses` (
   `category_id` int(11) NOT NULL,
   `price` float NOT NULL,
   `sale_id` int(11) DEFAULT NULL,
+  `is_featured` tinyint(1) DEFAULT NULL,
+  `featured_banner_filename` varchar(100) DEFAULT NULL,
   `is_completed` tinyint(1) NOT NULL,
   `short_description` varchar(100) NOT NULL,
   `detail_description` varchar(2000) NOT NULL,
@@ -96,34 +98,34 @@ CREATE TABLE `courses` (
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `name`, `lecturer_id`, `banner_filename`, `category_id`, `price`, `sale_id`, `is_completed`, `short_description`, `detail_description`, `syllabus`, `created_at`, `updated_at`, `slug`, `is_activated`) VALUES
-(1, 'HTML CSS từ Zero đến Hero', 3, '1.png', 2, 0, NULL, 0, 'Trong khóa này chúng ta sẽ cùng nhau xây dựng giao diện 2 trang web là The Band & Shopee.', 'Html and css from zero to hero', '1.Html\n2.Css', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'html-css-từ-zero-đến-hero-1', 1),
-(2, 'Lập Trình JavaScript Cơ Bản', 3, '2.png', 2, 0, NULL, 0, 'Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với hơn 100 bài học và có bài tập t', 'Javascript cơ bản cho người mới bắt đầu', '1.Javascript', '2022-08-03 00:00:00', '2023-01-04 17:12:17', 'lập-trình-javascript-cơ-bản-1', 1),
-(3, 'Learn Python: The Complete Python Programming Course', 4, '3.png', 3, 999000, NULL, 0, 'Learn A-Z everything about Python, from the basics, to advanced topics like Python GUI, Python Data ', 'Create their own Python Programs\nBecome an experienced Python Programmer\nParse the Web and Create their own Games', '', '2022-11-25 00:00:00', '2023-01-04 17:12:17', 'learn-python-the-complete-python-programming-course-1', 1),
-(4, 'Become a Certified HTML, CSS, JavaScript Web Developer', 5, '4.png', 2, 199000, NULL, 0, 'Complete coverage of HTML, CSS, Javascript while you Earn Four Respected Certifications', 'Prepare for Industry Certification Exam\nEarn Certification that is Proof of your Competence\nHours and Hours of Video Instruction\nDozens of Code Examples to Download and Study\nOver 25 Engaging Lab Exercises\nAll Lab Solutions\nInstructor Available by Email or on the Forums\nAll Free Tools\nComprehensive Coverage of HTML and CSS\nClient Side Programming with Javascript\nServer Side Development with PHP\nLearn Database Development with mySQL', '', '2022-12-05 00:00:00', '2022-12-24 00:00:00', 'become-a-certified-html-css-javascript-web-developer-1', 1),
-(5, 'Google Sheets Fundamentals', 5, '5.png', 8, 199000, NULL, 0, 'Master Google\'s Spreadsheet Program', 'Competently navigate the Google Sheets Interface and successfully enter data\nFormat spreadsheets so that they are both readable and attractive\nCreate formulas and use built-in Spreadsheet functions\nManage spreadsheet data and apply filters and sorts\nOutput, Use Collaboration Tools and Export Spreadsheets', '', '2021-06-15 00:00:00', '2021-10-24 00:00:00', 'google-sheets-fundamentals-1', 1),
-(6, 'JavaScript 2019: JavaScript ES6 Certification Course', 5, '6.png', 2, 249000, NULL, 0, 'Earn the JavaScript Specialist Certification while Learning JavaScript ES6', 'JavaScript syntax, style and usage with a focus on developing apps\nBe Current with ES6 Syntax and Usage\nFundamental to Advanced JavaScript Concepts including Promises, Classes, and Arrow Functions\nIntegration of JavaScript with HTML5 Code for Web Applications', '', '2020-06-25 00:00:00', '2020-10-24 00:00:00', 'javascript-2019-javascript-es6-certification-course-1', 1),
-(7, 'Responsive Design for Web Designers', 5, '7.png', 2, 199000, NULL, 0, 'Learn How to Create Flexible Designs for a Multi-Screen World', 'Identify the four elements of responsive Design\nUnderstand and use a mobile-first design approach\nUnderstand how and why to design with fluid content grids\nUnderstand how content scale impacts responsive design\nExecute cross-device preview and testing to ensure designs work on different sized screens\nUtilize the meta tags required in code for responsive design\nWork with the <picture> tag to create responsive images\nCreate media queries that alter designs for multiple size screens', '', '2021-06-25 00:00:00', '2021-11-24 00:00:00', 'responsive-design-for-web-designers-1', 1),
-(8, 'Build Android Apps with App Inventor 2 - No Coding Required', 6, '8.png', 9, 199000, NULL, 0, 'Android application,App Inventor 2,Google Play Store,Basic Programming', 'Create Android Applications using App Inventor 2.\nUnderstand how to publish created applications to the Google Play Store.\nUnderstand how to update created applications once they have been published to the Google Play Store.\nNavigate and use the App Inventor 2 interface fluidly, effectively and efficiently.\nUnderstand the basics of programming.', '', '2020-07-25 00:00:00', '2020-12-14 00:00:00', 'build-android-apps-with-app-inventor-2---no-coding-required-1', 1),
-(9, 'Microsoft Office 365 Administration', 6, '9.png', 7, 229000, NULL, 0, 'Microsoft Office 365 Administration', 'Setup a custom domain on on microsoft\nUnderstand the basics of the integrated applications\nCheck service health\nCheck and log service requests\nGenerate customized reports\nCreate and manage users in Microsoft Office 365\nCreate security groups\nImport users\nMigrate mail to Office 365 Outlook\nManage spam and malware', '', '2020-07-29 00:00:00', '2020-12-14 00:00:00', 'microsoft-office-365-administration-1', 1),
-(10, 'Learn PHP Programming From Scratch', 6, '10.png', 10, 249000, NULL, 0, 'Over 50 hours of PHP programming goodness.', 'Demonstrate understanding of PHP programming\nTo learn the basics of PHP programming\nTo learn PHP programming by working on projects\nTo learn intermediate and advanced PHP programming', '', '2021-02-12 00:00:00', '2021-05-14 00:00:00', 'learn-php-programming-from-scratch-1', 1),
-(11, 'Become a Professional Graphic Designer', 6, '11.png', 12, 229000, NULL, 0, 'Learn what you need to know to break into the world of graphic design.', 'To learn what graphic design is and how to become a graphic designer\nLearn what a graphic designer does on the job\nLearn the principles of great graphic design\nLearn graphic design as it relates to Photoshop, Illustrator, InDesign and Acrobat\nLearn graphic design for the web using Dreamweaver\nLearn visual communication fundamentals\nLearn successful layout in graphic design\nLearn how to get a job as a graphic designer', '', '2020-05-22 00:00:00', '2020-09-14 00:00:00', 'become-a-professional-graphic-designer-1', 1),
-(12, 'Mobile UI and UX Design', 6, '12.png', 13, 229000, NULL, 0, 'Make your mobile UI design pop and understand the mobile UX process', 'At the end of this course, students will be equipped to oversee design a mobile application\'s\nexperience and interface, through the full process which includes:\nRequirements Assessment\nDesign Project Planning\nUser Experience Recommendations\nUser Interface Design & Documentation\nDesign Implementation Guidelines & Management', '', '2017-01-22 00:00:00', '2017-02-14 00:00:00', 'mobile-ui-and-ux-design-1', 1),
-(13, 'Become a Professional Web Developer | Version 3.0', 6, '13.png', 2, 199000, NULL, 0, 'Everything you need to know to become a professional web developer from scratch, updated for modern ', 'To learn every skill needed as a professional web developer/designer\nTo create real life projects for your portfolio\nTo become a professional web developer', '', '2020-02-12 00:00:00', '2020-08-14 00:00:00', 'become-a-professional-web-developer--version-30-1', 1),
-(14, 'Learn Pascal Programming from Scratch', 6, '14.png', 10, 199000, NULL, 0, 'Create, maintain, design, and build cross-platform native applications', 'Create, maintain, design, and build cross-platform native applications.\nYou will learn how to write the code once, compile it, and run it on multiple platforms.', '', '2016-12-31 00:00:00', '2017-02-24 00:00:00', 'learn-pascal-programming-from-scratch-1', 1),
-(15, 'Java Swing (GUI) Programming: From Beginner to Expert', 8, '15.png', 10, 249000, NULL, 0, 'Learn how to create desktop and Internet GUI Java programs and take your Java programming to the nex', 'Learn how to write GUI (graphical user interface) applications in Java\nUnderstand the Java Swing framework\nDiscover how to create database applications', '', '2015-06-21 00:00:00', '2015-08-14 00:00:00', 'java-swing-gui-programming-from-beginner-to-expert-1', 1),
-(16, 'Learn Advanced C++ Programming', 8, '16.png', 10, 229000, NULL, 0, 'Discover intermediate to advanced C++, including C++ 11\'s fantastic additions to the C++ standard.', 'Develop complex C++ applications\nUnderstand C++ 11\nBe in a position to apply for jobs requiring good C++ knowledge', '', '2022-04-13 00:00:00', '2022-06-23 00:00:00', 'learn-advanced-c-programming-1', 1),
-(17, 'Java 11 For Complete Beginners', 8, '17.png', 10, 229000, NULL, 0, 'Learn Modern Java From Scratch', 'Computer programming in Java', '', '2020-01-04 00:00:00', '2020-04-30 00:00:00', 'java-11-for-complete-beginners-1', 1),
-(18, 'Responsive Với Grid System', 3, '18.png', 2, 0, NULL, 1, 'Trong khóa này chúng ta sẽ học về cách xây dựng giao diện web responsive với Grid System, tương tự B', 'Biết cách xây dựng website Responsive\nHiểu được tư tưởng thiết kế với Grid system\nTự tay xây dựng được thư viện CSS Grid\nTự hiểu được Grid layout trong bootstrap', '', '2020-11-09 00:00:00', '2021-01-12 00:00:00', 'responsive-với-grid-system-1', 1),
-(19, 'Lập Trình JavaScript Nâng Cao', 3, '19.png', 2, 0, NULL, 0, 'Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword,', 'Được học kiến thức miễn phí với nội dung chất lượng hơn mất phí\nCác kiến thức nâng cao của Javascript giúp code trở nên tối ưu hơn\nHiểu được cách tư duy nâng cao của các lập trình viên có kinh nghiệm\nHiểu được các khái niệm khó như từ khóa this, phương thức bind, call, apply & xử lý bất đồng bộ\nCó nền tảng Javascript vững chắc để làm việc với mọi thư viện, framework viết bởi Javascript\nNâng cao cơ hội thành công khi phỏng vấn xin việc nhờ kiến thức chuyên môn vững chắc', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'lập-trình-javascript-nâng-cao-1', 1),
-(20, 'Node & ExpressJS', 3, '20.png', 2, 0, NULL, 0, 'Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful', 'Nắm chắc lý thuyết chung trong việc xây dựng web\nBiết cách làm việc với Mongoose, MongoDB trong NodeJS\nXây dựng web với Express bằng kiến thức thực tế\nBiết cách xây dựng API theo chuẩn RESTful API\nNắm chắc lý thuyết về API và RESTful API\nĐược chia sẻ lại kinh nghiệm làm việc thực tế\nNắm chắc khái niệm về giao thức HTTP\nHiểu rõ tư tưởng và cách hoạt động của mô hình MVC\nHọc được cách tổ chức code trong thực tế\nBiết cách deploy (triển khai) website lên internet', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'node--expressjs-1', 1),
-(49, 'Kiến Thức Nhập Môn IT', 3, 'uploadCourseBannerInput_1673161373004.png', 2, 0, NULL, 0, '<p>Để c&oacute; c&aacute;i nh&igrave;n tổng quan về ng&agrave;nh IT - Lập tr&igrave;nh web c&aacute;', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>C&aacute;c kiến thức cơ bản, nền m&oacute;ng của ng&agrave;nh IT</li>\r\n<li>C&aacute;c m&ocirc; h&igrave;nh, kiến tr&uacute;c cơ bản khi triển khai ứng dụng</li>\r\n<li>C&aacute;c kh&aacute;i niệm, thuật ngữ cốt l&otilde;i khi triển khai ứng dụng</li>\r\n<li>Hiểu hơn về c&aacute;ch internet v&agrave; m&aacute;y vi t&iacute;nh hoạt động</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Kh&aacute;i niệm kĩ thuật cần biết</h3>\r\n<ol>\r\n<li>M&ocirc; h&igrave;nh Client - Server l&agrave; g&igrave;?</li>\r\n<li>Domain l&agrave; g&igrave;? T&ecirc;n miền l&agrave; g&igrave;?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>M&ocirc;i trường, con người IT</h3>\r\n<ol>\r\n<li>Học IT cần tố chất g&igrave;? G&oacute;c nh&igrave;n kh&aacute;c từ chuy&ecirc;n gia định hướng gi&aacute;o dục.</li>\r\n<li>Sinh vi&ecirc;n IT đi thực tập tại doanh nghiệp cần biết những g&igrave;?</li>\r\n<li>Trải nghiệm thực tế sau 2 th&aacute;ng l&agrave;m việc tại doanh nghiệp của học vi&ecirc;n F8?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Phương ph&aacute;p, định hướng?</h3>\r\n<ol>\r\n<li>Phương ph&aacute;p học lập tr&igrave;nh của Admin F8?</li>\r\n<li>L&agrave;m sao để c&oacute; thu nhập cao v&agrave; đi xa hơn trong ng&agrave;nh IT?</li>\r\n<li>\r\n<div class=\"CurriculumOfCourse_lessonName__llwRr\">9. 8 lời khuy&ecirc;n gi&uacute;p học lập tr&igrave;nh tại F8 hiệu quả hơn!</div>\r\n</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Ho&agrave;n th&agrave;nh kh&oacute;a học.</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:02:53', '2023-01-08 14:02:53', 'kiến-thức-nhập-môn-it-1', 1),
-(50, 'Xây Dựng Website với ReactJS', 3, 'uploadCourseBannerInput_1673163311037.png', 2, 0, NULL, 0, '<p>Kh&oacute;a học ReactJS từ cơ bản tới n&acirc;ng cao, kết quả của kh&oacute;a học n&agrave;y l&ag', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>Hiểu về kh&aacute;i niệm SPA/MPA</li>\r\n<li>Hiểu về kh&aacute;i niệm hooks</li>\r\n<li>Hiểu c&aacute;ch ReactJS hoạt động</li>\r\n<li>Hiểu về function/class component</li>\r\n<li>Biết c&aacute;ch tối ưu hiệu năng ứng dụng</li>\r\n<li>Th&agrave;nh thạo l&agrave;m việc với RESTful API</li>\r\n<li>Hiểu r&otilde; r&agrave;ng Redux workflow</li>\r\n<li>Th&agrave;nh thạo sử dụng Redux v&agrave;o dự &aacute;n</li>\r\n<li>Biết sử dụng redux-thunk middleware</li>\r\n<li>X&acirc;y dựng sản phẩm thực tế (clone Tiktok)</li>\r\n<li>Triển khai dự &aacute;n React ra Internet</li>\r\n<li>Đủ h&agrave;nh trang tự tin apply đi xin việc</li>\r\n<li>Biết c&aacute;ch Deploy l&ecirc;n Github/Gitlab page</li>\r\n<li>Nhận chứng chỉ kh&oacute;a học do F8 cấp</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Giới thiệu</h3>\r\n<ol>\r\n<li>ReactJS l&agrave; g&igrave;? Tại sao n&ecirc;n học ReactJS?</li>\r\n<li>SPA/MPA l&agrave; g&igrave;?</li>\r\n<li>Ưu điểm của SPA</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>&Ocirc;n lại ES6+</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:35:11', '2023-01-08 14:35:11', 'xây-dựng-website-với-reactjs-1', 1);
+INSERT INTO `courses` (`id`, `name`, `lecturer_id`, `banner_filename`, `category_id`, `price`, `sale_id`, `is_featured`, `featured_banner_filename`, `is_completed`, `short_description`, `detail_description`, `syllabus`, `created_at`, `updated_at`, `slug`, `is_activated`) VALUES
+(1, 'HTML CSS từ Zero đến Hero', 3, '1.png', 2, 0, NULL, 1, 'html-css-tu-zero-den-hero.png', 0, 'Trong khóa này chúng ta sẽ cùng nhau xây dựng giao diện 2 trang web là The Band & Shopee.', 'Html and css from zero to hero', '1.Html\n2.Css', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'html-css-từ-zero-đến-hero-1', 1),
+(2, 'Lập Trình JavaScript Cơ Bản', 3, '2.png', 2, 0, NULL, 1, 'lap-trinh-javascript-co-ban.png', 0, 'Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với hơn 100 bài học và có bài tập t', 'Javascript cơ bản cho người mới bắt đầu', '1.Javascript', '2022-08-03 00:00:00', '2023-01-04 17:12:17', 'lập-trình-javascript-cơ-bản-1', 1),
+(3, 'Learn Python: The Complete Python Programming Course', 4, '3.png', 3, 999000, 1, 1, 'learn-python-the-complete-python-programming-course-1.png', 0, 'Learn A-Z everything about Python, from the basics, to advanced topics like Python GUI, Python Data ', 'Create their own Python Programs\nBecome an experienced Python Programmer\nParse the Web and Create their own Games', '', '2022-11-25 00:00:00', '2023-01-04 17:12:17', 'learn-python-the-complete-python-programming-course-1', 1),
+(4, 'Become a Certified HTML, CSS, JavaScript Web Developer', 5, '4.png', 2, 1990000, 1, NULL, NULL, 0, 'Complete coverage of HTML, CSS, Javascript while you Earn Four Respected Certifications', 'Prepare for Industry Certification Exam\nEarn Certification that is Proof of your Competence\nHours and Hours of Video Instruction\nDozens of Code Examples to Download and Study\nOver 25 Engaging Lab Exercises\nAll Lab Solutions\nInstructor Available by Email or on the Forums\nAll Free Tools\nComprehensive Coverage of HTML and CSS\nClient Side Programming with Javascript\nServer Side Development with PHP\nLearn Database Development with mySQL', '', '2022-12-05 00:00:00', '2022-12-24 00:00:00', 'become-a-certified-html-css-javascript-web-developer-1', 1),
+(5, 'Google Sheets Fundamentals', 5, '5.png', 8, 199000, NULL, NULL, NULL, 0, 'Master Google\'s Spreadsheet Program', 'Competently navigate the Google Sheets Interface and successfully enter data\nFormat spreadsheets so that they are both readable and attractive\nCreate formulas and use built-in Spreadsheet functions\nManage spreadsheet data and apply filters and sorts\nOutput, Use Collaboration Tools and Export Spreadsheets', '', '2021-06-15 00:00:00', '2021-10-24 00:00:00', 'google-sheets-fundamentals-1', 1),
+(6, 'JavaScript 2019: JavaScript ES6 Certification Course', 5, '6.png', 2, 249000, 2, NULL, NULL, 0, 'Earn the JavaScript Specialist Certification while Learning JavaScript ES6', 'JavaScript syntax, style and usage with a focus on developing apps\nBe Current with ES6 Syntax and Usage\nFundamental to Advanced JavaScript Concepts including Promises, Classes, and Arrow Functions\nIntegration of JavaScript with HTML5 Code for Web Applications', '', '2020-06-25 00:00:00', '2020-10-24 00:00:00', 'javascript-2019-javascript-es6-certification-course-1', 1),
+(7, 'Responsive Design for Web Designers', 5, '7.png', 2, 199000, NULL, NULL, NULL, 0, 'Learn How to Create Flexible Designs for a Multi-Screen World', 'Identify the four elements of responsive Design\nUnderstand and use a mobile-first design approach\nUnderstand how and why to design with fluid content grids\nUnderstand how content scale impacts responsive design\nExecute cross-device preview and testing to ensure designs work on different sized screens\nUtilize the meta tags required in code for responsive design\nWork with the <picture> tag to create responsive images\nCreate media queries that alter designs for multiple size screens', '', '2021-06-25 00:00:00', '2021-11-24 00:00:00', 'responsive-design-for-web-designers-1', 1),
+(8, 'Build Android Apps with App Inventor 2 - No Coding Required', 6, '8.png', 9, 199000, NULL, NULL, NULL, 0, 'Android application,App Inventor 2,Google Play Store,Basic Programming', 'Create Android Applications using App Inventor 2.\nUnderstand how to publish created applications to the Google Play Store.\nUnderstand how to update created applications once they have been published to the Google Play Store.\nNavigate and use the App Inventor 2 interface fluidly, effectively and efficiently.\nUnderstand the basics of programming.', '', '2020-07-25 00:00:00', '2020-12-14 00:00:00', 'build-android-apps-with-app-inventor-2---no-coding-required-1', 1),
+(9, 'Microsoft Office 365 Administration', 6, '9.png', 7, 229000, NULL, NULL, NULL, 0, 'Microsoft Office 365 Administration', 'Setup a custom domain on on microsoft\nUnderstand the basics of the integrated applications\nCheck service health\nCheck and log service requests\nGenerate customized reports\nCreate and manage users in Microsoft Office 365\nCreate security groups\nImport users\nMigrate mail to Office 365 Outlook\nManage spam and malware', '', '2020-07-29 00:00:00', '2020-12-14 00:00:00', 'microsoft-office-365-administration-1', 1),
+(10, 'Learn PHP Programming From Scratch', 6, '10.png', 10, 249000, 2, NULL, NULL, 0, 'Over 50 hours of PHP programming goodness.', 'Demonstrate understanding of PHP programming\nTo learn the basics of PHP programming\nTo learn PHP programming by working on projects\nTo learn intermediate and advanced PHP programming', '', '2021-02-12 00:00:00', '2021-05-14 00:00:00', 'learn-php-programming-from-scratch-1', 1),
+(11, 'Become a Professional Graphic Designer', 6, '11.png', 12, 229000, NULL, NULL, NULL, 0, 'Learn what you need to know to break into the world of graphic design.', 'To learn what graphic design is and how to become a graphic designer\nLearn what a graphic designer does on the job\nLearn the principles of great graphic design\nLearn graphic design as it relates to Photoshop, Illustrator, InDesign and Acrobat\nLearn graphic design for the web using Dreamweaver\nLearn visual communication fundamentals\nLearn successful layout in graphic design\nLearn how to get a job as a graphic designer', '', '2020-05-22 00:00:00', '2020-09-14 00:00:00', 'become-a-professional-graphic-designer-1', 1),
+(12, 'Mobile UI and UX Design', 6, '12.png', 13, 229000, NULL, NULL, NULL, 0, 'Make your mobile UI design pop and understand the mobile UX process', 'At the end of this course, students will be equipped to oversee design a mobile application\'s\nexperience and interface, through the full process which includes:\nRequirements Assessment\nDesign Project Planning\nUser Experience Recommendations\nUser Interface Design & Documentation\nDesign Implementation Guidelines & Management', '', '2017-01-22 00:00:00', '2017-02-14 00:00:00', 'mobile-ui-and-ux-design-1', 1),
+(13, 'Become a Professional Web Developer | Version 3.0', 6, '13.png', 2, 199000, NULL, NULL, NULL, 0, 'Everything you need to know to become a professional web developer from scratch, updated for modern ', 'To learn every skill needed as a professional web developer/designer\nTo create real life projects for your portfolio\nTo become a professional web developer', '', '2020-02-12 00:00:00', '2020-08-14 00:00:00', 'become-a-professional-web-developer--version-30-1', 1),
+(14, 'Learn Pascal Programming from Scratch', 6, '14.png', 10, 199000, 2, NULL, NULL, 0, 'Create, maintain, design, and build cross-platform native applications', 'Create, maintain, design, and build cross-platform native applications.\nYou will learn how to write the code once, compile it, and run it on multiple platforms.', '', '2016-12-31 00:00:00', '2017-02-24 00:00:00', 'learn-pascal-programming-from-scratch-1', 1),
+(15, 'Java Swing (GUI) Programming: From Beginner to Expert', 8, '15.png', 10, 249000, 2, NULL, NULL, 0, 'Learn how to create desktop and Internet GUI Java programs and take your Java programming to the nex', 'Learn how to write GUI (graphical user interface) applications in Java\nUnderstand the Java Swing framework\nDiscover how to create database applications', '', '2015-06-21 00:00:00', '2015-08-14 00:00:00', 'java-swing-gui-programming-from-beginner-to-expert-1', 1),
+(16, 'Learn Advanced C++ Programming', 8, '16.png', 10, 229000, NULL, NULL, NULL, 0, 'Discover intermediate to advanced C++, including C++ 11\'s fantastic additions to the C++ standard.', 'Develop complex C++ applications\nUnderstand C++ 11\nBe in a position to apply for jobs requiring good C++ knowledge', '', '2022-04-13 00:00:00', '2022-06-23 00:00:00', 'learn-advanced-c-programming-1', 1),
+(17, 'Java 11 For Complete Beginners', 8, '17.png', 10, 229000, NULL, NULL, NULL, 0, 'Learn Modern Java From Scratch', 'Computer programming in Java', '', '2020-01-04 00:00:00', '2020-04-30 00:00:00', 'java-11-for-complete-beginners-1', 1),
+(18, 'Responsive Với Grid System', 3, '18.png', 2, 0, NULL, NULL, NULL, 1, 'Trong khóa này chúng ta sẽ học về cách xây dựng giao diện web responsive với Grid System, tương tự B', 'Biết cách xây dựng website Responsive\nHiểu được tư tưởng thiết kế với Grid system\nTự tay xây dựng được thư viện CSS Grid\nTự hiểu được Grid layout trong bootstrap', '', '2020-11-09 00:00:00', '2021-01-12 00:00:00', 'responsive-với-grid-system-1', 1),
+(19, 'Lập Trình JavaScript Nâng Cao', 3, '19.png', 2, 0, NULL, NULL, NULL, 0, 'Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword,', 'Được học kiến thức miễn phí với nội dung chất lượng hơn mất phí\nCác kiến thức nâng cao của Javascript giúp code trở nên tối ưu hơn\nHiểu được cách tư duy nâng cao của các lập trình viên có kinh nghiệm\nHiểu được các khái niệm khó như từ khóa this, phương thức bind, call, apply & xử lý bất đồng bộ\nCó nền tảng Javascript vững chắc để làm việc với mọi thư viện, framework viết bởi Javascript\nNâng cao cơ hội thành công khi phỏng vấn xin việc nhờ kiến thức chuyên môn vững chắc', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'lập-trình-javascript-nâng-cao-1', 1),
+(20, 'Node & ExpressJS', 3, '20.png', 2, 0, NULL, NULL, NULL, 0, 'Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful', 'Nắm chắc lý thuyết chung trong việc xây dựng web\nBiết cách làm việc với Mongoose, MongoDB trong NodeJS\nXây dựng web với Express bằng kiến thức thực tế\nBiết cách xây dựng API theo chuẩn RESTful API\nNắm chắc lý thuyết về API và RESTful API\nĐược chia sẻ lại kinh nghiệm làm việc thực tế\nNắm chắc khái niệm về giao thức HTTP\nHiểu rõ tư tưởng và cách hoạt động của mô hình MVC\nHọc được cách tổ chức code trong thực tế\nBiết cách deploy (triển khai) website lên internet', '', '2023-01-04 17:12:17', '2023-01-04 17:12:17', 'node--expressjs-1', 1),
+(49, 'Kiến Thức Nhập Môn IT', 3, 'uploadCourseBannerInput_1673161373004.png', 2, 0, NULL, NULL, NULL, 0, '<p>Để c&oacute; c&aacute;i nh&igrave;n tổng quan về ng&agrave;nh IT - Lập tr&igrave;nh web c&aacute;', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>C&aacute;c kiến thức cơ bản, nền m&oacute;ng của ng&agrave;nh IT</li>\r\n<li>C&aacute;c m&ocirc; h&igrave;nh, kiến tr&uacute;c cơ bản khi triển khai ứng dụng</li>\r\n<li>C&aacute;c kh&aacute;i niệm, thuật ngữ cốt l&otilde;i khi triển khai ứng dụng</li>\r\n<li>Hiểu hơn về c&aacute;ch internet v&agrave; m&aacute;y vi t&iacute;nh hoạt động</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Kh&aacute;i niệm kĩ thuật cần biết</h3>\r\n<ol>\r\n<li>M&ocirc; h&igrave;nh Client - Server l&agrave; g&igrave;?</li>\r\n<li>Domain l&agrave; g&igrave;? T&ecirc;n miền l&agrave; g&igrave;?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>M&ocirc;i trường, con người IT</h3>\r\n<ol>\r\n<li>Học IT cần tố chất g&igrave;? G&oacute;c nh&igrave;n kh&aacute;c từ chuy&ecirc;n gia định hướng gi&aacute;o dục.</li>\r\n<li>Sinh vi&ecirc;n IT đi thực tập tại doanh nghiệp cần biết những g&igrave;?</li>\r\n<li>Trải nghiệm thực tế sau 2 th&aacute;ng l&agrave;m việc tại doanh nghiệp của học vi&ecirc;n F8?</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Phương ph&aacute;p, định hướng?</h3>\r\n<ol>\r\n<li>Phương ph&aacute;p học lập tr&igrave;nh của Admin F8?</li>\r\n<li>L&agrave;m sao để c&oacute; thu nhập cao v&agrave; đi xa hơn trong ng&agrave;nh IT?</li>\r\n<li>\r\n<div class=\"CurriculumOfCourse_lessonName__llwRr\">9. 8 lời khuy&ecirc;n gi&uacute;p học lập tr&igrave;nh tại F8 hiệu quả hơn!</div>\r\n</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>Ho&agrave;n th&agrave;nh kh&oacute;a học.</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:02:53', '2023-01-08 14:02:53', 'kiến-thức-nhập-môn-it-1', 1),
+(50, 'Xây Dựng Website với ReactJS', 3, 'uploadCourseBannerInput_1673163311037.png', 2, 0, NULL, NULL, NULL, 0, '<p>Kh&oacute;a học ReactJS từ cơ bản tới n&acirc;ng cao, kết quả của kh&oacute;a học n&agrave;y l&ag', '<h2 class=\"CourseDetail_topicHeading__xbkxm\">Bạn sẽ học được g&igrave;?</h2>\r\n<section class=\"index-module_row__-AHgh\">\r\n<section class=\"index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve\">\r\n<ul class=\"CourseDetail_list__pdfCp undefined\">\r\n<li>Hiểu về kh&aacute;i niệm SPA/MPA</li>\r\n<li>Hiểu về kh&aacute;i niệm hooks</li>\r\n<li>Hiểu c&aacute;ch ReactJS hoạt động</li>\r\n<li>Hiểu về function/class component</li>\r\n<li>Biết c&aacute;ch tối ưu hiệu năng ứng dụng</li>\r\n<li>Th&agrave;nh thạo l&agrave;m việc với RESTful API</li>\r\n<li>Hiểu r&otilde; r&agrave;ng Redux workflow</li>\r\n<li>Th&agrave;nh thạo sử dụng Redux v&agrave;o dự &aacute;n</li>\r\n<li>Biết sử dụng redux-thunk middleware</li>\r\n<li>X&acirc;y dựng sản phẩm thực tế (clone Tiktok)</li>\r\n<li>Triển khai dự &aacute;n React ra Internet</li>\r\n<li>Đủ h&agrave;nh trang tự tin apply đi xin việc</li>\r\n<li>Biết c&aacute;ch Deploy l&ecirc;n Github/Gitlab page</li>\r\n<li>Nhận chứng chỉ kh&oacute;a học do F8 cấp</li>\r\n</ul>\r\n</section>\r\n</section>', '<h2 class=\"CurriculumOfCourse_floatLeft__zxBeB\">Nội dung kh&oacute;a học</h2>\r\n<ol>\r\n<li>\r\n<h3>Giới thiệu</h3>\r\n<ol>\r\n<li>ReactJS l&agrave; g&igrave;? Tại sao n&ecirc;n học ReactJS?</li>\r\n<li>SPA/MPA l&agrave; g&igrave;?</li>\r\n<li>Ưu điểm của SPA</li>\r\n</ol>\r\n</li>\r\n<li>\r\n<h3>&Ocirc;n lại ES6+</h3>\r\n</li>\r\n</ol>', '2023-01-08 14:35:11', '2023-01-08 14:35:11', 'xây-dựng-website-với-reactjs-1', 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `enroll`
+-- Table structure for table `enroll`
 --
 
 CREATE TABLE `enroll` (
@@ -148,7 +150,7 @@ INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_poi
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `lecturers`
+-- Table structure for table `lecturers`
 --
 
 CREATE TABLE `lecturers` (
@@ -160,7 +162,7 @@ CREATE TABLE `lecturers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `lecturers`
+-- Dumping data for table `lecturers`
 --
 
 INSERT INTO `lecturers` (`user_id`, `first_name`, `last_name`, `career_description`, `avatar_url`) VALUES
@@ -173,7 +175,7 @@ INSERT INTO `lecturers` (`user_id`, `first_name`, `last_name`, `career_descripti
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `lessons`
+-- Table structure for table `lessons`
 --
 
 CREATE TABLE `lessons` (
@@ -187,7 +189,33 @@ CREATE TABLE `lessons` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sales`
+-- Table structure for table `otps`
+--
+
+CREATE TABLE `otps` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `used` tinyint(4) DEFAULT 0,
+  `created_at` datetime DEFAULT NULL,
+  `expired_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `otps`
+--
+
+INSERT INTO `otps` (`id`, `user_id`, `code`, `type`, `used`, `created_at`, `expired_at`) VALUES
+(1, 11, 'HEUY9x', 'verify-email', 1, '2023-01-08 17:02:49', '2023-01-08 18:02:52'),
+(2, 11, 'wtXRiH', 'recovery-password', 1, '2023-01-08 17:07:05', '2023-01-08 18:07:05'),
+(3, 12, 'FZZBl4', 'verify-email', 1, '2023-01-08 18:16:37', '2023-01-08 19:16:40'),
+(4, 17, 'dQpa7L', 'verify-email', 1, '2023-01-08 18:36:47', '2023-01-08 19:36:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
 --
 
 CREATE TABLE `sales` (
@@ -196,10 +224,30 @@ CREATE TABLE `sales` (
   `discount_percent` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`id`, `name`, `discount_percent`) VALUES
+(1, 'NEW YEAR SALE', 90),
+(2, 'BLACK FRIDAY 2022', 50);
+
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `students`
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `sid` varchar(255) NOT NULL,
+  `sess` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`sess`)),
+  `expired` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
 --
 
 CREATE TABLE `students` (
@@ -214,12 +262,13 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`user_id`, `first_name`, `last_name`) VALUES
 (2, 'Kiệt', 'Trần'),
-(7, 'Kiệt', 'Trần');
+(7, 'Kiệt', 'Trần'),
+(17, 'Shin', 'Coder');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -228,27 +277,29 @@ CREATE TABLE `users` (
   `email` varchar(50) DEFAULT NULL,
   `identity` varchar(100) NOT NULL,
   `authority` enum('STUDENT','LECTURER','ADMIN') NOT NULL,
+  `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `is_activated` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_activated`) VALUES
-(1, 'admin1', 'admin1@gmail.com', '$2a$10$FV2dj5JYTGT08V/97UE8eehPU/j05EMGtvMutUj6EOS', 'ADMIN', 1),
-(2, 'student1', 'student1@gmail.com', '$2a$10$GflWaMQ7N9M7srFllbJMvuCPFEEIHVCOoN7TWirN9YM', 'STUDENT', 1),
-(3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$Nd1fSbD4z59H8j4YP3Y6WOe.FVp/ncq7.V..px.K53Y', 'LECTURER', 1),
-(4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$/ttfYvdnmR9ooVebDjArauqoftEgd3roisp3G464.DV', 'LECTURER', 1),
-(5, 'Mark_Lassoff', 'marklassoff@gmail.com', '$2a$10$aelFfre4osCBkjG0DwnObOABSOsE6WXYFdOn3ZN6gds', 'LECTURER', 1),
-(6, 'Stone_River_eLearning', 'stoneriverelearning@gmail.com', '$2a$10$RAfIuKUvntvprxN0FXnIg.D.IIjltb.F2q1QgLce4hD', 'LECTURER', 1),
-(7, 'student2', 'student2@gmail.com', '$2a$10$bkcbwGXh5wWt6P2APPJlC.DCDKekvwzLnRjg02pbHHP', 'STUDENT', 1),
-(8, 'John_Purcell', 'johnpurcell@gmail.com', '$2a$10$ziiw276RUdy0gY82BdSG4e5FpTmgGJeR88A/ENxhIS0', 'LECTURER', 1);
+INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_verified`, `is_activated`) VALUES
+(1, 'admin1', 'admin1@gmail.com', '$2a$10$FV2dj5JYTGT08V/97UE8eehPU/j05EMGtvMutUj6EOS', 'ADMIN', 0, 1),
+(2, 'student1', 'student1@gmail.com', '$2a$10$GflWaMQ7N9M7srFllbJMvuCPFEEIHVCOoN7TWirN9YM', 'STUDENT', 0, 1),
+(3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$Nd1fSbD4z59H8j4YP3Y6WOe.FVp/ncq7.V..px.K53Y', 'LECTURER', 0, 1),
+(4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$/ttfYvdnmR9ooVebDjArauqoftEgd3roisp3G464.DV', 'LECTURER', 0, 1),
+(5, 'Mark_Lassoff', 'marklassoff@gmail.com', '$2a$10$aelFfre4osCBkjG0DwnObOABSOsE6WXYFdOn3ZN6gds', 'LECTURER', 0, 1),
+(6, 'Stone_River_eLearning', 'stoneriverelearning@gmail.com', '$2a$10$RAfIuKUvntvprxN0FXnIg.D.IIjltb.F2q1QgLce4hD', 'LECTURER', 0, 1),
+(7, 'student2', 'student2@gmail.com', '$2a$10$bkcbwGXh5wWt6P2APPJlC.DCDKekvwzLnRjg02pbHHP', 'STUDENT', 0, 1),
+(8, 'John_Purcell', 'johnpurcell@gmail.com', '$2a$10$ziiw276RUdy0gY82BdSG4e5FpTmgGJeR88A/ENxhIS0', 'LECTURER', 0, 1),
+(17, 'Shin Coder', 'shincoder.learning@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'STUDENT', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `watchlist`
+-- Table structure for table `watchlist`
 --
 
 CREATE TABLE `watchlist` (
@@ -257,24 +308,24 @@ CREATE TABLE `watchlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `chapters`
+-- Indexes for table `chapters`
 --
 ALTER TABLE `chapters`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_CHAPTERS_COURSES` (`course_id`);
 
 --
--- Chỉ mục cho bảng `courses`
+-- Indexes for table `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
@@ -285,102 +336,121 @@ ALTER TABLE `courses`
 ALTER TABLE `courses` ADD FULLTEXT KEY `name` (`name`);
 
 --
--- Chỉ mục cho bảng `enroll`
+-- Indexes for table `enroll`
 --
 ALTER TABLE `enroll`
   ADD PRIMARY KEY (`student_id`,`course_id`),
   ADD KEY `FK_ENROLL_COURSES` (`course_id`);
 
 --
--- Chỉ mục cho bảng `lecturers`
+-- Indexes for table `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Chỉ mục cho bảng `lessons`
+-- Indexes for table `lessons`
 --
 ALTER TABLE `lessons`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_LESSONS_CHAPTERS` (`chapter_id`);
 
 --
--- Chỉ mục cho bảng `sales`
+-- Indexes for table `otps`
+--
+ALTER TABLE `otps`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sales`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `students`
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`sid`),
+  ADD KEY `sessions_expired_index` (`expired`);
+
+--
+-- Indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `watchlist`
+-- Indexes for table `watchlist`
 --
 ALTER TABLE `watchlist`
   ADD PRIMARY KEY (`student_id`,`course_id`),
   ADD KEY `FK_WATCHLIST_COURSES` (`course_id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT cho bảng `chapters`
+-- AUTO_INCREMENT for table `chapters`
 --
 ALTER TABLE `chapters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `courses`
+-- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT cho bảng `lessons`
+-- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `sales`
+-- AUTO_INCREMENT for table `otps`
+--
+ALTER TABLE `otps`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `chapters`
+-- Constraints for table `chapters`
 --
 ALTER TABLE `chapters`
   ADD CONSTRAINT `FK_CHAPTERS_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `courses`
+-- Constraints for table `courses`
 --
 ALTER TABLE `courses`
   ADD CONSTRAINT `FK_COURSES_CATEGORIES` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
@@ -388,32 +458,32 @@ ALTER TABLE `courses`
   ADD CONSTRAINT `FK_COURSES_SALES` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`);
 
 --
--- Các ràng buộc cho bảng `enroll`
+-- Constraints for table `enroll`
 --
 ALTER TABLE `enroll`
   ADD CONSTRAINT `FK_ENROLL_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `FK_ENROLL_STUDENTS` FOREIGN KEY (`student_id`) REFERENCES `students` (`user_id`);
 
 --
--- Các ràng buộc cho bảng `lecturers`
+-- Constraints for table `lecturers`
 --
 ALTER TABLE `lecturers`
   ADD CONSTRAINT `FK_LECTURERS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Các ràng buộc cho bảng `lessons`
+-- Constraints for table `lessons`
 --
 ALTER TABLE `lessons`
   ADD CONSTRAINT `FK_LESSONS_CHAPTERS` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `students`
+-- Constraints for table `students`
 --
 ALTER TABLE `students`
-  ADD CONSTRAINT `FK_STUDENTS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_STUDENTS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `watchlist`
+-- Constraints for table `watchlist`
 --
 ALTER TABLE `watchlist`
   ADD CONSTRAINT `FK_WATCHLIST_COURSES` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),

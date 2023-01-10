@@ -4,7 +4,7 @@
 
 <div class="container mt-5 pageWrapper">
     <div class="headerContainer">
-        <h1 class="text-center mb-3 text-dark">ALL LECTURERS</h1>
+        <h1 class="text-center mb-3 text-dark">LECTURERS</h1>
         <a href="/admin/lecturer/create" class="openCreateAccountBtn btn btn-primary">
             <i class="fa fa-plus-square" aria-hidden="true"></i> Create lecturer account
         </a>
@@ -22,7 +22,7 @@
         <tbody>
             {{#each this.lecturers}}
             <tr>
-                <th>{{user_id}}</th>
+                <th>{{id}}</th>
                 <td>{{email}}</td>
                 <td>{{first_name}} {{last_name}}</td>
                 <td class="d-flex align-items-center justify-content-around">
@@ -34,11 +34,11 @@
                 </td>
                 <td class="text-center">
                     {{#if is_activated}}
-                    <form method="post" action="/admin/user/{{user_id}}/deactivate">
+                    <form method="post" action="/admin/lecturers/{{id}}/deactivate">
                         <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
                     </form>
                     {{else}}
-                    <form method="post" action="/admin/user/{{user_id}}/activate">
+                    <form method="post" action="/admin/lecturers/{{id}}/activate">
                         <button type="submit" class="btn btn-sm btn-success">Activate</button>
                     </form>
                     {{/if}}

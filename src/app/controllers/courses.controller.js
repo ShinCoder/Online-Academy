@@ -4,6 +4,7 @@ import path from 'path';
 import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
 import slugger from '../../utils/slug.js';
+import lecturersService from '../../services/lecturers.service.js';
 
 const HOT_COURSE_LIMIT = 12;
 const NEW_COURSE_DURATION = 30;
@@ -148,6 +149,18 @@ export default {
   async renderCreateCourse(req, res) {
     const allCategories = await categoriesService.findAllNotGetParent();
 
+    const lecturerId = req.session?.authUser?.id;
+
+    const profile = await lecturersService.findById(lecturerId);
+
+    if (profile?.length) {
+      res.render('courses/createCourse', {
+        categories: allCategories
+      });
+    } else {
+      res.redirect('/lecturers/profile/create');
+    }
+
     res.render('courses/createCourse', {
       categories: allCategories
     });
@@ -185,7 +198,7 @@ export default {
 
       const resultCourse = {
         name: req.body.courseTitle,
-        lecturer_id: req.session?.user?.id || 3, // [FIX] Replace by auth user
+        lecturer_id: req.session?.authUser?.id,
         banner_filename: bannerName,
         category_id: Number(req.body.courseCategory),
         short_description: req.body.shortDescription,
@@ -331,13 +344,6 @@ export default {
         console.log('Update status error: ', err);
       }
     });
-  },
-
-  async showByCategory(req, res) {
-    const category = await categoriesService.findBySlug(req.params.slug);
-    const courses = await coursesService.findByCategoryId(category[0].id);
-
-    res.render('courses');
   },
 
   async updateCourseStatus(req, res) {
@@ -1099,6 +1105,24 @@ export default {
         name: 'Search result: ' + query.key
       },
       pagination
+    });
+  },
+
+  async showCourseDetail(req, res) {
+    const courseSlug = req.params.slug;
+
+    let courses = await coursesService.findCourseDetail(courseSlug);
+
+    // course = await formatUtils.courseCardFormat(course)
+
+    courses.forEach(async (course) => {
+      await formatUtils.courseCardFormat(course);
+    });
+
+    console.log('course:', courses[0]);
+
+    res.render('courses/coursesDetailView', {
+      courses: courses
     });
   }
 };

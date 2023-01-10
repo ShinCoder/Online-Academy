@@ -1,0 +1,82 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/admin/categories.css">
+{{/section}}
+
+<div class="container mt-5 pageWrapper">
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-success" href="/admin/categories/create">Create a new category</a>
+    </div>
+    <div class="headerContainer">
+        <h1 class="text-center mb-3 text-dark">BASIC CATEGORIES</h1>
+    </div>
+    <table class="mainTable table table-bordered table-hover table-responsive">
+        <thead class="stickyTableHeader table-primary">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.parentCategories}}
+            <tr>
+                <th>{{id}}</th>
+                <td>{{name}}</td>
+                <td class="text-center"><a class="btn btn-secondary" href="/admin/categories/{{id}}/update">Edit</a>
+                </td>
+                {{#if courseCounted}}
+                <td></td>
+                {{else}}
+                <td class="text-center">
+                    <form method="post" action="/admin/categories/{{id}}/delete">
+                        <button class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</button>
+                    </form>
+                </td>
+                {{/if}}
+
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div class="headerContainer">
+        <h1 class="text-center mb-3 text-dark">DETAIL CATEGORIES</h1>
+    </div>
+    <table class="mainTable table table-bordered table-hover table-responsive">
+        <thead class="stickyTableHeader table-primary">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Category Belonged</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.childCategories}}
+            <tr>
+                <th>{{id}}</th>
+                <td>{{name}}</td>
+                <td>{{parent_category_id}} - {{p_name}}</td>
+                <td class="text-center"><a class="btn btn-secondary" href="/admin/categories/{{id}}/update">Edit</a>
+                </td>
+                {{#if courseCounted}}
+                <td></td>
+                {{else}}
+                <td class="text-center">
+                    <form method="post" action="/admin/categories/{{id}}/delete">
+                        <button class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</button>
+                    </form>
+                </td>
+                {{/if}}
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+{{#section 'js'}}
+<script src="/javascript/admin/categories.js"></script>
+{{/section}}

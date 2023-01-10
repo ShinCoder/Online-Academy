@@ -4,6 +4,14 @@ import enrollService from '../services/enroll.service.js';
 
 export default function (app) {
   app.use(async function (req, res, next) {
+    if (req.session.auth) {
+      res.locals.auth = req.session.auth;
+      res.locals.authUser = req.session.authUser;
+    }
+    next();
+  });
+
+  app.use(async function (req, res, next) {
     let length = 0;
     const HOT_CATEGORY_LIMIT = 5;
     // categories
@@ -31,10 +39,12 @@ export default function (app) {
     length = enroll.length;
     for (let i = 0; i < length; i++) {
       const course = await coursesService.findById(enroll[i].course_id);
-      const cat = categoriesList.find((category) => {
-        return category.id == course[0].category_id;
-      });
-      cat.enrollCount += enroll[i].counts;
+      if (course.length) {
+        const cat = categoriesList.find((category) => {
+          return category.id == course[0].category_id;
+        });
+        cat.enrollCount += enroll[i].counts;
+      }
     }
 
     categoriesList.sort((c1, c2) => {

@@ -4,16 +4,49 @@
 
 <div class="container mt-5 pageWrapper">
     <div class="headerContainer">
-        <h1 class="text-center mb-3 text-dark">STUDENTS</h1>
+        <h1 class="text-center mb-3 text-dark">COURSES</h1>
     </div>
     <table class="mainTable table table-bordered table-hover table-responsive">
         <thead class="stickyTableHeader table-primary">
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Course Name</th>
-                <th scope="col">Category</th>
+                <th scope="col">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{#if currentCategory}}
+                            {{currentCategory}}
+                            {{else}}
+                            Category
+                            {{/if}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {{#each this.categories}}
+                            <a class="dropdown-item" href="/admin/courses?categoryId={{id}}">{{name}}</a>
+                            {{/each}}
+                        </div>
+                    </div>
+                </th>
                 <th scope="col">Status</th>
-                <th scope="col">Lecturer</th>
+                <th scope="col">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{#if currentLecturer}}
+                            {{currentLecturer}}
+                            {{else}}
+                            Lecturer
+                            {{/if}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {{#each this.lecturers}}
+                            <a class="dropdown-item" href="/admin/courses?lecturerId={{id}}">{{first_name}}
+                                {{last_name}} {{email}}</a>
+                            {{/each}}
+                        </div>
+                    </div>
+                </th>
                 <th scope="col">Activate</th>
                 <th scope="col"></th>
             </tr>
@@ -41,11 +74,11 @@
                 </td>
                 <td class="text-center">
                     {{#if is_activated}}
-                    <form method="post" action="/admin/user/{{user_id}}/deactivate">
+                    <form method="post" action="/admin/courses/{{id}}/deactivate">
                         <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
                     </form>
                     {{else}}
-                    <form method="post" action="/admin/user/{{user_id}}/activate">
+                    <form method="post" action="/admin/courses/{{id}}/activate">
                         <button type="submit" class="btn btn-sm btn-success">Activate</button>
                     </form>
                     {{/if}}
