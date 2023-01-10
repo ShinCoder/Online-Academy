@@ -2,6 +2,8 @@ import express from 'express';
 import asyncErrors from 'express-async-errors';
 import methodOverride from 'method-override';
 
+import bodyParser from 'body-parser';
+
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -22,6 +24,12 @@ app.use(
 );
 // method override
 app.use(methodOverride('_method'));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 activateSession(app);
 activate_resLocals(app);

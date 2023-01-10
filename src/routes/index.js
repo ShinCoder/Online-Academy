@@ -6,6 +6,7 @@ import categoriesRouter from './categories.routes.js';
 import lecturersRouter from './lecturers.routes.js';
 import adminRouter from './admin.routes.js';
 import authRouter from './auth.routes.js';
+import userRouter from './user.routes.js';
 
 export default function route(app) {
   app.use('/example', exampleRouter);
@@ -21,6 +22,8 @@ export default function route(app) {
   app.use('/admin', adminRouter);
   
   app.use('/auth', authRouter);
+
+  app.use('/user', userRouter);
 
   app.use('/', siteRouter);
 }
