@@ -22,7 +22,7 @@ tinymce.init({
   plugins: 'lists',
   statusbar: false,
   height: '500px',
-  placeholder: 'Please fill in a short description for this course'
+  placeholder: 'Please fill in a detail description for this course'
 });
 
 tinymce.init({
@@ -32,7 +32,7 @@ tinymce.init({
   plugins: 'lists',
   statusbar: false,
   height: '500px',
-  placeholder: 'Please fill in a short description for this course'
+  placeholder: 'Please fill in the syllabus for this course'
 });
 
 uploadImageOverlay.addEventListener('click', () => {

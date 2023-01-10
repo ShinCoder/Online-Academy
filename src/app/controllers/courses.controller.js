@@ -630,7 +630,7 @@ export default {
     const courseId = req.params.id;
     const chapterId = req.params.chapterId;
     try {
-      const course = await coursesService.findByIdNotGetParent(courseId);
+      const course = await coursesService.findAllWithFullyData(courseId);
       const chapter = await coursesService.getChapterById(chapterId);
 
       res.render('courses/createLessonOnUpdate', {
@@ -1119,7 +1119,7 @@ export default {
       await formatUtils.courseCardFormat(course);
     });
 
-    console.log('course:', courses[0]);
+    // console.log('course:', courses[0]);
 
     res.render('courses/coursesDetailView', {
       courses: courses
