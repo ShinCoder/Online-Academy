@@ -31,30 +31,6 @@
       <a href="#">The Erling Bag</a>
     </div>
   </div> --}}
-  {{!-- <div class="item">
-    <img src="/images/Thumbnail1.jpg" alt="thumbnail" />
-    <div class="inner">
-      <a href="#">The Erling Bag</a>
-    </div>
-  </div>
-  <div class="item">
-    <img src="/images/Thumbnail1.jpg" alt="thumbnail" />
-    <div class="inner">
-      <a href="#">The Erling Bag</a>
-    </div>
-  </div>
-  <div class="item">
-    <img src="/images/Thumbnail1.jpg" alt="thumbnail" />
-    <div class="inner">
-      <a href="#">The Erling Bag</a>
-    </div>
-  </div>
-  <div class="item">
-    <img src="/images/Thumbnail1.jpg" alt="thumbnail" />
-    <div class="inner">
-      <a href="#">The Erling Bag</a>
-    </div>
-  </div> --}}
 </div>
 <div class="container-fluid px-3 px-md-4 px-lg-5 main-content-area">
   <div class="section categories-section mt-4" id="categories-section">
@@ -80,7 +56,7 @@
       {{#each hotCourses}}
       <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card course h-100">
-            <a href="/courses/course-detail/{{slug}}" class="course-banner">
+          <a href="/courses/course-detail/{{slug}}" class="course-banner">
             <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
             {{#if special}}
             <span class="badge rounded-pill bg-warning">{{special.value}}</span>
@@ -125,7 +101,7 @@
       {{#each bestSellerCourses}}
       <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card course h-100">
-          <a href="#" class="course-banner">
+          <a href="/courses/course-detail/{{slug}}" class="course-banner">
             <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
             {{#if special}}
             <span class="badge rounded-pill bg-warning">{{special.value}}</span>
@@ -175,7 +151,7 @@
       {{#each newCourses}}
       <div class="col-6 col-md-4 col-lg-3 mb-3">
         <div class="card course h-100">
-          <a href="#" class="course-banner">
+          <a href="/courses/course-detail/{{slug}}" class="course-banner">
             <img src="/images/courses/{{banner_filename}}" class="card-img-top" alt="{{name}}">
             {{#if special}}
             <span class="badge rounded-pill bg-warning">{{special.value}}</span>

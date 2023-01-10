@@ -1,7 +1,7 @@
 import emailValidator from 'email-validator';
 import moment from 'moment';
 
-import usersService from "../../services/users.service.js";
+import usersService from '../../services/users.service.js';
 import otpsService from '../../services/otps.service.js';
 
 import myFunction from '../../library/index.js';
@@ -47,7 +47,7 @@ export default {
 
       const current_user = await usersService.findByKey({
         id: req.session.authUser.id
-      })
+      });
 
       if (!current_user.length) {
         return res.redirect('./logout');
@@ -57,7 +57,7 @@ export default {
         const found_user = await usersService.findByKey({
           email: req.body.email
         });
-  
+
         if (found_user.length) {
           return res.render('user/profile', {
             error: 'This email had been existed. Please use another email.'
@@ -68,7 +68,11 @@ export default {
       const new_time = await moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       const otp = await myFunction.generateString(6);
 
-      const sent = await mail.sendMail(email, 'Verify email address', 'http://localhost:3000/auth/otp/' + otp);
+      const sent = await mail.sendMail(
+        email,
+        'Verify email address',
+        'http://localhost:3000/auth/otp/' + otp
+      );
 
       if (!sent) {
         return res.render('user/profile', {
@@ -81,7 +85,9 @@ export default {
         code: otp,
         type: 'verify-email',
         created_at: new_time,
-        expired_at: await moment(Date.now() + 3600 * 1000).format('YYYY-MM-DD HH:mm:ss'),
+        expired_at: await moment(Date.now() + 3600 * 1000).format(
+          'YYYY-MM-DD HH:mm:ss'
+        )
       });
 
       if (!new_otp) {
@@ -92,13 +98,13 @@ export default {
 
       const updated_user = await usersService.update({
         id: current_user[0].id,
-        email: email, 
-        first_name: first_name, 
+        email: email,
+        first_name: first_name,
         last_name: last_name,
         verified_at: null,
         updated_at: new_time
-      })
-      
+      });
+
       if (!updated_user) {
         return res.render('user/profile', {
           error: 'Update profile fail. Please try again or contact admin.'
@@ -106,15 +112,15 @@ export default {
       }
 
       return res.render('user/profile', {
-        success: 'Update profile successfull. Please verify your email to keep login.'
-      }); 
-    }
-    catch(error) {
+        success:
+          'Update profile successfull. Please verify your email to keep login.'
+      });
+    } catch (error) {
       console.log(error);
 
       return res.render('user/profile', {
         error: 'Something went wrong. Please try later or contact admin.'
-      }); 
+      });
     }
   },
 
@@ -122,8 +128,8 @@ export default {
     if (!req.session.auth) {
       return res.redirect('/auth/sign-in');
     }
-    
-    res.render('user/profile', {user: req.session.authUser});
+
+    res.render('user/profile', { user: req.session.authUser });
   },
 
   showCourses(req, res) {
@@ -131,7 +137,7 @@ export default {
       return res.redirect('/auth/sign-in');
     }
 
-    res.render('user/courses', {courseList: []});
+    res.render('user/courses', { courseList: [] });
   },
 
   showWatchList(req, res) {
@@ -139,19 +145,24 @@ export default {
       return res.redirect('/auth/sign-in');
     }
 
-    usersService.getWatchlist(req.session.authUser.id).then(async (result) => {
-      let courseList = [];
+    usersService
+      .getWatchlist(req.session.authUser.id)
+      .then(async (result) => {
+        let courseList = [];
 
-      for (let key in result) {
-        await usersService.getRelevantCourse(result[key].course_id).then((result) => {
-          courseList.push(result[0]);
-        });
-      }
+        for (let key in result) {
+          await usersService
+            .getRelevantCourse(result[key].course_id)
+            .then((result) => {
+              courseList.push(result[0]);
+            });
+        }
 
-      res.render('user/watchlist', {watchlist: courseList});
-    }).catch((error) => {
-      res.render('user/watchlist', {watchlist: []});
-    });
+        res.render('user/watchlist', { watchlist: courseList });
+      })
+      .catch((error) => {
+        res.render('user/watchlist', { watchlist: [] });
+      });
   },
 
   async removeCourseFromWatchlist(req, res) {
@@ -165,54 +176,70 @@ export default {
       return res.redirect('/user/watchlist');
     }
 
-    await usersService.removeCourseFromWatchlist(req.session.authUser.id, parseInt(course_id));
+    await usersService.removeCourseFromWatchlist(
+      req.session.authUser.id,
+      parseInt(course_id)
+    );
 
     res.redirect('/user/watchlist');
   },
 
   async newUpdateProfile(req, res) {
-      const {username, new_password, confirm_password} = req.body;
-      console.log(req.body)
-      const updateData = {};
+    const { username, new_password, confirm_password } = req.body;
+    // console.log(req.body)
+    const updateData = {};
 
-      if (!confirm_password) {
-        return res.send({message: 'Confirm password cannot be empty.', status: 404});
-      }
+    if (!confirm_password) {
+      return res.send({
+        message: 'Confirm password cannot be empty.',
+        status: 404
+      });
+    }
 
-      if (!bcrypt.compareSync(confirm_password, req.session.authUser.identity)) {
-        res.send({message: 'Confirm password is incorrect.', status: 404});
-        return;
-      }
+    if (!bcrypt.compareSync(confirm_password, req.session.authUser.identity)) {
+      res.send({ message: 'Confirm password is incorrect.', status: 404 });
+      return;
+    }
 
-      if (username) {
-        updateData.username = username;
-      }
+    if (username) {
+      updateData.username = username;
+    }
 
-      if (new_password) {
-        updateData.identity = bcrypt.hashSync(new_password, 10);
-      }
+    if (new_password) {
+      updateData.identity = bcrypt.hashSync(new_password, 10);
+    }
 
-      if (updateData === {}) {
-        return res.send({message: 'Nothing to update.', status: 404});
-      }
+    if (updateData === {}) {
+      return res.send({ message: 'Nothing to update.', status: 404 });
+    }
 
-      const update = await usersService.update(req.session.authUser.id, updateData);
-      
-      if (!update) {
-        return res.send({message: 'Update failed. Please try again or contact admin.', status: 404});
-      }
+    const update = await usersService.update(
+      req.session.authUser.id,
+      updateData
+    );
 
-      if (updateData.username) {
-        req.session.authUser.username = updateData.username;
-      }
+    if (!update) {
+      return res.send({
+        message: 'Update failed. Please try again or contact admin.',
+        status: 404
+      });
+    }
 
-      if (updateData.identity) {
-        req.session.authUser.identity = updateData.identity;
-      }
+    if (updateData.username) {
+      req.session.authUser.username = updateData.username;
+    }
 
-      console.log(req.session.authUser)
+    if (updateData.identity) {
+      req.session.authUser.identity = updateData.identity;
+    }
 
-      return res.send({message: 'Update successfully.', status: 200, username: req.session.authUser.username});
+    // console.log(req.session.authUser)
+
+    return res.send({
+      message: 'Update successfully.',
+      status: 200,
+      username: req.session.authUser.username
+    });
   },
 
   async addCourseWatchlist(req, res) {
@@ -226,8 +253,11 @@ export default {
       return res.redirect('/user/watchlist');
     }
 
-    await usersService.addCourseFromWatchlist(req.session.authUser.id, parseInt(course_id));
+    await usersService.addCourseFromWatchlist(
+      req.session.authUser.id,
+      parseInt(course_id)
+    );
 
     res.redirect('/user/watchlist');
-  },
-}
+  }
+};

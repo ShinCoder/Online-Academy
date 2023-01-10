@@ -39,7 +39,7 @@ export default {
       .innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id')
       .innerJoin('categories', 'courses.category_id', '=', 'categories.id')
       .innerJoin('users', 'lecturers.user_id', '=', 'users.id')
-      .where({ 'lecturers.user_id': id })
+      .where({ 'lecturers.user_id': id });
   },
 
   findFilterByCategoryWithFullyData(id) {
@@ -58,7 +58,9 @@ export default {
       .innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id')
       .innerJoin('categories', 'courses.category_id', '=', 'categories.id')
       .innerJoin('users', 'lecturers.user_id', '=', 'users.id')
-      .whereRaw(`courses.category_id = ${id} OR categories.parent_category_id = ${id}`)
+      .whereRaw(
+        `courses.category_id = ${id} OR categories.parent_category_id = ${id}`
+      );
   },
 
   findAllWithDate(sort, limit) {
@@ -323,13 +325,11 @@ export default {
   },
 
   findCourseDetail(slug) {
-    return db('courses')
-        .where('slug', slug);
+    return db('courses').where('slug', slug);
   },
 
   getFeedback(id) {
-    return db('enroll')
-        .where('course_id', id)
+    return db('enroll').where('course_id', id);
   },
 
   activateCourse(id) {

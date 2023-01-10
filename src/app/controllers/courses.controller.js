@@ -630,7 +630,7 @@ export default {
     const courseId = req.params.id;
     const chapterId = req.params.chapterId;
     try {
-      const course = await coursesService.findByIdNotGetParent(courseId);
+      const course = await coursesService.findAllWithFullyData(courseId);
       const chapter = await coursesService.getChapterById(chapterId);
 
       res.render('courses/createLessonOnUpdate', {
@@ -1119,7 +1119,7 @@ export default {
         day: 'numeric',
         month: 'numeric',
         year: 'numeric',
-        timeZone: 'Asia/Tokyo',
+        timeZone: 'Asia/Tokyo'
       });
       course.updated_at = formatter.format(course.updated_at);
       course.feedbacks = await coursesService.getFeedback(course.id);
