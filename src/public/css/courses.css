@@ -102,5 +102,10 @@
   text-decoration: line-through;
   color: #999999;
 }
+/* Course Detail */
+.course_detail .course-rating div {
+  color: var(--primary-hover);
+  display: inline-block;
+}
 
 /*# sourceMappingURL=courses.css.map */

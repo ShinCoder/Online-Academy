@@ -158,10 +158,11 @@ CREATE TABLE `enroll` (
 --
 
 INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_point`, `enroll_date`) VALUES
-(2, 1, 'LEARNING', NULL, 4, '2023-01-04 00:00:00'),
-(2, 2, 'LEARNING', NULL, 5, '2022-12-20 00:00:00'),
+(2, 1, 'LEARNING', 'Học rất hay, ý nghĩa nhé!', 4, '2023-01-04 00:00:00'),
+(2, 2, 'LEARNING', 'Dễ hiểu, nên học', 5, '2022-12-20 00:00:00'),
 (2, 3, 'LEARNING', NULL, 3, '2023-01-04 00:00:00'),
-(7, 2, 'LEARNING', NULL, 2, '2023-01-04 00:00:00');
+(7, 2, 'LEARNING', 'Anh Sơn dạy hay quá!', 2, '2023-01-04 00:00:00'),
+(17, 2, 'LEARNING', NULL, NULL, '2023-01-06 00:00:00');
 
 -- --------------------------------------------------------
 

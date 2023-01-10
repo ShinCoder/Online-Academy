@@ -1113,13 +1113,18 @@ export default {
 
     let courses = await coursesService.findCourseDetail(courseSlug);
 
-    // course = await formatUtils.courseCardFormat(course)
-
     courses.forEach(async (course) => {
       await formatUtils.courseCardFormat(course);
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        timeZone: 'Asia/Tokyo'
+      });
+      course.updated_at = formatter.format(course.updated_at);
+      course.feedbacks = await coursesService.getFeedback(course.id);
+      console.log(course.feedbacks);
     });
-
-    // console.log('course:', courses[0]);
 
     res.render('courses/coursesDetailView', {
       courses: courses
