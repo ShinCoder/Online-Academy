@@ -263,8 +263,15 @@ export default {
   },
 
   findCourseDetail(slug) {
-    return db('courses').where('slug', slug);
+    return db('courses')
+        .where('slug', slug);
   },
+
+  getFeedback(id) {
+    return db('enroll')
+        .where('course_id', id)
+  },
+
 
   activateCourse(id) {
     return db('courses').where('id', id).update('is_activated', true);

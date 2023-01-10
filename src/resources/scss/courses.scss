@@ -136,3 +136,27 @@
     }
   }
 }
+
+.course_detail {
+  .course-rating {
+    span {
+      &:first-child {
+        color: var(--primary-hover);
+        font-weight: bold;
+        font-size: 1rem;
+        padding-right: 5px;
+      }
+
+      &:last-child {
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        padding-left: 5px;
+      }
+    }
+
+    div {
+      color: var(--primary-hover);
+      display: inline-block;
+    }
+  }
+}
