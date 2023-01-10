@@ -332,7 +332,6 @@ export default {
         .where('course_id', id)
   },
 
-
   activateCourse(id) {
     return db('courses').where('id', id).update('is_activated', true);
   },

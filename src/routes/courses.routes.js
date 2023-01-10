@@ -2,6 +2,7 @@ import express from 'express';
 import coursesController from '../app/controllers/courses.controller.js';
 const router = express.Router();
 import auth from '../middlewares/auth.mdw.js';
+import userController from "../app/controllers/users.controller.js";
 
 router.get('/category/:slug', coursesController.showByCategory);
 
@@ -98,5 +99,9 @@ router.post(
 );
 
 router.get('/course-detail/:slug', coursesController.showCourseDetail)
+
+router.get('/course-detail/add-watchlist/:id', (req, res) => {
+    userController.addCourseWatchlist(req, res);
+});
 
 export default router;

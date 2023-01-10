@@ -213,5 +213,21 @@ export default {
       console.log(req.session.authUser)
 
       return res.send({message: 'Update successfully.', status: 200, username: req.session.authUser.username});
-  }
+  },
+
+  async addCourseWatchlist(req, res) {
+    if (!req.session.auth) {
+      return res.redirect('/auth/sign-in');
+    }
+
+    const course_id = parseInt(req.params.id);
+
+    if (!course_id) {
+      return res.redirect('/user/watchlist');
+    }
+
+    await usersService.addCourseFromWatchlist(req.session.authUser.id, parseInt(course_id));
+
+    res.redirect('/user/watchlist');
+  },
 }

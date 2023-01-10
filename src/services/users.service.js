@@ -31,6 +31,11 @@ export default {
 
   removeCourseFromWatchlist(student_id, course_id) {
     return db('watchlist').where({student_id: student_id, course_id: course_id}).del();
+  },
+
+  addCourseFromWatchlist(student_id, course_id) {
+    return db('watchlist').where({student_id: student_id}).insert({student_id: student_id, course_id: course_id});
+  },
 
   deactivate(id) {
     return db('users').where({id: id}).update({ is_activated: false });

@@ -60,7 +60,10 @@
                 {{/if}}
             </div>
 
-            <div><button type="button" class="btn btn-primary">Yêu thích</button></div>
+            <div><button type="button" class="btn btn-primary"><a
+                    href="add-watchlist/{{id}}"
+                    data-toggle="tooltip" data-placement="top"
+                    title="Remove">Yêu thích</a></button></div>
         </div>
         {{/each}}
     {{/if}}
