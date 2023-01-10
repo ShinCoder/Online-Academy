@@ -116,8 +116,10 @@ export default {
       const course = await coursesService.findById(
         coursesEnrollCount[i].course_id
       );
-      await formatUtils.courseCardFormat(course[0]);
-      bestSellerCourses.push(course[0]);
+      if (course.length) {
+        await formatUtils.courseCardFormat(course[0]);
+        bestSellerCourses.push(course[0]);
+      }
     }
 
     specifyCourses(bestSellerCourses);

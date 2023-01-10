@@ -39,10 +39,12 @@ export default function (app) {
     length = enroll.length;
     for (let i = 0; i < length; i++) {
       const course = await coursesService.findById(enroll[i].course_id);
-      const cat = categoriesList.find((category) => {
-        return category.id == course[0].category_id;
-      });
-      cat.enrollCount += enroll[i].counts;
+      if (course.length) {
+        const cat = categoriesList.find((category) => {
+          return category.id == course[0].category_id;
+        });
+        cat.enrollCount += enroll[i].counts;
+      }
     }
 
     categoriesList.sort((c1, c2) => {

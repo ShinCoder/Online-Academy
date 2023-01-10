@@ -24,7 +24,8 @@
             <div class="header-links">
                 <ul>
                     {{#if auth}}
-                    <li><a href={{#ifEquals authUser.authority "LECTURER" "/lecturers/profile" }}{{/ifEquals}}>{{authUser.username}}</a></li>
+                    <li><a href={{#ifEquals authUser.authority "LECTURER" "/lecturers/profile"
+                            }}{{/ifEquals}}>{{authUser.username}}</a></li>
                     <li><a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#exampleModal">Log out</a></li>
                     {{else}}
                     <li><a href="/auth/sign-in">Log in</a></li>
@@ -56,7 +57,7 @@
             <div class="container">
                 <a class="navbar-brand" href="/home">
                     {{!-- <img src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..." height="36"> --}}
-                    <img src="/images/Logo.png" alt="logo" style="height: 50px; width:150px; border: 1px solid #999999">
+                    <img src="/images/Logo.png" alt="logo" style="height: 50px; width:120px; border: 1px solid #999999">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -96,13 +97,17 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">About us</a>
                         </li>
                     </ul>
                     {{/ifNotIncludesHTML}}
 
                     {{#ifEqualsHTML session.authUser.authority "ADMIN" }}
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/admin/categories">CATEGORIES</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/admin/courses">COURSES</a>
                         </li>
@@ -120,11 +125,12 @@
                     {{#ifEqualsHTML session.authUser.authority "LECTURER" }}
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/lecturers/courses/created">MY COURSES</a>
+                            <a class="nav-link active" aria-current="page" href="/lecturers/courses/created">MY
+                                COURSES</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/courses/create">CREATE COURSE</a>
-                        </li>                        
+                        </li>
                     </ul>
                     {{/ifEqualsHTML}}
                 </div>

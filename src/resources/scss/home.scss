@@ -24,6 +24,7 @@
 
 .active.center {
   .item {
+    z-index: 3;
     &::before {
       background-color: transparent;
     }
@@ -39,21 +40,26 @@
 
 .inner {
   position: absolute;
-  bottom: 30px;
+  top: 0;
+  bottom: 0px;
   left: 0;
   right: 0;
   text-align: center;
+  z-index: 3;
 
   a {
-    color: var(--text-primary);
+    color: transparent;
     font-size: 1.5rem;
     text-decoration: none;
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     transition: 0.3s ease border-color;
+    display: block;
+    width: 100%;
+    height: 100%;
 
-    &:hover {
-      border-color: var(--text-primary);
-    }
+    // &:hover {
+    //   border-color: var(--text-secondary);
+    // }
   }
 }
 
@@ -72,12 +78,13 @@
 }
 
 .owl-nav {
-  position: absolute;
-  height: 100px;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  display: none;
+  // position: absolute;
+  // height: 100px;
+  // width: 100%;
+  // top: 50%;
+  // transform: translateY(-50%);
+  // display: none;
+  // z-index: 2;
 
   // @media only screen and (max-width: 767px) {
   //   height: 60px;
@@ -91,6 +98,12 @@
     .owl-nav {
       display: block;
     }
+    .owl-next i {
+      display: block;
+    }
+    .owl-prev i {
+      display: block;
+    }
   }
 }
 
@@ -102,6 +115,8 @@
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
+    display: none;
+    transition: display 3s ease-in-out;
 
     @media only screen and (max-width: 991px) {
       font-size: 80px;
@@ -118,6 +133,7 @@
     top: 50%;
     left: 20px;
     transform: translateY(-50%);
+    display: none;
 
     @media only screen and (max-width: 991px) {
       font-size: 80px;
