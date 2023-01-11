@@ -288,6 +288,6 @@ export default {
       parseInt(course_id)
     );
 
-    res.redirect('/user/watchlist');
+    res.redirect('back');
   }
 };
