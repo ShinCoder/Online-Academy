@@ -110,5 +110,7 @@ export default {
     else course.student_count = 0;
 
     course.feedbacks = await coursesService.getFeedback(course.id);
+
+    console.log('feedbaksL:', course.feedbacks[0])
   }
 };
