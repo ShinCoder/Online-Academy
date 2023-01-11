@@ -1,5 +1,6 @@
 import emailValidator from 'email-validator';
 import moment from 'moment';
+import formatUtils from '../../utils/format.js';
 
 import usersService from '../../services/users.service.js';
 import otpsService from '../../services/otps.service.js';
@@ -142,6 +143,12 @@ export default {
       req.session.authUser.id
     );
 
+    courseList.forEach((course) => {
+      formatUtils.courseCardFormat(course);
+      if (course.status == 'FINISH') course.is_completed = true;
+      else course.is_completed = false;
+    });
+
     res.render('user/user-course', { courseList: courseList });
   },
 
@@ -159,6 +166,7 @@ export default {
           await usersService
             .getRelevantCourse(result[key].course_id)
             .then((result) => {
+              formatUtils.courseCardFormat(result[0]);
               courseList.push(result[0]);
             });
         }
@@ -195,7 +203,7 @@ export default {
 
     if (!bcrypt.compareSync(confirm_password, req.session.authUser.identity)) {
       res.render('user/profile', {
-        error: "Old password not match, please try again !",
+        error: 'Old password not match, please try again !',
         user: {
           email: req.session.authUser.email,
           username: req.session.authUser.username
@@ -227,16 +235,14 @@ export default {
       }
 
       res.render('user/profile', {
-        success: "Successfully update data !",
-        error: "",
+        success: 'Successfully update data !',
+        error: '',
         user: {
           email: req.session.authUser.email,
           username: updateData.username
         }
       });
-
-    }
-    catch (err) {
+    } catch (err) {
       res.render('user/profile', {
         error: err,
         user: {

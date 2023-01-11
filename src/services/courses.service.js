@@ -23,6 +23,25 @@ export default {
       .innerJoin('users', 'lecturers.user_id', '=', 'users.id');
   },
 
+  findOneWithFullyData(id) {
+    return db('courses')
+      .select(
+        'courses.id',
+        'courses.name',
+        'courses.price',
+        'courses.is_completed',
+        'courses.is_activated',
+        'categories.name as categories_name',
+        'lecturers.first_name',
+        'lecturers.last_name',
+        'users.email'
+      )
+      .where('courses.id', id)
+      .innerJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.user_id')
+      .innerJoin('categories', 'courses.category_id', '=', 'categories.id')
+      .innerJoin('users', 'lecturers.user_id', '=', 'users.id');
+  },
+
   findFilterByLecturerWithFullyData(id) {
     return db('courses')
       .select(
@@ -358,7 +377,7 @@ export default {
   findEnrolled(id) {
     return db('courses')
       .join('enroll', 'courses.id', '=', 'enroll.course_id')
-      .select('courses.*')
+      .select('courses.*', 'enroll.*')
       .where('enroll.student_id', id);
   }
 };

@@ -630,7 +630,7 @@ export default {
     const courseId = req.params.id;
     const chapterId = req.params.chapterId;
     try {
-      const course = await coursesService.findAllWithFullyData(courseId);
+      const course = await coursesService.findOneWithFullyData(courseId);
       const chapter = await coursesService.getChapterById(chapterId);
 
       res.render('courses/createLessonOnUpdate', {

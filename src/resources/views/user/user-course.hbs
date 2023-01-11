@@ -1,3 +1,7 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/courses.css">
+{{/section}}
+
 <div class="dashboard_main_content" style="padding: 32px; padding-top: 64px;">
     <div class="container-fluid">
         <div class="main_content_container" style="padding-top: 60px;">
@@ -70,6 +74,7 @@
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="card-title course-title">{{name}}</div>
                                     <div>
+                                        <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
                                         <div class="course-category">Category: <strong>{{category_name}}</strong></div>
                                         <div class="course-rating">
                                             {{#if rating_point}}
@@ -97,9 +102,11 @@
                                             <p class="text-danger mb-1"><strong>Not completed !</strong></p>
                                             {{/if}}
                                         </div>
-                                        <div class="course-buttons ">
-                                            <a href="/courses/course-detail/{{slug}}" class="btn btn-secondary">View
-                                            </a>
+                                        <div class="d-flex justify-content-end">
+                                            <div class="course-buttons ">
+                                                <a href="/courses/course-detail/{{slug}}" class="btn btn-primary" style="color:#fff">View
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
