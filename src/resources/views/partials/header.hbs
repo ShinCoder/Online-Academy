@@ -25,7 +25,8 @@
                 <ul>
                     {{#if auth}}
                     <li><a href={{#ifEquals authUser.authority "LECTURER" "/lecturers/profile"
-                            }}{{/ifEquals}}>{{authUser.username}}</a></li>
+                            }}{{/ifEquals}}{{#ifEquals authUser.authority "STUDENT" "/user/profile"
+                            }}{{/ifEquals}}>{{authUser.email}}</a></li>
                     <li><a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#exampleModal">Log out</a></li>
                     {{else}}
                     <li><a href="/auth/sign-in">Log in</a></li>
@@ -96,6 +97,16 @@
                                             aria-hidden="true"></i></a></li>
                             </ul>
                         </li>
+
+                        {{#ifEqualsHTML session.authUser.authority "STUDENT" }}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/user/courses">MY
+                                COURSES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/user/watchlist">WATCH LIST</a>
+                        </li>
+                        {{/ifEqualsHTML}}
                     </ul>
                     {{/ifNotIncludesHTML}}
 
