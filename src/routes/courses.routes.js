@@ -101,11 +101,15 @@ router.post(
 router.get('/course-detail/:slug', coursesController.showCourseDetail)
 
 router.get('/course-detail/add-watchlist/:id', (req, res) => {
-    userController.addCourseWatchlist(req, res);
+  userController.addCourseWatchlist(req, res);
 });
 
 router.get('/course-detail/enroll/:id', (req, res) => {
-    userController.enrollCourse(req, res);
+  userController.enrollCourse(req, res);
+});
+
+router.get('/:id/chapters/:chapterId/lessons/:lessonId/learn', (req, res) => {
+  userController.renderStudyView  (req, res);
 });
 
 export default router;
