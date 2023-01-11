@@ -137,7 +137,7 @@ export default {
       return res.redirect('/auth/sign-in');
     }
 
-    res.render('user/courses', { courseList: [] });
+    res.render('user/user-course', { courseList: [] });
   },
 
   showWatchList(req, res) {
