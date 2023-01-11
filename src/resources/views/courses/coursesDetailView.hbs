@@ -7,63 +7,70 @@
     {{#if courses}}
         {{#each courses}}
         <div class="row bg-dark text-light px-5">
-        <div class="col-7 d-flex gap-2 flex-column justify-content-center p-4">
-                <h2 class="">{{name}}</h2>
+            <div class="col-7 d-flex gap-2 flex-column justify-content-center p-4">
+                    <h2 class="">{{name}}</h2>
 
-                <p>{{short_description}}</p>
+                    <p>{{short_description}}</p>
 
-                <div class="course-rating">
-                    {{#if rating_point}}
-                        <span>{{ratingpointFormat rating_point}}</span>
-                        <div class="stars-container">
-                            {{#each this.rating_star}}
-                                {{#starify this}} {{/starify}}
-                            {{/each}}
-                        </div>
-                        <span>({{rating_count}} ratings) {{student_count}} students</span>
-                    {{else}}
-                        <span class="p-0">No rating</span>
-                    {{/if}}
-                </div>
-
-                <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
-
-                <div class="time-update">Last updated: {{updated_at}}</div>
-
-                <div class="course-price">
-                    <span class="current">{{vietnamdongFormat price}}</span>
-                    {{#if this.sale_id}}
-                        <span class="base">{{vietnamdongFormat base_price}}</span>
-                    {{/if}}
-                </div>
-
-                <!-- Enroll -->
-                <div class="enroll d-flex gap-3">
-                    <button type="button" class="btn btn-primary">
-                        <a
-                            href="enroll/{{id}}"
-                            data-toggle="tooltip" data-placement="top"
-                            title="Remove">
-                            Enroll this course
-                        </a>
-                    </button>
-
-                    <div>
-                        <button type="button" class="btn btn-primary"><a
-                            href="add-watchlist/{{id}}"
-                            data-toggle="tooltip" data-placement="top"
-                            title="Remove">Yêu thích</a>
-                        </button>
+                    <div class="course-rating">
+                        {{#if rating_point}}
+                            <span>{{ratingpointFormat rating_point}}</span>
+                            <div class="stars-container">
+                                {{#each this.rating_star}}
+                                    {{#starify this}} {{/starify}}
+                                {{/each}}
+                            </div>
+                            <span>({{rating_count}} ratings) {{student_count}} students</span>
+                        {{else}}
+                            <span class="p-0">No rating</span>
+                        {{/if}}
                     </div>
 
-                </div>
+                    <div class="course-lecturer">By <a href="#">{{lecturer_name}}</a></div>
 
-        </div>
-        <div class="col-5 d-flex justify-content-center align-items-center ">
-            <img src="/images/courses/{{banner_filename}}" class="card-img-top p-5" alt="{{name}}">
+                    <div class="time-update">Last updated: {{updated_at}}</div>
 
+                    <div class="course-price">
+                        <span class="current">{{vietnamdongFormat price}}</span>
+                        {{#if this.sale_id}}
+                            <span class="base">{{vietnamdongFormat base_price}}</span>
+                        {{/if}}
+                    </div>
+
+                    <!-- Enroll -->
+                    <div class="enroll d-flex gap-3">
+                        <button type="button" class="btn btn-primary">
+                            <a
+                                href="enroll/{{id}}"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Remove">
+                                Enroll this course
+                            </a>
+                        </button>
+
+                        <div>
+                            <button type="button" class="btn btn-primary"><a
+                                href="add-watchlist/{{id}}"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Remove">Yêu thích</a>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button type="button" class="btn btn-primary"><a
+                                    href="add-watchlist/{{id}}"
+                                    data-toggle="tooltip" data-placement="top"
+                                    title="Remove">Bắt đầu học</a>
+                            </button>
+                        </div>
+
+                    </div>
+
+            </div>
+            <div class="col-5 d-flex justify-content-center align-items-center ">
+                <img src="/images/courses/{{banner_filename}}" class="card-img-top p-5" alt="{{name}}">
+            </div>
         </div>
-    </div>
 
         <!-- Course detail -->
         <div>
@@ -85,8 +92,8 @@
                 <p>Sự nghiệp: {{lecturer_career}}</p>
                 <p>Avatar: {{lecturer_avatar}}</p>
                 <img src="/images/lecturers/{{lecturer_avatar}}" class="card-img-top p-5" alt="{{name}}">
-
             </div>
+
             <div id="feedback">
                 <h3>Feedback:</h3>
                 {{#if feedbacks}}
@@ -96,6 +103,28 @@
                     {{/each}}
                 {{/if}}
             </div>
+
+            <!-- Form feedback-->
+            <form>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Viết đánh giá</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Đánh giá khóa học</option>
+                        <option value="1">1 sao</option>
+                        <option value="2">2 sao</option>
+                        <option value="3">3 sao</option>
+                        <option value="4">4 sao</option>
+                        <option value="5">5 sao</option>
+                    </select>
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Feedback</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
 
         {{/each}}
     {{/if}}
