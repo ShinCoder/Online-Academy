@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- Enroll -->
-                <div class="enroll">
+                <div class="enroll d-flex gap-3">
                     <button type="button" class="btn btn-primary">
                         <a
                             href="enroll/{{id}}"
@@ -47,6 +47,15 @@
                             Enroll this course
                         </a>
                     </button>
+
+                    <div>
+                        <button type="button" class="btn btn-primary"><a
+                            href="add-watchlist/{{id}}"
+                            data-toggle="tooltip" data-placement="top"
+                            title="Remove">Yêu thích</a>
+                        </button>
+                    </div>
+
                 </div>
 
         </div>
@@ -88,11 +97,6 @@
                 {{/if}}
             </div>
 
-            <div><button type="button" class="btn btn-primary"><a
-                    href="add-watchlist/{{id}}"
-                    data-toggle="tooltip" data-placement="top"
-                    title="Remove">Yêu thích</a></button></div>
-        </div>
         {{/each}}
     {{/if}}
 </div>

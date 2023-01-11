@@ -62,7 +62,6 @@ export default {
 
   async courseDetailFormat(course) {
     const lecturer = await lecturersService.findById(course.lecturer_id);
-    console.log('Lecturer:', lecturer);
     course.lecturer_name = lecturer[0].first_name + ' ' + lecturer[0].last_name;
     course.lecturer_career = lecturer[0].career_description;
     course.lecturer_avatar = lecturer[0].avatar_url;
@@ -109,8 +108,6 @@ export default {
     course.student_count = await coursesService.countStudent(course.id);
     if (course.student_count[0]) course.student_count = course.student_count[0].enrollCount;
     else course.student_count = 0;
-
-    console.log(course.student_count);
 
     course.feedbacks = await coursesService.getFeedback(course.id);
   }
