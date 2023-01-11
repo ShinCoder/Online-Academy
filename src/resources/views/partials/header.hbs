@@ -26,11 +26,7 @@
                     {{#if auth}}
                     <li><a href={{#ifEquals authUser.authority "LECTURER" "/lecturers/profile"
                             }}{{/ifEquals}}{{#ifEquals authUser.authority "STUDENT" "/user/profile"
-<<<<<<< HEAD
                             }}{{/ifEquals}}>{{authUser.email}}</a></li>
-=======
-                            }}{{/ifEquals}}>{{authUser.username}}</a></li>
->>>>>>> a72e81b6805d3d01a833a3feac2bf32622fa40bf
                     <li><a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#exampleModal">Log out</a></li>
                     {{else}}
                     <li><a href="/auth/sign-in">Log in</a></li>

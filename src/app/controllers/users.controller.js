@@ -245,23 +245,6 @@ export default {
         }
       });
     }
-<<<<<<< HEAD
-=======
-
-    if (updateData.username) {
-      req.session.authUser.username = updateData.username;
-    }
-
-    if (updateData.identity) {
-      req.session.authUser.identity = updateData.identity;
-    }
-
-    return res.send({
-      message: 'Update successfully.',
-      status: 200,
-      username: req.session.authUser.username
-    });
->>>>>>> a72e81b6805d3d01a833a3feac2bf32622fa40bf
   },
 
   async addCourseWatchlist(req, res) {
