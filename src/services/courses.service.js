@@ -361,6 +361,12 @@ export default {
       .where('course_id', course_id);
   },
 
+  checkEnroll(course_id, student_id) {
+    return db('enroll')
+        .where('course_id', course_id)
+        .andWhere('student_id', student_id)
+  },
+
   activateCourse(id) {
     return db('courses').where('id', id).update('is_activated', true);
   },

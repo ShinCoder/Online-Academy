@@ -288,7 +288,7 @@ export default {
       parseInt(course_id)
     );
 
-    res.redirect('/user/watchlist');
+    res.redirect('back');
   },
   async renderStudyView(req, res) {
     if (!req.session.auth) {

@@ -112,6 +112,24 @@ export default {
 
     course.feedbacks = await coursesService.getFeedback(course.id);
 
-    console.log('feedbaksL:', course.feedbacks[0]);
+    for (let feedback of course.feedbacks) {
+      if (feedback.rate_point !== null) {
+        feedback.rating_point = feedback.rate_point;
+      } else {
+        feedback.rating_point = 0;
+      }
+      if (feedback.rating_point == 5) feedback.rating_star = STAR_5;
+      else if (feedback.rating_point >= 4.5) feedback.rating_star = STAR_4_5;
+      else if (feedback.rating_point >= 4) feedback.rating_star = STAR_4;
+      else if (feedback.rating_point >= 3.5) feedback.rating_star = STAR_3_5;
+      else if (feedback.rating_point >= 3) feedback.rating_star = STAR_3;
+      else if (feedback.rating_point >= 2.5) feedback.rating_star = STAR_2_5;
+      else if (feedback.rating_point >= 2) feedback.rating_star = STAR_2;
+      else if (feedback.rating_point >= 1.5) feedback.rating_star = STAR_1_5;
+      else if (feedback.rating_point >= 1) feedback.rating_star = STAR_1;
+      else if (feedback.rating_point >= 0.5) feedback.rating_star = STAR_0_5;
+      else feedback.rating_star = STAR_0;
+
+    }
   }
 };
