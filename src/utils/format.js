@@ -2,6 +2,7 @@ import categoriesService from '../services/categories.service.js';
 import enrollService from '../services/enroll.service.js';
 import lecturersService from '../services/lecturers.service.js';
 import salesService from '../services/sales.service.js';
+import coursesService from "../services/courses.service.js";
 
 const STAR_0 = [-1, -1, -1, -1, -1];
 const STAR_0_5 = [0, -1, -1, -1, -1];
@@ -104,5 +105,13 @@ export default {
     else if (course.rating_point >= 1) course.rating_star = STAR_1;
     else if (course.rating_point >= 0.5) course.rating_star = STAR_0_5;
     else course.rating_star = STAR_0;
+
+    course.student_count = await coursesService.countStudent(course.id);
+    if (course.student_count[0]) course.student_count = course.student_count[0].enrollCount;
+    else course.student_count = 0;
+
+    console.log(course.student_count);
+
+    course.feedbacks = await coursesService.getFeedback(course.id);
   }
 };

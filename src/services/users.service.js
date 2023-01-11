@@ -54,5 +54,18 @@ export default {
   },
   activate(id) {
     return db('users').where({ id: id }).update({ is_activated: true });
+  },
+
+  enrollCourse(student_id, course_id) {
+    db('enroll')
+        .where('student_id', student_id)
+        .andWhere('course_id', course_id)
+        .then(userNameList => {
+          //Check if user didn't add this course to watch list
+          if (userNameList.length === 0) {
+            return db('enroll')
+                .insert({ student_id: student_id, course_id: course_id, status: 'LEARNING' });
+          }
+        })
   }
 };

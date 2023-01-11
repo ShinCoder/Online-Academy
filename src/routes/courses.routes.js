@@ -104,4 +104,8 @@ router.get('/course-detail/add-watchlist/:id', (req, res) => {
     userController.addCourseWatchlist(req, res);
 });
 
+router.get('/course-detail/enroll/:id', (req, res) => {
+    userController.enrollCourse(req, res);
+});
+
 export default router;

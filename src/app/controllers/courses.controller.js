@@ -1122,10 +1122,6 @@ export default {
         timeZone: 'Asia/Tokyo'
       });
       course.updated_at = formatter.format(course.updated_at);
-      course.feedbacks = await coursesService.getFeedback(course.id);
-      if (course.feedbacks[0]) course.enroll_count = course.feedbacks[0].enrollCount;
-      else course.enroll_count = 0;
-      console.log('feedbacks:', course.feedbacks);
     });
 
     res.render('courses/coursesDetailView', {

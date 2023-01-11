@@ -20,7 +20,7 @@
                                 {{#starify this}} {{/starify}}
                             {{/each}}
                         </div>
-                        <span>({{rating_count}} ratings) {{enroll_count}} students</span>
+                        <span>({{rating_count}} ratings) {{student_count}} students</span>
                     {{else}}
                         <span class="p-0">No rating</span>
                     {{/if}}
@@ -39,7 +39,14 @@
 
                 <!-- Enroll -->
                 <div class="enroll">
-                    <button type="button" class="btn btn-primary">Enroll this course</button>
+                    <button type="button" class="btn btn-primary">
+                        <a
+                            href="enroll/{{id}}"
+                            data-toggle="tooltip" data-placement="top"
+                            title="Remove">
+                            Enroll this course
+                        </a>
+                    </button>
                 </div>
 
         </div>
@@ -72,6 +79,7 @@
 
             </div>
             <div id="feedback">
+                <h3>Feedback:</h3>
                 {{#if feedbacks}}
                     {{#each feedbacks}}
                         <!-- Course detail -->

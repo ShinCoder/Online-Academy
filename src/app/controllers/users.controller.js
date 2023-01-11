@@ -186,7 +186,6 @@ export default {
 
   async newUpdateProfile(req, res) {
     const { username, new_password, confirm_password } = req.body;
-    // console.log(req.body)
     const updateData = {};
 
     if (!confirm_password) {
@@ -233,7 +232,6 @@ export default {
       req.session.authUser.identity = updateData.identity;
     }
 
-    // console.log(req.session.authUser)
 
     return res.send({
       message: 'Update successfully.',
@@ -256,6 +254,25 @@ export default {
     await usersService.addCourseFromWatchlist(
       req.session.authUser.id,
       parseInt(course_id)
+    );
+
+    res.redirect('/user/watchlist');
+  },
+
+  async enrollCourse(req, res) {
+    if (!req.session.auth) {
+      return res.redirect('/auth/sign-in');
+    }
+
+    const course_id = parseInt(req.params.id);
+
+    if (!course_id) {
+      return res.redirect('/user/watchlist');
+    }
+
+    await usersService.enrollCourse(
+        req.session.authUser.id,
+        parseInt(course_id)
     );
 
     res.redirect('/user/watchlist');
