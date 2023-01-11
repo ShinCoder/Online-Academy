@@ -15,7 +15,7 @@ router.get('/watchlist', auth(['STUDENT']), (req, res) => {
   userController.showWatchList(req, res);
 });
 
-router.get('/watchlist/remove/:id', auth(['STUDENT']), (req, res) => {
+router.post('/watchlist/remove/:id', auth(['STUDENT']), (req, res) => {
   userController.removeCourseFromWatchlist(req, res);
 });
 
