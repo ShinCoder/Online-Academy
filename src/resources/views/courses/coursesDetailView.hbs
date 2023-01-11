@@ -40,7 +40,8 @@
             <!-- Enroll -->
             <div class="enroll d-flex gap-3">
                 <button type="button" class="btn btn-success">
-                    <a class="text-white" href="enroll/{{id}}" data-toggle="tooltip" data-placement="top" title="Remove">
+                    <a class="text-white" href="enroll/{{id}}" data-toggle="tooltip" data-placement="top"
+                        title="Remove">
                         Enroll this course
                     </a>
                 </button>
@@ -88,11 +89,13 @@
         </div>
         {{#if feedbacks}}
         <div id="feedback">
-            <h3 class="sectionTitle ">Feedback:</h3>
-            {{#each feedbacks}}
-            <!-- Course detail -->
-            <div>{{feedback}}</div>
-            {{/each}}
+            <h3 class="sectionTitle ">Feedbacks:</h3>
+            <ul>
+                {{#each feedbacks}}
+                <!-- Course detail -->
+                <li class="text-dark">{{feedback}}</li>
+                {{/each}}
+            </ul>
         </div>
         {{/if}}
 
