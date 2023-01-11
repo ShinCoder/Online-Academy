@@ -9,6 +9,7 @@ import myFunction from '../../library/index.js';
 import mail from '../../mail/index.js';
 
 import bcrypt from 'bcryptjs';
+import coursesService from '../../services/courses.service.js';
 
 export default {
   async updateProfile(req, res) {
@@ -132,12 +133,16 @@ export default {
     res.render('user/profile', { user: req.session.authUser });
   },
 
-  showCourses(req, res) {
+  async showCourses(req, res) {
     if (!req.session.auth) {
       return res.redirect('/auth/sign-in');
     }
 
-    res.render('user/user-course', { courseList: [] });
+    const courseList = await coursesService.findEnrolled(
+      req.session.authUser.id
+    );
+
+    res.render('user/user-course', { courseList: courseList });
   },
 
   showWatchList(req, res) {
@@ -240,6 +245,23 @@ export default {
         }
       });
     }
+<<<<<<< HEAD
+=======
+
+    if (updateData.username) {
+      req.session.authUser.username = updateData.username;
+    }
+
+    if (updateData.identity) {
+      req.session.authUser.identity = updateData.identity;
+    }
+
+    return res.send({
+      message: 'Update successfully.',
+      status: 200,
+      username: req.session.authUser.username
+    });
+>>>>>>> a72e81b6805d3d01a833a3feac2bf32622fa40bf
   },
 
   async addCourseWatchlist(req, res) {

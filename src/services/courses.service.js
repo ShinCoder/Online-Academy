@@ -330,14 +330,16 @@ export default {
 
   getFeedback(id) {
     return db('enroll')
-        .select('enroll.*')
-        .where('course_id', id)
+      .join('students', 'enroll.student_id', '=', 'students.user_id')
+      .select('enroll.*', 'students.*')
+      .where('course_id', id)
+      .whereNotNull('feedback');
   },
 
   countStudent(course_id) {
     return db('enroll')
-        .count('*', { as: 'enrollCount' })
-        .where('course_id', course_id)
+      .count('*', { as: 'enrollCount' })
+      .where('course_id', course_id);
   },
 
   activateCourse(id) {
@@ -345,5 +347,12 @@ export default {
   },
   deactivateCourse(id) {
     return db('courses').where('id', id).update('is_activated', false);
+  },
+
+  findEnrolled(id) {
+    return db('courses')
+      .join('enroll', 'courses.id', '=', 'enroll.course_id')
+      .select('courses.*')
+      .where('enroll.student_id', id);
   }
 };
