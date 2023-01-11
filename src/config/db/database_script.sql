@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2023 at 06:44 AM
+-- Generation Time: Jan 11, 2023 at 04:20 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -43,18 +43,18 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`, `parent_category_id`, `banner_url`, `slug`) VALUES
 (1, 'Development', NULL, NULL, 'development'),
-(2, 'Web Development', 1, '/images/categories_banner/2.png', 'web-development'),
-(3, 'Data Science', 1, '/images/categories_banner/3.png', 'data-science'),
+(2, 'Web Development', 1, '2.png', 'web-development'),
+(3, 'Data Science', 1, '3.png', 'data-science'),
 (4, 'Art & Craft', NULL, NULL, 'art--craft'),
-(5, 'Drawing', 4, '/images/categories_banner/5.png', 'drawing'),
+(5, 'Drawing', 4, '5.png', 'drawing'),
 (6, 'Office Productivity', NULL, NULL, 'office-productivity'),
-(7, 'Microsoft', 6, '/images/categories_banner/7.png', 'microsoft'),
-(8, 'Google', 6, '/images/categories_banner/8.png', 'google'),
-(9, 'Mobile Development', 1, '/images/categories_banner/9.png', 'mobile-development'),
-(10, 'Programming Languages', 1, '/images/categories_banner/10.png', 'programming-languages'),
+(7, 'Microsoft', 6, '7.png', 'microsoft'),
+(8, 'Google', 6, '8.png', 'google'),
+(9, 'Mobile Development', 1, '9.png', 'mobile-development'),
+(10, 'Programming Languages', 1, '10.png', 'programming-languages'),
 (11, 'Design', NULL, NULL, 'design'),
-(12, 'Graphic Design', 11, '/images/categories_banner/12.png', 'graphic-design'),
-(13, 'User Experience Design', 11, '/images/categories_banner/13.png', 'user-experience-design'),
+(12, 'Graphic Design', 11, '12.png', 'graphic-design'),
+(13, 'User Experience Design', 11, '13.png', 'user-experience-design'),
 (14, 'Colored Pencil Drawing', 4, 'uploadCourseBannerInput_1673329087667.jpg', 'colored-pencil-drawing');
 
 -- --------------------------------------------------------
@@ -158,11 +158,11 @@ CREATE TABLE `enroll` (
 --
 
 INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_point`, `enroll_date`) VALUES
-(2, 1, 'LEARNING', 'Học rất hay, ý nghĩa nhé!', 4, '2023-01-04 00:00:00'),
-(2, 2, 'LEARNING', 'Dễ hiểu, nên học', 5, '2022-12-20 00:00:00'),
+(2, 1, 'LEARNING', NULL, 4, '2023-01-04 00:00:00'),
+(2, 2, 'LEARNING', NULL, 5, '2022-12-20 00:00:00'),
 (2, 3, 'LEARNING', NULL, 3, '2023-01-04 00:00:00'),
-(7, 2, 'LEARNING', 'Anh Sơn dạy hay quá!', 2, '2023-01-04 00:00:00'),
-(17, 2, 'LEARNING', NULL, NULL, '2023-01-06 00:00:00');
+(7, 2, 'LEARNING', NULL, 2, '2023-01-04 00:00:00'),
+(17, 2, 'LEARNING', NULL, NULL, '2023-01-11 21:03:45');
 
 -- --------------------------------------------------------
 
@@ -184,10 +184,10 @@ CREATE TABLE `lecturers` (
 
 INSERT INTO `lecturers` (`user_id`, `first_name`, `last_name`, `career_description`, `avatar_url`) VALUES
 (3, 'Sơn', 'Đặng', '<p>He is good guy</p>', 'uploadProfileAvatarInput_1673270841719.jpg'),
-(4, 'Avinash', 'Jain', NULL, NULL),
-(5, 'Mark', 'Lassoff', NULL, NULL),
-(6, 'Stone River', 'elearning', NULL, NULL),
-(8, 'John', 'Purcell', NULL, NULL),
+(4, 'Avinash', 'Jain', '<p>CEO of TheCodex.me - Teaching 500,000+ Students how to code</p>', 'uploadProfileAvatarInput_1673447099355.jpg'),
+(5, 'Mark', 'Lassoff', '<h2 class=\"ud-heading-md instructor-profile--instructor-title--1L6bi\">Programming Instructor with over 500,000 students worldwide.</h2>', 'uploadProfileAvatarInput_1673447011111.jpg'),
+(6, 'Stone River', 'elearning', '<p>At Stone River eLearning, technology is all we teach. If you\'re interested in IT, programming, development or design - we have it covered.&nbsp;</p>\r\n<p>Check out our huge catalog of courses and join the over 1.3M students currently taking Stone River eLearning courses. We currently offer 1000+&nbsp;different technology training courses on our Stone River eLearning website and are adding&nbsp;new courses on hot and trending topics every&nbsp;month. A subscription option is available for those with a real passion for learning.</p>', 'uploadProfileAvatarInput_1673447251138.jpg'),
+(8, 'John', 'Purcell', '<p>&nbsp;After working as a software developer and contractor for over 14 years for a whole bunch of companies including CSC, Proquest, SPSS and AT&amp;T in the UK and Netherlands, I decided to work full-time as a private software trainer. After spending four years in the beautiful city of&nbsp;Budapest, Hungary and a year in Berlin, I&nbsp;now live in my home town of Derby, UK.</p>', 'uploadProfileAvatarInput_1673447314600.jpg'),
 (18, 'Matthew', 'Fussell', '<h2 class=\"ud-heading-lg instructor-profile--about-me--3D60O\">About me</h2>\r\n<div class=\"show-more--container--1bpj2\">\r\n<div class=\"show-more--content--3WBXb\">\r\n<div tabindex=\"-1\">\r\n<div data-purpose=\"instructor-description\">\r\n<p>&nbsp; &nbsp; &nbsp; &nbsp;Hi, I am an illustrator and educator.&nbsp; As the founder and instructor at TheVirtualInstructor (website), I am able to help thousands of people all over the world realize their dreams of creating quality art.&nbsp; My illustrations have been featured in numerous publications and my work can be found in many private collections.&nbsp; Although I am an illustrator, my true passion in life is teaching.&nbsp; I have been teaching for over ten years and I am lucky to have helped so many people achieve their goals of creating art.&nbsp;</p>\r\n</div>\r\n</div>\r\n</div>\r\n</div>', 'uploadProfileAvatarInput_1673328457797.jpg');
 
 -- --------------------------------------------------------
@@ -318,10 +318,10 @@ INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_ver
 (2, 'student1', 'student1@gmail.com', '$2a$10$GflWaMQ7N9M7srFllbJMvuCPFEEIHVCOoN7TWirN9YM', 'STUDENT', 0, 1),
 (3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
 (4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
-(5, 'Mark_Lassoff', 'marklassoff@gmail.com', '$2a$10$aelFfre4osCBkjG0DwnObOABSOsE6WXYFdOn3ZN6gds', 'LECTURER', 0, 1),
-(6, 'Stone_River_eLearning', 'stoneriverelearning@gmail.com', '$2a$10$RAfIuKUvntvprxN0FXnIg.D.IIjltb.F2q1QgLce4hD', 'LECTURER', 0, 1),
+(5, 'Mark_Lassoff', 'marklassoff@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
+(6, 'Stone_River_eLearning', 'stoneriverelearning@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
 (7, 'student2', 'student2@gmail.com', '$2a$10$bkcbwGXh5wWt6P2APPJlC.DCDKekvwzLnRjg02pbHHP', 'STUDENT', 0, 1),
-(8, 'John_Purcell', 'johnpurcell@gmail.com', '$2a$10$ziiw276RUdy0gY82BdSG4e5FpTmgGJeR88A/ENxhIS0', 'LECTURER', 0, 1),
+(8, 'John_Purcell', 'johnpurcell@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
 (17, 'Shin Coder', 'shincoder.learning@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'STUDENT', 1, 1),
 (18, 'matthewfussell@gmail.com', 'matthewfussell@gmail.com', '$2a$10$zVhYyNX8ttk/QLPTTMCo4.GJkVQeZJDTB1mMDn0l.seXHlSerz/Fi', 'LECTURER', 1, 1),
 (19, 'shincoder.forwork@gmail.com', 'shincoder.forwork@gmail.com', '$2a$10$ATgRPbmCCWHYH3pAA3j0UeIEGGU.jlkGcwZ4pgwu8kflTuiSEXjoe', 'LECTURER', 1, 1);
@@ -336,6 +336,13 @@ CREATE TABLE `watchlist` (
   `student_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `watchlist`
+--
+
+INSERT INTO `watchlist` (`student_id`, `course_id`) VALUES
+(17, 2);
 
 --
 -- Indexes for dumped tables

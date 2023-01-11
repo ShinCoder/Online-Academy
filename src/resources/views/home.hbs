@@ -33,13 +33,14 @@
   </div> --}}
 </div>
 <div class="container-fluid px-3 px-md-4 px-lg-5 main-content-area">
+  {{#if hotCategories}}
   <div class="section categories-section mt-4" id="categories-section">
-    <h1 class="mb-4">This week's hot categories</h1>
+    <h1 class="mb-4">This week's top categories</h1>
     <div class="row">
       {{#each hotCategories}}
       <div class="col-3 col-md-2 mb-3">
         <div class="categories-container">
-          <a href="/courses/category/{{slug}}?page=1" class="categories" style="background-image: url({{banner_url}});">
+          <a href="/courses/category/{{slug}}?page=1" class="categories" style="background-image: url(/images/categories_banner/{{banner_url}});">
             <div class="categories-title">{{name}}</div>
             {{#if this.hot}}<span class="badge rounded-pill bg-danger p-1">HOT!</span>{{/if}}
           </a>
@@ -48,10 +49,11 @@
       {{/each}}
     </div>
   </div>
+  {{/if}}
 
   {{#if hotCourses}}
   <div class="section hot-course-section mt-4">
-    <h1 class="mb-4">Students are viewing this week</h1>
+    <h1 class="mb-4">This week's top seller</h1>
     <div class="row">
       {{#each hotCourses}}
       <div class="col-6 col-md-4 col-lg-3 mb-3">
