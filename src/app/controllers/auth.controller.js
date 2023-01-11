@@ -7,19 +7,16 @@ import studentsService from '../../services/students.service.js';
 import otpsService from '../../services/otps.service.js';
 
 import myFunction from '../../library/index.js';
-import lecturerService from "../../services/lecturers.service.js";
+import lecturerService from '../../services/lecturers.service.js';
 import mail from '../../mail/index.js';
 
 export default {
   getSignIn(req, res) {
-
     if (req.session.auth) {
       return res.redirect('/user/profile');
     }
 
-
     req.session.retUrl = req.headers.referer;
-    console.log(req.session.retUrl);
 
     res.render('auth/sign-in');
   },
@@ -71,11 +68,12 @@ export default {
 
       if (!found_user[0].is_activated) {
         return res.render('auth/sign-in', {
-          error: "This account is deactivated, please contact admin for more details !"
+          error:
+            'This account is deactivated, please contact admin for more details !'
         });
       }
 
-      if (!(bcrypt.compareSync(password, found_user[0].identity))) {
+      if (!bcrypt.compareSync(password, found_user[0].identity)) {
         return res.render('auth/sign-in', {
           error:
             'Invalid password. Try recovery password if you forgot password.'
@@ -89,10 +87,10 @@ export default {
       delete lcUser.is_activated;
       req.session.authUser = lcUser;
 
-      if (lcUser?.authority === "LECTURER") {
+      if (lcUser?.authority === 'LECTURER') {
         const check = await lecturerService.findById(lcUser.id);
         if (!check || !check.length) {
-          res.redirect("/lecturers/profile/create");
+          res.redirect('/lecturers/profile/create');
         }
       }
 
@@ -112,7 +110,7 @@ export default {
     if (req.session.auth) {
       return res.redirect('/user/profile');
     }
-    
+
     res.render('auth/sign-up');
   },
   async postSignUp(req, res) {

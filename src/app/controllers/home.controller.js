@@ -73,12 +73,14 @@ export default {
     const featuredCourses = await coursesService.findFeatured();
 
     const hotCategoriesList = [...res.locals.lcCategories];
+
     while (!hotCategoriesList[0].parent_category_id) {
       const categories = hotCategoriesList[0].child_categories;
       categories.forEach((cat) => {
         if (cat.hot) hotCategoriesList.push(cat);
       });
       hotCategoriesList.shift();
+      if (!hotCategoriesList.length) break;
     }
 
     // categories -end

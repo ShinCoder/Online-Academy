@@ -12,7 +12,7 @@
       {{#each this.child_categories}}
       <div class="col-3 col-md-2 mb-3">
         <div class="categories-container">
-          <a href="/courses/category/{{slug}}?page=1" class="categories" style="background-image: url({{banner_url}});">
+          <a href="/courses/category/{{slug}}?page=1" class="categories" style="background-image: url(/images/categories_banner/{{banner_url}});">
             {{!-- <img src="{{banner_url}}" class="card-img-top" alt="{{name}}"> --}}
             <div class="categories-title">{{name}}</div>
             {{#if this.hot}}<span class="badge rounded-pill bg-danger p-1">HOT!</span>{{/if}}
