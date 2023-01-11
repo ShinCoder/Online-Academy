@@ -1122,6 +1122,17 @@ export default {
         timeZone: 'Asia/Tokyo'
       });
       course.updated_at = formatter.format(course.updated_at);
+
+      course.isEnroll = false;
+      if (req.session?.authUser?.id) {
+        let isEnroll = await coursesService.checkEnroll(course.id, req.session?.authUser?.id)
+        if (isEnroll?.length) {
+          course.isEnroll = true;
+        }
+      }
+
+      console.log('course:', course);
+
     }));
 
     res.render('courses/coursesDetailView', {
