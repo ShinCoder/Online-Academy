@@ -107,5 +107,10 @@
   color: var(--primary-hover);
   display: inline-block;
 }
+.btn a {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
 
 /*# sourceMappingURL=courses.css.map */

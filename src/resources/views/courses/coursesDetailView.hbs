@@ -7,7 +7,7 @@
     {{#if courses}}
         {{#each courses}}
         <div class="row bg-dark text-light px-5">
-        <div class="col-7 d-flex gap-2 flex-column justify-content-center">
+        <div class="col-7 d-flex gap-2 flex-column justify-content-center p-4">
                 <h2 class="">{{name}}</h2>
 
                 <p>{{short_description}}</p>
@@ -20,7 +20,7 @@
                                 {{#starify this}} {{/starify}}
                             {{/each}}
                         </div>
-                        <span>({{rating_count}} ratings)</span>
+                        <span>({{rating_count}} ratings) {{enroll_count}} students</span>
                     {{else}}
                         <span class="p-0">No rating</span>
                     {{/if}}
@@ -30,11 +30,22 @@
 
                 <div class="time-update">Last updated: {{updated_at}}</div>
 
+                <div class="course-price">
+                    <span class="current">{{vietnamdongFormat price}}</span>
+                    {{#if this.sale_id}}
+                        <span class="base">{{vietnamdongFormat base_price}}</span>
+                    {{/if}}
+                </div>
+
+                <!-- Enroll -->
+                <div class="enroll">
+                    <button type="button" class="btn btn-primary">Enroll this course</button>
+                </div>
+
         </div>
-        <div class="col-5">
-            <div class="d-flex justify-content-center align-items-center">
-                <img src="/images/courses/{{banner_filename}}" class="card-img-top p-5" alt="{{name}}">
-            </div>
+        <div class="col-5 d-flex justify-content-center align-items-center ">
+            <img src="/images/courses/{{banner_filename}}" class="card-img-top p-5" alt="{{name}}">
+
         </div>
     </div>
 
@@ -45,16 +56,25 @@
                     <a href="#description">Description</a>
                 </button>
                 <button type="button" class="btn btn-primary"><a href="#syllabus">Syllabus</a></button>
-                <button type="button" class="btn btn-primary"><a href="#syllabus">Instructor</a></button>
-                <button type="button" class="btn btn-primary">Feedback & Review</button>
+                <button type="button" class="btn btn-primary"><a href="#instructor">Instructor</a></button>
+                <button type="button" class="btn btn-primary"><a href="#feedback">Feedbacks and Reviews</a></button>
             </div>
-            <div id="description">{{detail_description}}</div>
+            <div id="description">
+                <h3>About this course</h3>
+                {{detail_description}}
+            </div>
             <div id="syllabus">{{syllabus}}</div>
-            <div id="instructor">{{lecturer_name}}</div>
+            <div id="instructor">
+                <p>Tên: {{lecturer_name}}</p>
+                <p>Sự nghiệp: {{lecturer_career}}</p>
+                <p>Avatar: {{lecturer_avatar}}</p>
+                <img src="/images/lecturers/{{lecturer_avatar}}" class="card-img-top p-5" alt="{{name}}">
+
+            </div>
             <div id="feedback">
                 {{#if feedbacks}}
                     {{#each feedbacks}}
-                                                <!-- Course detail -->
+                        <!-- Course detail -->
                         <div>{{feedback}}</div>
                     {{/each}}
                 {{/if}}

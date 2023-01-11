@@ -36,9 +36,17 @@ export default {
   },
 
   addCourseFromWatchlist(student_id, course_id) {
-    return db('watchlist')
-      .where({ student_id: student_id })
-      .insert({ student_id: student_id, course_id: course_id });
+    db('watchlist')
+        .where('student_id', student_id)
+        .andWhere('course_id', course_id)
+        .then(userNameList => {
+          //Check if user didn't add this course to watch list
+          if (userNameList.length === 0) {
+            return db('watchlist')
+                .where({ student_id: student_id })
+                .insert({ student_id: student_id, course_id: course_id });
+          }
+        })
   },
 
   deactivate(id) {

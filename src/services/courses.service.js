@@ -329,7 +329,10 @@ export default {
   },
 
   getFeedback(id) {
-    return db('enroll').where('course_id', id);
+    return db('enroll')
+        .select('enroll.*')
+        .count('enroll.course_id', {as: 'enrollCount'})
+        .where('course_id', id)
   },
 
   activateCourse(id) {
