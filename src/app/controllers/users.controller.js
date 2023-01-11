@@ -9,6 +9,7 @@ import myFunction from '../../library/index.js';
 import mail from '../../mail/index.js';
 
 import bcrypt from 'bcryptjs';
+import coursesService from '../../services/courses.service.js';
 
 export default {
   async updateProfile(req, res) {
@@ -132,12 +133,16 @@ export default {
     res.render('user/profile', { user: req.session.authUser });
   },
 
-  showCourses(req, res) {
+  async showCourses(req, res) {
     if (!req.session.auth) {
       return res.redirect('/auth/sign-in');
     }
 
-    res.render('user/user-course', { courseList: [] });
+    const courseList = await coursesService.findEnrolled(
+      req.session.authUser.id
+    );
+
+    res.render('user/user-course', { courseList: courseList });
   },
 
   showWatchList(req, res) {
@@ -188,15 +193,14 @@ export default {
     const { username, new_password, confirm_password } = req.body;
     const updateData = {};
 
-    if (!confirm_password) {
-      return res.send({
-        message: 'Confirm password cannot be empty.',
-        status: 404
-      });
-    }
-
     if (!bcrypt.compareSync(confirm_password, req.session.authUser.identity)) {
-      res.send({ message: 'Confirm password is incorrect.', status: 404 });
+      res.render('user/profile', {
+        error: "Old password not match, please try again !",
+        user: {
+          email: req.session.authUser.email,
+          username: req.session.authUser.username
+        }
+      });
       return;
     }
 
@@ -208,36 +212,39 @@ export default {
       updateData.identity = bcrypt.hashSync(new_password, 10);
     }
 
-    if (updateData === {}) {
-      return res.send({ message: 'Nothing to update.', status: 404 });
+    try {
+      const update = await usersService.update(
+        req.session.authUser.id,
+        updateData
+      );
+
+      if (updateData.username) {
+        req.session.authUser.username = updateData.username;
+      }
+
+      if (updateData.identity) {
+        req.session.authUser.identity = updateData.identity;
+      }
+
+      res.render('user/profile', {
+        success: "Successfully update data !",
+        error: "",
+        user: {
+          email: req.session.authUser.email,
+          username: updateData.username
+        }
+      });
+
     }
-
-    const update = await usersService.update(
-      req.session.authUser.id,
-      updateData
-    );
-
-    if (!update) {
-      return res.send({
-        message: 'Update failed. Please try again or contact admin.',
-        status: 404
+    catch (err) {
+      res.render('user/profile', {
+        error: err,
+        user: {
+          email: req.session.authUser.email,
+          username: req.session.authUser.username
+        }
       });
     }
-
-    if (updateData.username) {
-      req.session.authUser.username = updateData.username;
-    }
-
-    if (updateData.identity) {
-      req.session.authUser.identity = updateData.identity;
-    }
-
-
-    return res.send({
-      message: 'Update successfully.',
-      status: 200,
-      username: req.session.authUser.username
-    });
   },
 
   async addCourseWatchlist(req, res) {
@@ -271,8 +278,8 @@ export default {
     }
 
     await usersService.enrollCourse(
-        req.session.authUser.id,
-        parseInt(course_id)
+      req.session.authUser.id,
+      parseInt(course_id)
     );
 
     res.redirect('/user/watchlist');

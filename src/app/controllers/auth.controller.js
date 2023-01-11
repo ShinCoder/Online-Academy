@@ -82,7 +82,6 @@ export default {
 
       req.session.auth = true;
       const lcUser = { ...found_user[0] };
-      delete lcUser.identity;
       delete lcUser.is_verified;
       delete lcUser.is_activated;
       req.session.authUser = lcUser;
@@ -92,6 +91,9 @@ export default {
         if (!check || !check.length) {
           res.redirect('/lecturers/profile/create');
         }
+      }
+      if (lcUser?.authority === 'ADMIN') {
+        res.redirect('/admin/courses');
       }
 
       res.redirect(req.session.retUrl);
