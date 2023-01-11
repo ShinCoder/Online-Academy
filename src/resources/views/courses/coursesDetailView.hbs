@@ -121,47 +121,49 @@
         </div>
         {{/if}}
 
-            <!-- Form feedback-->
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Viết đánh giá</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Đánh giá khóa học</option>
-                        <option value="1">1 sao</option>
-                        <option value="2">2 sao</option>
-                        <option value="3">3 sao</option>
-                        <option value="4">4 sao</option>
-                        <option value="5">5 sao</option>
-                    </select>
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Feedback</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            {{#if isEnroll}}
+                <!-- Form feedback-->
+                <form method="post" action="/courses/course-detail/ratings/{{id}}">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Viết đánh giá</label>
+                        <select name="rate_point" id="rate_point" class="form-select" aria-label="Default select example">
+                            <option selected>Đánh giá khóa học</option>
+                            <option value="1">1 sao</option>
+                            <option value="2">2 sao</option>
+                            <option value="3">3 sao</option>
+                            <option value="4">4 sao</option>
+                            <option value="5">5 sao</option>
+                        </select>
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Feedback</label>
+                        <input type="text" class="form-control" name="feedback" id="feedback">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            {{/if}}
         </div>
 
         {{/each}}
         {{/if}}
     </div>
 
-    <form id="resetSort" method="POST" action="/courses/sortOrder" class="d-none">
-        <select name="sortRating" class="form-select">
-            <option value="" selected>n</option>
-        </select>
-        <select name="sortDate" class="form-select">
-            <option value="" selected>n</option>
-        </select>
-        <select name="sortPurchased" class="form-select">
-            <option value="" selected>n</option>
-        </select>
-        <select name="sortPrice" class="form-select">
-            <option value="" selected>n</option>
-        </select>
-    </form>
-    <form id="resetFilter" method="POST" action="/courses/filter" class="d-none"></form>
+<!--    <form id="resetSort" method="POST" action="/courses/sortOrder" class="d-none">-->
+<!--        <select name="sortRating" class="form-select">-->
+<!--            <option value="" selected>n</option>-->
+<!--        </select>-->
+<!--        <select name="sortDate" class="form-select">-->
+<!--            <option value="" selected>n</option>-->
+<!--        </select>-->
+<!--        <select name="sortPurchased" class="form-select">-->
+<!--            <option value="" selected>n</option>-->
+<!--        </select>-->
+<!--        <select name="sortPrice" class="form-select">-->
+<!--            <option value="" selected>n</option>-->
+<!--        </select>-->
+<!--    </form>-->
+<!--    <form id="resetFilter" method="POST" action="/courses/filter" class="d-none"></form>-->
 
     {{#section 'js'}}
     <script src="/javascript/courses.js"></script>

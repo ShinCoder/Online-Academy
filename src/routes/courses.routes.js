@@ -2,7 +2,7 @@ import express from 'express';
 import coursesController from '../app/controllers/courses.controller.js';
 const router = express.Router();
 import auth from '../middlewares/auth.mdw.js';
-import userController from "../app/controllers/users.controller.js";
+import userController from '../app/controllers/users.controller.js';
 
 router.get('/category/:slug', coursesController.showByCategory);
 
@@ -98,14 +98,18 @@ router.post(
   coursesController.createLessonOnUpdate
 );
 
-router.get('/course-detail/:slug', coursesController.showCourseDetail)
+router.get('/course-detail/:slug', coursesController.showCourseDetail);
 
 router.get('/course-detail/add-watchlist/:id', (req, res) => {
-    userController.addCourseWatchlist(req, res);
+  userController.addCourseWatchlist(req, res);
 });
 
 router.get('/course-detail/enroll/:id', (req, res) => {
-    userController.enrollCourse(req, res);
+  userController.enrollCourse(req, res);
+});
+
+router.post('/course-detail/ratings/:id', auth(['STUDENT']), (req, res) => {
+  coursesController.sendRatings(req, res);
 });
 
 export default router;

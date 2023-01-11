@@ -367,6 +367,14 @@ export default {
         .andWhere('student_id', student_id)
   },
 
+  addRatingsCourse(course_id, student_id, ratings, feedback) {
+    return db('enroll')
+        .update({rate_point: ratings, feedback: feedback})
+        .where('course_id', course_id)
+        .andWhere('student_id', student_id);
+  },
+
+
   activateCourse(id) {
     return db('courses').where('id', id).update('is_activated', true);
   },

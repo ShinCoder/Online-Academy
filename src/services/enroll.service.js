@@ -44,5 +44,12 @@ export default {
       .whereNotNull('enroll.rate_point')
       .andWhere('course_id', id)
       .groupBy('course_id');
+  },
+
+  addRatingsCourse(course_id, student_id, ratings, feedback) {
+    return db('enroll')
+        .update({rate_point: ratings, feedback: feedback})
+        .where('course_id', course_id)
+        .andWhere('student_id', student_id);
   }
 };

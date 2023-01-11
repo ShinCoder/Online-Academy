@@ -5,6 +5,7 @@ import categoriesService from '../../services/categories.service.js';
 import coursesService from '../../services/courses.service.js';
 import slugger from '../../utils/slug.js';
 import lecturersService from '../../services/lecturers.service.js';
+import usersService from "../../services/users.service.js";
 
 const HOT_COURSE_LIMIT = 12;
 const NEW_COURSE_DURATION = 30;
@@ -1138,5 +1139,30 @@ export default {
     res.render('courses/coursesDetailView', {
       courses: courses
     });
-  }
+  },
+
+  async sendRatings(req, res) {
+    if (!req.session.auth) {
+      return res.redirect('/auth/sign-in');
+    }
+
+    const course_id = parseInt(req.params.id);
+
+    if (!course_id) {
+      return res.redirect('/home');
+    }
+
+    const rate_point = req.body.rate_point;
+
+    const feedback = req.body.feedback;
+
+    await coursesService.addRatingsCourse(
+        parseInt(course_id),
+        req.session.authUser.id,
+        rate_point,
+        feedback
+    )
+
+    res.redirect('/user/courses');
+  },
 };
