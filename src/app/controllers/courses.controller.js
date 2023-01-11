@@ -1113,7 +1113,7 @@ export default {
 
     let courses = await coursesService.findCourseDetail(courseSlug);
 
-    courses.forEach(async (course) => {
+    await Promise.all(courses.map(async (course) => {
       await formatUtils.courseDetailFormat(course);
       const formatter = new Intl.DateTimeFormat('en-US', {
         day: 'numeric',
@@ -1122,7 +1122,7 @@ export default {
         timeZone: 'Asia/Tokyo'
       });
       course.updated_at = formatter.format(course.updated_at);
-    });
+    }));
 
     res.render('courses/coursesDetailView', {
       courses: courses
