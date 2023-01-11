@@ -288,6 +288,40 @@ export default {
       parseInt(course_id)
     );
 
-    res.redirect('/user/watchlist');
+    res.redirect('back');
+  },
+  async renderStudyView(req, res) {
+    if (!req.session.auth) {
+      return res.redirect('/auth/sign-in');
+    }
+
+    const courseId = req.params.id;
+    const lessonId = req.params.lessonId;
+
+    const course = await coursesService.findOneWithFullyData(courseId);
+    const chapters = await coursesService.findAllChapterOfCourse(courseId);
+
+    const newAllChapters = await Promise.all(
+      chapters.map(async (item) => {
+        const allLessonsOfThisChapter =
+          await coursesService.findAllLessonOfChapter(item?.id);
+
+        return {
+          ...item,
+          lessons: [...allLessonsOfThisChapter].map((item) => ({
+            ...item,
+            courseId: req.params.id
+          }))
+        };
+      })
+    );
+
+    const currentLesson = await coursesService.getLessonById(lessonId);
+
+    res.render('courses/lessonDetailView', {
+      course: course[0],
+      chapters: newAllChapters,
+      currentLesson: currentLesson[0]
+    })
   }
 };

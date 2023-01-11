@@ -1,0 +1,34 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/course/lessonDetailView.css">
+{{/section}}
+
+<h1 class="header">{{course.name}}</h1>
+<div class="pageWrapper">
+    <div class="contentSide">
+        <video preload="auto" controls class="video-js vjs-default-skin lessonVideo">
+            <source type="video/mp4" src="/videos/lessons/{{currentLesson.video_filename}}" />
+        </video>
+
+        <div class="lessonDescription mt-3">
+            <h3 class="text-dark">{{currentLesson.title}}</h3>
+            <div>
+                {{{currentLesson.description}}}
+            </div>
+        </div>
+
+    </div>
+    <div class="allContent">
+        {{#each chapters}}
+        <div class="chapterWrapper">
+            <h3>{{title}}</h3>
+            <ul class="lessonWrapper">
+                {{#each lessons}}
+                <li class="lesson">
+                    <a href="/courses/{{courseId}}/chapters/{{chapter_id}}/lessons/{{id}}/learn">{{title}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/each}}
+    </div>
+</div>
