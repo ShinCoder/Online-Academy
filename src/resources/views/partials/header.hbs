@@ -25,6 +25,7 @@
                 <ul>
                     {{#if auth}}
                     <li><a href={{#ifEquals authUser.authority "LECTURER" "/lecturers/profile"
+                            }}{{/ifEquals}}{{#ifEquals authUser.authority "STUDENT" "/user/profile"
                             }}{{/ifEquals}}>{{authUser.username}}</a></li>
                     <li><a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#exampleModal">Log out</a></li>
                     {{else}}

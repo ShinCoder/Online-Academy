@@ -10,7 +10,7 @@
             <div class="col-7 d-flex gap-2 flex-column justify-content-center p-4">
                     <h2 class="">{{name}}</h2>
 
-                    <p>{{short_description}}</p>
+                    <p>{{{short_description}}}</p>
 
                     <div class="course-rating">
                         {{#if rating_point}}
@@ -52,13 +52,13 @@
                     </button>
                 </div>
 
-                        <div>
-                            <button type="button" class="btn btn-primary"><a
-                                    href="add-watchlist/{{id}}"
-                                    data-toggle="tooltip" data-placement="top"
-                                    title="Remove">Bắt đầu học</a>
-                            </button>
-                        </div>
+<!--                        <div>-->
+<!--                            <button type="button" class="btn btn-primary"><a-->
+<!--                                    href="add-watchlist/{{id}}"-->
+<!--                                    data-toggle="tooltip" data-placement="top"-->
+<!--                                    title="Remove">Bắt đầu học</a>-->
+<!--                            </button>-->
+<!--                        </div>-->
 
                     </div>
 
@@ -100,7 +100,14 @@
             <ul>
                 {{#each feedbacks}}
                 <!-- Course detail -->
-                <li class="text-dark">{{feedback}}</li>
+                <div class="text-dark">
+                    <div>
+                        <h3>{{first_name}} {{last_name}}</h3>
+                        <p>{{rate_point}}</p>
+                    </div>
+                    <p>{{feedback}}</p>
+                    <hr>
+                </div>
                 {{/each}}
             </ul>
         </div>

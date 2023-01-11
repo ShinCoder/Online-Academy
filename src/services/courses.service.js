@@ -329,7 +329,11 @@ export default {
   },
 
   getFeedback(id) {
-    return db('enroll').select('enroll.*').where('course_id', id);
+    return db('enroll')
+      .join('students', 'enroll.student_id', '=', 'students.user_id')
+      .select('enroll.*', 'students.*')
+      .where('course_id', id)
+      .whereNotNull('feedback');
   },
 
   countStudent(course_id) {
