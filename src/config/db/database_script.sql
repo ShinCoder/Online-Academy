@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2023 at 08:22 PM
+-- Generation Time: Jan 12, 2023 at 02:24 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -168,12 +168,23 @@ INSERT INTO `enroll` (`student_id`, `course_id`, `status`, `feedback`, `rate_poi
 (2, 1, 'LEARNING', NULL, 4, '2023-01-04 00:00:00'),
 (2, 2, 'LEARNING', NULL, 5, '2022-12-20 00:00:00'),
 (2, 3, 'LEARNING', NULL, 3, '2023-01-04 00:00:00'),
+(2, 20, 'LEARNING', 'I don\'t understand anything', 3, '2023-01-12 02:42:32'),
+(2, 49, 'LEARNING', 'Boring', 1, '2023-01-12 08:16:01'),
+(2, 57, 'LEARNING', 'Can\'t draw better', 2, '2023-01-12 02:42:45'),
 (7, 2, 'LEARNING', NULL, 2, '2023-01-04 00:00:00'),
+(7, 57, 'LEARNING', 'Alright', 4, '2023-01-12 08:18:32'),
 (17, 2, 'LEARNING', NULL, NULL, '2023-01-11 21:03:45'),
 (17, 3, 'LEARNING', NULL, NULL, '2023-01-12 02:19:13'),
-(17, 20, 'LEARNING', NULL, NULL, '2023-01-12 02:21:40'),
+(17, 20, 'LEARNING', 'Nice', 5, '2023-01-12 02:21:40'),
+(17, 49, 'LEARNING', NULL, NULL, '2023-01-12 02:39:57'),
 (17, 54, 'LEARNING', NULL, NULL, '2023-01-12 00:15:57'),
-(17, 57, 'LEARNING', NULL, NULL, '2023-01-12 02:19:26');
+(17, 55, 'LEARNING', NULL, NULL, '2023-01-12 02:40:54'),
+(17, 57, 'LEARNING', 'Cool', 4, '2023-01-12 02:19:26'),
+(20, 2, 'LEARNING', 'Good one', 4, '2023-01-12 08:20:50'),
+(20, 19, 'LEARNING', '', 5, '2023-01-12 08:22:36'),
+(20, 20, 'LEARNING', 'Good', 5, '2023-01-12 08:20:28'),
+(20, 54, 'LEARNING', '', 4, '2023-01-12 08:23:00'),
+(20, 55, 'LEARNING', 'Fine', 3, '2023-01-12 08:23:15');
 
 -- --------------------------------------------------------
 
@@ -257,7 +268,8 @@ INSERT INTO `otps` (`id`, `user_id`, `code`, `type`, `used`, `created_at`, `expi
 (3, 12, 'FZZBl4', 'verify-email', 1, '2023-01-08 18:16:37', '2023-01-08 19:16:40'),
 (4, 17, 'dQpa7L', 'verify-email', 1, '2023-01-08 18:36:47', '2023-01-08 19:36:50'),
 (5, 18, 'Wx29v2', 'verify-email', 0, '2023-01-10 12:21:49', '2023-01-10 13:21:53'),
-(6, 19, 'DmcoAS', 'verify-email', 1, '2023-01-10 12:23:43', '2023-01-10 13:23:46');
+(6, 19, 'DmcoAS', 'verify-email', 1, '2023-01-10 12:23:43', '2023-01-10 13:23:46'),
+(7, 20, 'lIpCNQ', 'verify-email', 0, '2023-01-12 08:19:48', '2023-01-12 09:19:51');
 
 -- --------------------------------------------------------
 
@@ -310,7 +322,8 @@ CREATE TABLE `students` (
 INSERT INTO `students` (`user_id`, `first_name`, `last_name`) VALUES
 (2, 'Kiệt', 'Trần'),
 (7, 'Kiệt', 'Trần'),
-(17, 'Shin', 'Coder');
+(17, 'Shin', 'Coder'),
+(20, 'Student', '3');
 
 -- --------------------------------------------------------
 
@@ -334,16 +347,17 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `identity`, `authority`, `is_verified`, `is_activated`) VALUES
 (1, 'admin1', 'admin1@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'ADMIN', 1, 1),
-(2, 'student1', 'student1@gmail.com', '$2a$10$GflWaMQ7N9M7srFllbJMvuCPFEEIHVCOoN7TWirN9YM', 'STUDENT', 0, 1),
+(2, 'student1', 'student1@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'STUDENT', 1, 1),
 (3, 'lecturer1', 'lecturer1@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
 (4, 'Avinash_Jain', 'avinashjain@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
 (5, 'Mark_Lassoff', 'marklassoff@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
 (6, 'Stone_River_eLearning', 'stoneriverelearning@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
-(7, 'student2', 'student2@gmail.com', '$2a$10$bkcbwGXh5wWt6P2APPJlC.DCDKekvwzLnRjg02pbHHP', 'STUDENT', 0, 1),
+(7, 'student2', 'student2@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'STUDENT', 1, 1),
 (8, 'John_Purcell', 'johnpurcell@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'LECTURER', 1, 1),
 (17, 'Shin Coder', 'shincoder.learning@gmail.com', '$2a$10$qX5nC.N9O8nhlK6zaeJAh.aj6kqDL2TkbXha/tSUakUdnI.tX41BC', 'STUDENT', 1, 1),
 (18, 'matthewfussell@gmail.com', 'matthewfussell@gmail.com', '$2a$10$zVhYyNX8ttk/QLPTTMCo4.GJkVQeZJDTB1mMDn0l.seXHlSerz/Fi', 'LECTURER', 1, 1),
-(19, 'shincoder.forwork@gmail.com', 'shincoder.forwork@gmail.com', '$2a$10$ATgRPbmCCWHYH3pAA3j0UeIEGGU.jlkGcwZ4pgwu8kflTuiSEXjoe', 'LECTURER', 1, 1);
+(19, 'shincoder.forwork@gmail.com', 'shincoder.forwork@gmail.com', '$2a$10$ATgRPbmCCWHYH3pAA3j0UeIEGGU.jlkGcwZ4pgwu8kflTuiSEXjoe', 'LECTURER', 1, 1),
+(20, 'Student 3', 'student3@gmail.com', '$2a$10$h7M8Cpe8.6O0/5hEyLBALuVJQLQZpabh0BghJQOMhfbvfODMVLCyW', 'STUDENT', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -361,8 +375,12 @@ CREATE TABLE `watchlist` (
 --
 
 INSERT INTO `watchlist` (`student_id`, `course_id`) VALUES
+(7, 2),
 (17, 2),
-(17, 3);
+(17, 3),
+(17, 20),
+(20, 2),
+(20, 20);
 
 --
 -- Indexes for dumped tables
@@ -482,7 +500,7 @@ ALTER TABLE `lessons`
 -- AUTO_INCREMENT for table `otps`
 --
 ALTER TABLE `otps`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sales`
@@ -494,7 +512,7 @@ ALTER TABLE `sales`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
