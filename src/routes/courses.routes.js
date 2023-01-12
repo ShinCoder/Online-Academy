@@ -112,6 +112,10 @@ router.get('/:id/chapters/:chapterId/lessons/:lessonId/learn', (req, res) => {
   userController.renderStudyView(req, res);
 });
 
+router.get('/:id/learn', (req, res) => {
+  userController.renderInitialStudyView(req, res);
+});
+
 router.post('/course-detail/ratings/:id', auth(['STUDENT']), (req, res) => {
   coursesController.sendRatings(req, res);
 });

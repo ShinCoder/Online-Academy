@@ -41,7 +41,7 @@
             <div class="enroll d-flex gap-3">
                 <button type="button" class="btn btn-success">
                     {{#if isEnroll}}
-                        <a class="text-white" href="enroll/{{id}}" data-toggle="tooltip" data-placement="top"
+                        <a class="text-white" href="/courses/{{id}}/learn" data-toggle="tooltip" data-placement="top"
                         >
                             Start learning
                         </a>
@@ -125,7 +125,7 @@
                 <!-- Form feedback-->
                 <form method="post" action="/courses/course-detail/ratings/{{id}}">
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Viết đánh giá</label>
+                        <label for="exampleInputEmail1" class="form-label">Rate</label>
                         <select name="rate_point" id="rate_point" class="form-select" aria-label="Default select example">
                             <option selected>Đánh giá khóa học</option>
                             <option value="1">1 sao</option>
